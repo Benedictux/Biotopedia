@@ -73,7 +73,7 @@
 				            </td>
 				            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
 				                <time datetime="{{ poisson.updated | date('c') }}">
-				                		{{ poisson.updateds | localizeddate('full', 'none') }}</time></a>
+				                		{{ poisson.updated | localizeddate('full', 'none') }}</time></a>
 				            </td>
 				        </tr>
 				    	{% endfor %}

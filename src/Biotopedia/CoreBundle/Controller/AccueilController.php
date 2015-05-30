@@ -27,4 +27,9 @@ class AccueilController extends Controller
    				'nb_aquariophils' => $nb_aquariophils
    				));
     }
+
+    public function conditionsUtilisationAction()
+    {
+      return $this->render('BiotopediaCoreBundle:Accueil:conditionsUtilisation.html.twig');
+    }
 }

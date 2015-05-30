@@ -56,9 +56,44 @@ class Poisson
     /**
      * @var string
      *
+     * @ORM\Column(name="origine", type="string", nullable=true)
+     */
+    private $origine;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="taille", type="float", nullable=true)
+     */
+    private $taille;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="temperature", type="int", nullable=true)
+     */
+    private $temperature;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="ph", type="float", nullable=true)
+     */
+    private $ph;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="durete", type="int", nullable=true)
+     */
+    private $durete;
 
     /**
      * @var string

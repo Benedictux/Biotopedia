@@ -1,9 +1,8 @@
 /**INDEX*************************************************************************/
 #navigateur-famille{
-	display: inline-block;
-	width: 70%;
+	max-width: 70%;
 	min-height: 250px;
-	margin-left: 10px;
+	margin: 0 10px 10px 10px;
 }
 
 .table-index-famille {
@@ -47,10 +46,36 @@
 	height: 80%;
 }
 
-/**SHOWCATEGORIE*************************************************************************/
+/**SHOW FAMILLE*************************************************************************/
 #famille-show{
-	width: 70%;
-	margin-left: 10px;
-	margin-bottom: 10px;
+	min-width: 70%;
+	margin: 0 10px 10px 10px;
+	padding: 10px;
+	background-color: #121212;
+	box-shadow:
+    	0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    	0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
 
+#famille-show header{
+	width: 100%;
+}
+#famille-show header h3, #famille-show header time{
+	display: inline-block;
+}
+
+
+#famille-poissons {
+  margin: 10px;
+  border-radius:10px;
+  text-align: center;
+  background-color: #303030;
+  box-shadow:
+    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+#famille-poissons aside {
+  display: inline-block;
+  vertical-align: top;
 }

@@ -1,7 +1,7 @@
 /********GENERAL*************************************************************************/
 body{
 	font-size: 12px;
-	background: #252525;
+	background-color: #252525;
 	color: #f4f4f4;
 }
 body a{color: #7DCF9B; text-decoration: none;}
@@ -133,13 +133,6 @@ img.large {
   background-color: transparent;
 }
 
-/****************************************************************************************/
-/*Tableau show Poisson/Famille*/
-table#table_show {
-	border: white 1px solid;
-	border-radius: 10px;
-	padding: 10px;
-}
 /*****************************************************************************************/
 /********MES CLASS************************************************************************/
 .layout-titre{
@@ -203,11 +196,10 @@ table#table_show {
 /*Menu vertical*/
 .menu-vertical{
   display: inline-block;
-  margin-top: 10px;
-  float: right;
-  padding: 3px;
+  position: fixed;
+  top: 130px;
+  right: 0px;
   width: 12%;
-  height: 100%;
   color: white;
   padding: 1%;
   width:  20%;
@@ -215,8 +207,8 @@ table#table_show {
   border-radius: 4px 0 0 4px;
   background-color: #2F4F4F; /* DarkSlateGray */
   box-shadow:
-    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
-    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
 }
 
 /* style du bloc ul */

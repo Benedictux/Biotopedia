@@ -2,6 +2,10 @@ biotopedia_homepage:
     path:     /
     defaults: { _controller: BiotopediaCoreBundle:Accueil:index }
 
+biotopedia_core_conditionsUtilisation:
+    path:     /conditionsUtilisation
+    defaults: { _controller: BiotopediaCoreBundle:Accueil:conditionsUtilisation }
+
 ############################################################################################
 
 biotopedia_core_showImage:

@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
+
 	{% if is_granted('ROLE_AUTEUR', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN') %}
 		<nav class="menu-vertical">
         	<h4>Administration de {{ poisson.scientificName }}</h4>
@@ -24,38 +25,27 @@
 			</ul>
 		</nav>
 	{% endif %}
-    <table id="table_show">
-        <tr>
-            <th>Nom Scientifique :</th>
-            <td>{{ poisson.scientificName }}</td>
-            <td rowspan="5"><a href="{{ path('biotopedia_core_showImage', { 'id': poisson.image.id }) }}"><img class="#" src="{{ asset ((poisson.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ poisson.image.alt }} -> image not found"/></a>
-            </td>
-        </tr>
-        <tr>
-            <th>Nom Commun :</th>
-            <td>{{ poisson.commonName }}</td>
-        </tr>
-        <tr>
-            <th>Description :</th>
-            <td>{{ poisson.description}}</td>
-        </tr>
-        <tr>
-            <th>Ajoutée :</th>
-            <td><time datetime="{{ poisson.created | date('c') }}">{{ poisson.created | localizeddate('full', 'none') }}</time></td>
-        </tr>
-        <tr>
-            <th>Dernière mise à jour :</th>
-            <td><time datetime="{{ poisson.updated | date('c') }}">{{ poisson.updated | localizeddate('full', 'none') }}</time></td>
-        </tr>
-        <tr>
-            <th>Auteur(s) :</th>
-            <td>{% if not poisson.auteurs.empty %}
-                    {% for auteur in poisson.auteurs %}
-                        <a href="{{ path('fos_user_profile_show') }}">{{ auteur.username }}</a>
+
+    <aside id="poisson-show">
+        <header>
+            <h3>{{ poisson.scientificName }} ({{ poisson.commonName }})</h3>
+            {% if poisson.updated is not null %}
+                <time datetime="{{ poisson.updated | date('c') }}">Éditée le {{ poisson.updated | localizeddate('full', 'none') }}</time>
+            {% else %}
+                <time datetime="{{ poisson.created | date('c') }}">Rédigé le {{ poisson.created | localizeddate('full', 'none') }}</time>
+            {% endif %}
+        </header>
+        <p>
+            <a href="{{ path('biotopedia_core_showImage', { 'id': poisson.image.id }) }}"><img class="#" src="{{ asset ((poisson.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ poisson.image.alt }} image not found"/></a>
+            {{ poisson.description }}
+        </p>
+        <footer>
+            {% if not poisson.auteurs.empty %}
+                {% for auteur in poisson.auteurs %}
+                    <a href="{{ path('fos_user_profile_show') }}">{{ auteur.username }}</a>
                             {% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                {% endif %}
-            </td>
-        </tr>
-    </table>
+                {% endfor %}
+            {% endif %}
+        </footer>
+    </aside>
 {% endblock %}

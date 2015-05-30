@@ -1,0 +1,6 @@
+#Biotopedia/PisciothequeBundle/Resources/config/validation.yml
+
+#Biotopedia\PisciothequeBundle\Entity\Poisson:
+#    properties:
+#        commonName:
+#            - NotBlank: ~

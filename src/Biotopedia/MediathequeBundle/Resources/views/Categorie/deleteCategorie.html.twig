@@ -1,0 +1,26 @@
+{# src/Biotopedia/PisciothequeBundle/Resources/views/Categorie/deleteCategorie.html.twig #}
+
+{% extends "BiotopediaMediathequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer une catégorie - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Supprimer une catégorie</h3>
+{% endblock %}
+
+{% block biotopediamediatheque_content %}
+  <p>Etes-vous certain de vouloir supprimer la catégorie <b>"{{ categorie.name }}"</b> ?</p>
+  {# On met l'id de la categorie dans la route de l'action du formulaire #}
+  <form action="{{ path('biotopedia_mediatheque_deleteCategorie', {'id': categorie.id}) }}" method="post">
+    <a href="{{ path('biotopedia_mediatheque_showCategorie', {'id': categorie.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la catégorie
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form> 
+{% endblock %}

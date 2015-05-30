@@ -1,0 +1,58 @@
+{# src/Biotopedia/PisciothequeBundle/Resources/views/Poisson/addPoisson.html.twig #}
+
+{% extends "BiotopediaPisciothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un poisson - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Ajouter un poisson à la famille {{ famille.scientificName }}</h3>
+{% endblock %}
+
+{% block biotopediapisciotheque_content %}
+  <p>Vous vous apprêtez à ajouter un nouveau poisson dans la pisciothèque du site Biotopedia !</p>
+	<form action="{{ path('biotopedia_pisciotheque_addPoisson', { 'id': famille.id }) }}" method="post" {{ form_enctype(form) }}>
+    	<div class="error">
+      		{{ form_errors(form) }} {# Les erreurs générales du formulaire. #}
+    	</div>
+		<table>
+      		<tr>
+        		<td>{{ form_label(form.common_name, "Nom Commun") }}</td>
+        		<td>{{ form_label(form.scientific_name, "Nom Scientifique") }}</td>
+            <td>{{ form_label(form.image, "Photo") }}</td>
+      		</tr>
+
+      		<tr>
+      			<td>
+      				{{ form_errors(form.common_name) }}
+      				{{ form_widget(form.common_name) }}
+      			</td>
+      			<td>
+      				{{ form_errors(form.scientific_name) }}
+      				{{ form_widget(form.scientific_name) }}
+      			</td>
+            <td>
+              {{ form_errors(form.image) }}
+              {{ form_widget(form.image) }}
+            </td>
+      		</tr>
+          <tr>
+            <td colspan="3">
+              {{ form_label(form.description, "Description") }}
+            </td>
+          </tr>
+      		<tr>
+      			<td colspan="3">
+      				{{ form_errors(form.description) }}
+      				{{ form_widget(form.description, {'attr': {'rows': '16', 'cols':'100'}}) }}
+      			</td>
+      		</tr>
+      		<tr>
+      			<td colspan="3">
+      				{{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+      			</td>
+      		</tr>
+      	</table>
+    </form>
+{% endblock %}

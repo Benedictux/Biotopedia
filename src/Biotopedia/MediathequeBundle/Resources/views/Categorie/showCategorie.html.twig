@@ -1,0 +1,81 @@
+{# src/Biotopedia/MediathequeBundle/Resources/views/Categorie/showCategorie.html.twig #}
+
+{% extends "BiotopediaMediathequeBundle::layout.html.twig" %}
+
+{% block title %}
+   Fiche catégorie - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+    {{ parent() }}<h3 class="content-titre">Catégorie {{ categorie.name }}</h3> 
+{% endblock %}
+
+{% block biotopediamediatheque_content %}
+
+	{% if is_granted('ROLE_AUTEUR', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN') %}
+		<nav class="menu-vertical">
+        	<h4>Administration de {{ categorie.name }}</h4>
+            <ul>
+                <li><a href="{{ path('biotopedia_mediatheque_addCategorie')}}">
+                    Ajouter une categorie</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_editCategorie', { 'id': categorie.id }) }}">
+                    Éditer la categorie {{ categorie.name }}</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_deleteCategorie', { 'id': categorie.id }) }}">
+                    Supprimer la categorie {{ categorie.name }}</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_addArticle', { 'id': categorie.id }) }}">
+                    Ajouter un article à la catégorie {{ categorie.name }}</a></li>
+    		</ul>
+    	</nav>
+	{% endif %}
+
+    <aside id="categorie-show">
+        <p>
+            <a href="{{ path('biotopedia_core_showImage', { 'id': categorie.image.id }) }}"><img class="#" src="{{ asset ((categorie.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ categorie.image.alt }} image not found"/></a>
+            {{ categorie.description }}
+        </p>
+    </aside>
+
+    <section id="categorie-files">
+        <header><h3>{{ 'Les articles'|upper }}</h3></header>
+        <div id="table-index">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Auteur </th>
+                        <th>Date de création</th>
+                        <th>Dernière mise à jour</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if not categorie.articles.empty %}
+                    {% for article in categorie.articles %}
+                    <tr>
+                        <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">{{ article .titre }}</a>
+                        </td>
+                        <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">{{ article .contenu|truncate(300, true, ' ->LIRE LA SUITE')|raw }}</a>
+                        </td>
+                        <td><a href="{{ path('fos_user_profile_show') }}">{{ article.auteur.username }}</a>
+                        </td>
+                        <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}"><time  datetime="{{ article.created | date('c') }}">{{ article.created | localizeddate('full', 'none')   }}</time></a>
+                        </td>
+                        <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+                            {% if article.updated is not null %}
+                                <time datetime="{{ article.updated | date('c') }}">{{ article.updated | localizeddate('full', 'none') }}</time></a>
+                            {% else %}
+                                ~
+                            {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="5">Aucun article n'a été rédiger pour la catégorie {{ categorie.name }}, pour le moment ! Rejoignez la communauté et soyez le premier a poster un article dans cette catégorie.</td></tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}

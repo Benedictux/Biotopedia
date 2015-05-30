@@ -1,0 +1,29 @@
+parameters:
+#    biotopedia_pisciotheque.example.class: Biotopedia\PisciothequeBundle\Example
+
+services:
+#    biotopedia_pisciotheque.example:
+#        class: %biotopedia_pisciotheque.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    biotopedia_pisciotheque.form.type.poisson:
+        class: Biotopedia\PisciothequeBundle\Form\Type\PoissonType
+        tags:
+            - { name: form.type, alias: poissonType }
+
+    biotopedia_pisciotheque.form.type.poissonFamille:
+        class: Biotopedia\PisciothequeBundle\Form\Type\PoissonFamilleType
+        tags:
+            - { name: form.type, alias: poissonFamilleType }
+
+    biotopedia_pisciotheque.form.type.famille:
+        class: Biotopedia\PisciothequeBundle\Form\Type\FamilleType
+        tags:
+            - { name: form.type, alias: familleType }
+
+    biotopedia_pisciotheque.form.type.familleEdit:
+        class: Biotopedia\PisciothequeBundle\Form\Type\FamilleEditType
+        tags:
+            - { name: form.type, alias: familleEditType }
+
+############################################################################

@@ -1,0 +1,23 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Contact/index.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+   Contacts - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Contacts</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+	<p>CHARBONNEAU Benoît, administrateur, designeur et créateur du site Biotopedia.</br>
+	Vous souhaitez me contacter ? Voici mes contacts :</p>
+	<ul>
+	 	<li>Adresse: Rhône-Alpes</li>
+ 		<li>Téléphone: +33 6 74 54 56 89</li>
+ 	</ul>
+	<address>
+		<a href="mailto:adresse@emeple.fr">Contactez moi par mail!</a>
+ 	</address>
+{% endblock %}

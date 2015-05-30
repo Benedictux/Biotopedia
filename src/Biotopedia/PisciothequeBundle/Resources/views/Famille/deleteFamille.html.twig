@@ -1,0 +1,25 @@
+{# src/Biotopedia/PisciothequeBundle/Resources/views/Famille/deleteFamille.html.twig #}
+
+{% extends "BiotopediaPisciothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un poisson - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Supprimer une famille</h3>
+{% endblock %}
+
+{% block biotopediapisciotheque_content %}
+  <p>Etes-vous certain de vouloir supprimer la famille <b>"{{ famille.scientificName }}"</b> ?</p>
+  {# On met l'id de la famille dans la route de l'action du formulaire #}
+  <form action="{{ path('biotopedia_pisciotheque_deleteFamille', {'id': famille.id}) }}" method="post">
+    <a href="{{ path('biotopedia_pisciotheque_showFamille', {'id': famille.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au poisson
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }} {# Ceci va générer le champ CSRF #}
+  </form> 
+{% endblock %}

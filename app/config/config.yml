@@ -1,0 +1,214 @@
+# app/config/config.yml
+
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: %kernel.root_dir%/data/data.db3
+        # path:     %database_path%
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool:     { type: memory }
+
+# Services
+services:
+    twig.extension.intl: #ajoute un filtre twig« localizeddate » qui formate une date en prenant en la langue (locale sf2)
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    twig.extension.text: #permet de tronquer une chain de caractère {{ maChaine | truncate(10, true, '[...]') }}
+        class: Twig_Extensions_Extension_Text
+        tags:
+           - { name: twig.extension }
+    debug.twig.extension:
+        class: Twig_Extensions_Extension_Debug
+        tags: [{ name: 'twig.extension' }]
+
+# FOSUser Configuration
+fos_user:
+    db_driver: orm # REQUIRED. other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main # REQUIRED. Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class: Biotopedia\UserBundle\Entity\User # REQUIRED. La classe de l'entité User que nous utilisons
+    use_listener:           true
+    use_flash_notifications: true
+    use_username_form_type: true
+    model_manager_name:     null  # change it to the name of your entity/document manager if you don't want to use the default one.
+    from_email:
+        address:        webmaster@biotopedia.com
+        sender_name:    Webmaster
+    profile:
+        form:
+            type:               fos_user_profile
+            name:               fos_user_profile_form
+            validation_groups:  [Profile, Default]
+    change_password:
+        form:
+            type:               fos_user_change_password
+            name:               fos_user_change_password_form
+            validation_groups:  [ChangePassword, Default]
+    registration:
+        confirmation:
+            from_email: # Use this node only if you don't want the global email address for the confirmation email
+                address:        registration@biotopedia.com
+                sender_name:    Biotoepdia Registration
+            enabled:    true # change to true for required email confirmation
+            template:   BiotopediaUserBundle:User:registration.email.twig
+        form:
+            type:               fos_user_registration
+            name:               fos_user_registration_form
+            validation_groups:  [Registration, Default]
+    resetting:
+        token_ttl: 86400
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address:        resetting@biotopedia.com
+                sender_name:    Biotoepdia Resetting
+            template:   BiotopediaUserBundle:User:resetting.email.html.twig #FOSUserBundle:Resetting:email.txt.twig
+        form:
+            type:               fos_user_resetting
+            name:               fos_user_resetting_form
+            validation_groups:  [ResetPassword, Default]
+    service:
+        mailer:                 fos_user.mailer.twig_swift #fos_user.mailer.default
+        email_canonicalizer:    fos_user.util.canonicalizer.default
+        username_canonicalizer: fos_user.util.canonicalizer.default
+        token_generator:        fos_user.util.token_generator.default
+        user_manager:           fos_user.user_manager.default
+
+    #group:
+    #    group_class:    ~ # Required when using groups
+    #    group_manager:  fos_user.group_manager.default
+    #    form:
+    #        type:               fos_user_group
+    #        name:               fos_user_group_form
+    #        validation_groups:  [Registration, Default]
+
+#GravatarBundle Configuration
+ornicar_gravatar:
+    rating: g
+    size: 80
+    default: mm
+
+#LiipImagineBundle Configuration
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+              web_root:  %kernel.root_dir%/../web
+              cache_prefix:  uploads/liipImagineCache
+    loaders:
+        default:
+            filesystem:
+                data_root:  %kernel.root_dir%/../web/
+    driver:               gd
+    cache:                default
+    data_loader:          default
+    default_image:        null
+    controller:
+        filter_action:         liip_imagine.controller:filterAction
+        filter_runtime_action: liip_imagine.controller:filterRuntimeAction
+    filter_sets:
+        my_thumb_out:
+            #quality:              75
+            #jpeg_quality:         ~
+            #png_compression_level:  ~
+            #png_compression_filter: ~
+            #animated:             false
+            #format:               ~
+            #cache:                ~
+            #data_loader:          ~
+            #default_image:        null
+            filters:
+                thumbnail: { size: [120, 120], mode: outbound } # Transforms 100x100,sans respect des proportions
+            #post_processors:
+                #name:             []
+        my_thumb_in:
+            filters:
+                thumbnail: { size: [120, 120], mode: inset } # Transforms en 100x100 avec respect des proportions
+        my_heighten:
+            filters:
+                relative_resize: { heighten: 60 } # Transforms 50x40 to 75x60
+        my_widen:
+            filters:
+                relative_resize: { widen: 100 } # { widen: 32 } = Transforms 50x40 to 32x26
+        my_increase:
+            filters:
+                relative_resize: { increase: 10 } # Transforms 50x40 to 60x50
+        my_widen:
+            filters:
+                relative_resize: { scale: 0.5}   # Transforms 50x40 to 125x100
+
+#IvoryCKeditorBundle Configuration
+ivory_ck_editor:
+    default_config: default
+    configs:
+        default:
+            toolbar: standard #basic full
+            uiColor:                "#252525"
+            filebrowserBrowseUrl :      '../../../bundles/kcfinder/browse.php?opener=ckeditor&type=files'
+            filebrowserImageBrowseUrl : '../../../bundles/kcfinder/browse.php?opener=ckeditor&type=images'
+            filebrowserFlashBrowseUrl : '../../../bundles/kcfinder/browse.php?opener=ckeditor&type=flash'
+            filebrowserUploadUrl :      '../../../bundles/kcfinder/upload.php?opener=ckeditor&type=files'
+            filebrowserImageUploadUrl : '../../../bundles/kcfinder/upload.php?opener=ckeditor&type=images'
+            filebrowserFlashUploadUrl : '../../../bundles/kcfinder/upload.php?opener=ckeditor&type=flash'
+            #filebrowserBrowseRoute: kcfinder
+            #filebrowserBrowseRouteParameters:
+                #instance: default
+            #extraPlugins:           "wordcount"
+            # ...

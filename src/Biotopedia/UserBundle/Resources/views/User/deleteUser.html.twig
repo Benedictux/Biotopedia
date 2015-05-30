@@ -1,0 +1,27 @@
+{# src/Biotopedia/UserBundle/Resources/views/User/deleteUser.html.twig #}
+
+{% extends "BiotopediaUserBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un utilisateur - {{ parent() }}
+{% endblock %}
+
+{% block biotopediauser_content %}
+  <h2>Supprimer un utilisateur</h2>
+  <p>
+    Etes-vous certain de vouloir supprimer l'utilisateur' <b>"{{ user.username }}"</b> ?
+  </p>
+
+  {# On met l'id del'utilisateur dans la route de l'action du formulaire #}
+  <form action="{{ path('biotopedia_user_delete', {'id': user.id}) }}" method="post">
+    <a href="{{ path('biotopedia_user_homepage', {'id': user.id}) }}" class="">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'index
+    </a>
+
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form> 
+{% endblock %}

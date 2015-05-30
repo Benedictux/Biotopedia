@@ -1,0 +1,14 @@
+#my-files {
+  margin: 10px;
+  border-radius:10px;
+  text-align: center;
+  background-color: #303030;
+  box-shadow:
+    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+#my-files aside {
+  display: inline-block;
+  vertical-align: top;
+}

@@ -1,0 +1,23 @@
+ # src/Biotopedia/UserBundle/Ressources/config/routing.yml
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+biotopedia_user_homepage:
+    path:     /user
+    defaults: { _controller: BiotopediaUserBundle:User:index }
+
+biotopedia_userAdmin_homepage:
+    path:     /userAdmin
+    defaults: { _controller: BiotopediaUserBundle:UserAdmin:index }
+
+biotopedia_userAdmin_edit:
+    path:     /userAdmin/edit/{id}
+    defaults: { _controller: BiotopediaUserBundle:UserAdmin:editUser }
+    requirements:
+        user_id:  \d+
+
+biotopedia_userAdmin_delete:
+    path:     /userAdmin/delete/{id}
+    defaults: { _controller: BiotopediaUserBundle:UserAdmin:deleteUser }
+    requirements:
+        user_id:  \d+

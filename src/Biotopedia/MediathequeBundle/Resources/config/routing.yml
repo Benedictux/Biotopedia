@@ -1,0 +1,64 @@
+## src/Biotopedia/MediathequeBundle/Ressources/config/routing.yml
+
+biotopedia_mediatheque_homepage:
+    path:     /mediatheque
+    defaults: { _controller: BiotopediaMediathequeBundle:Categorie:index }
+
+############################################################################################
+biotopedia_mediatheque_indexCategorie:
+    path:     /mediatheque/indexCategorie
+    defaults: { _controller: BiotopediaMediathequeBundle:Categorie:index }
+
+biotopedia_mediatheque_showCategorie:
+    path:     /mediatheque/showCategorie/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Categorie:showCategorie }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_mediatheque_addCategorie:
+    path:     /mediatheque/addCategorie
+    defaults: { _controller: BiotopediaMediathequeBundle:Categorie:addCategorie }
+
+biotopedia_mediatheque_editCategorie:
+    path:     /mediatheque/editCategorie/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Categorie:editCategorie }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_mediatheque_deleteCategorie:
+    path:     /mediatheque/deleteCategorie/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Categorie:deleteCategorie }
+    requirements:
+        famille_id:  \d+
+
+############################################################################################
+
+biotopedia_mediatheque_indexArticle:
+    path:     /mediatheque/indexArticle
+    defaults: { _controller: BiotopediaMediathequeBundle:Article:index }
+
+biotopedia_mediatheque_showArticle:
+    path:     /mediatheque/showArticle/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Article:showArticle }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_mediatheque_addArticle:
+    path:     /mediatheque/addArticle/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Article:addArticle }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_mediatheque_editArticle:
+    path:     /mediatheque/editArticle/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Article:editArticle }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_mediatheque_deleteArticle:
+    path:     /mediatheque/deleteArticle/{id}
+    defaults: { _controller: BiotopediaMediathequeBundle:Article:deleteArticle }
+    requirements:
+        famille_id:  \d+
+
+##############################################################################

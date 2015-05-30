@@ -1,0 +1,69 @@
+{# app/Ressources/TwigBundle/views/Exception/error500.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>{{ status_code }} - Biotopedia</title>
+
+        {% stylesheets 
+            'css/main.css'
+            '@BiotopediaMediathequeBundle/Resources/public/css/*'
+            '@BiotopediaPisciothequeBundle/Resources/public/css/*'
+            '@BiotopediaUserBundle/Resources/public/css/*' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+    <body>
+        <header id="header-site">
+            <div id="titre-site">
+                <a href="{{ path('biotopedia_homepage') }}"><h1>Biotopedia</h1></a>
+                <h3>Toute la passion de l'aquariophilie.</h3>
+            </div>
+
+            <nav id="menu-header-login" >
+                <ul>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('fos_user_profile_edit') }}">{{ app.user.username }}</a> ->
+                        <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                    {% else %}
+                        <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <nav id="menu-horizontal">
+                <ul>
+                    <li><a href="{{ path('biotopedia_pisciotheque_homepage') }}" title="Voir la pisciothèque">  Pisciothèque</a></li>
+                    <li><a href="{{ path('biotopedia_mediatheque_homepage') }}" title="Voir la médiathèque">Médiathèque</a></li>
+                    <li><a href="#" title="Voir le forum">Forum</a></li>
+                    <li><a href="#" title="Voir mes contacts">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-section-site">
+			<h3 class="content-titre">Erreur</h3>
+  				{# Sous-titre commun à toutes les pages du bundle#}
+  				<h1>Page inexistante</h1>
+
+  				<h2>Le site Biotopedia retourne une {{ status_code }} {{ status_text }}</h2>
+
+  				<p>Désolé du dérangement occasioné. Veillez à contacter l'administrateur du site si vous êtes arrivé sur cette page en suivant un lien.<p>
+
+        </section>
+
+        <footer id="footer-site">
+            <details>
+                <summary>Copyright © 2015.</summary>
+                  <p> - par Biotopedia V.1. All Rights Reserved.</p>
+            </details>
+        </footer>
+
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

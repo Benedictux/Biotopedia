@@ -1,0 +1,27 @@
+parameters:
+#    biotopedia_mediatheque.example.class: Biotopedia\MediathequeBundle\Example
+
+services:
+#    biotopedia_mediatheque.example:
+#        class: %biotopedia_mediatheque.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    biotopedia_mediatheque.form.type.article:
+        class: Biotopedia\MediathequeBundle\Form\Type\ArticleType
+        tags:
+            - { name: form.type, alias: articleType }
+
+    biotopedia_mediatheque.form.type.articleEdit:
+        class: Biotopedia\MediathequeBundle\Form\Type\ArticleEditType
+        tags:
+            - { name: form.type, alias: articleEditType }
+
+    biotopedia_mediatheque.form.type.categorie:
+        class: Biotopedia\MediathequeBundle\Form\Type\CategorieType
+        tags:
+            - { name: form.type, alias: categorieType }
+
+    biotopedia_mediatheque.form.type.categorieEdit:
+        class: Biotopedia\MediathequeBundle\Form\Type\CategorieEditType
+        tags:
+            - { name: form.type, alias: categorieEditType }

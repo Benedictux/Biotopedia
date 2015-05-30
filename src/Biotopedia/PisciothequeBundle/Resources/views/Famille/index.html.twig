@@ -1,0 +1,47 @@
+{# src/Biotopedia/PisciothequeBundle/Resources/views/Famille/index.html.twig #}
+
+{% extends "BiotopediaPisciothequeBundle::layout.html.twig" %}
+
+{% block title %}
+   Index famille - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Index familles</h3>
+{% endblock %}
+
+{% block biotopediapisciotheque_content %}
+	<nav class="menu-vertical" >
+        <h4>Menu Famille</h4>
+        <ul>
+           	<li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">Index Poissons</a></li>
+            {#// On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR #}
+   			{% if is_granted("ROLE_AUTEUR") %}
+			    <li><a href="{{ path('biotopedia_pisciotheque_addFamille') }}">Ajouter une Famille</a></li>
+			{% endif %}
+    	</ul>
+    </nav>
+    <nav id="navigateur-famille">
+	<p>Hello, Bienvenue sur la pisciothèque du site Biotopedia ! Voici les familles de poissons présentes sur le site :</p>
+	{% for famille in familles %}
+		<a class = "table-index-famille" href = "{{ path('biotopedia_pisciotheque_showFamille', { 'id': famille.id }) }}">
+		<table style = "background-image: url({{ asset ((famille.image.webPath) | imagine_filter('my_thumb_out')) }});">
+			<thead>
+				<tr>
+					<th>
+						<a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': famille.id }) }}">
+						{{ famille.scientificName }}</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</a>
+	{% endfor %}
+	</nav>
+{% endblock %}

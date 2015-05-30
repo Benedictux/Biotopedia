@@ -1,0 +1,48 @@
+{# src/Biotopedia/MediathequeBundle/Resources/views/Article/addArticle.html.twig #}
+
+{% extends "BiotopediaMediathequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Rédiger un article - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Rédiger un article</h3>
+{% endblock %}
+
+{% block biotopediamediatheque_content %}
+  <p>Vous vous apprêtez à rédiger un article dans la catégorie {{ categorie.name }} de la mediathèque du site Biotopedia !</p>
+	<form action="{{ path('biotopedia_mediatheque_addArticle', { 'id': categorie.id }) }}" method="post" {{ form_enctype(form) }}>
+		<fieldset>
+      <legend>Article</legend>
+    	<div class="error">
+      		{{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+    	</div>
+		  <table>
+      	<tr>
+      		<td>{{ form_label(form.titre, "Titre") }}</td>
+      	</tr>
+      	<tr>
+      		<td>
+      			{{ form_errors(form.titre) }}
+      			{{ form_widget(form.titre) }}
+      		</td>
+      	</tr>
+        <tr>
+          <td>
+            {{ form_errors(form.contenu) }}
+            {{ form_widget(form.contenu, {'attr': {'rows': '16', 'cols':'50'}}) }}
+          </td>
+        </tr>
+    		<tr>
+    			<td>
+    				{{ form_rest(form) }}{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+    			</td>
+    		</tr>
+      </table>
+    </fieldset>
+	</form>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

@@ -1,0 +1,15 @@
+biotopedia_homepage:
+    path:     /
+    defaults: { _controller: BiotopediaCoreBundle:Accueil:index }
+
+############################################################################################
+
+biotopedia_core_showImage:
+    path:     /showImage/{id}
+    defaults: { _controller: BiotopediaCoreBundle:Image:showImage }
+
+############################################################################################
+
+biotopedia_core_contact:
+    path:     /contacts
+    defaults: { _controller: BiotopediaCoreBundle:Contact:index }

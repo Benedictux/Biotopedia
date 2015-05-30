@@ -1,0 +1,24 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Image/showImage.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+   Accueil - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Accueil</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+	<nav class="menu-vertical">
+        <h4>Biotopedia en quelques chiffres</h4>
+        <ul>
+        	<li>Nombre d'article:{{ nb_articles }}</a></li>
+        	<li>Nombre d'aquariophils: {{ nb_aquariophils }}</li>
+        	<li>Nombre de poissons: {{ nb_poissons }}</li>
+    	</ul>
+    </nav>
+
+	<p>Bienvenus sur Biotopedia, le site communautaire de l'aquariophilie et des biotopes !</p>
+{% endblock %}

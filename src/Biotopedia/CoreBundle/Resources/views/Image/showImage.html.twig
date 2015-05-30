@@ -1,0 +1,24 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Image/showImage.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+   Voir Image - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Voir Image</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+    <table id="table_show">
+        <tr>
+            <th>Nom:</th>
+            <td>{{ image.alt }}</td>
+        </tr>
+        <tr>
+            <th>Photo :</th>
+            <td><img src="{{ asset (image.webPath) }}" alt="{{ image.alt }} image not found"/></td>
+        </tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,39 @@
+{# src/Biotopedia/MediathequeBundle/Resources/views/Article/showArticle.html.twig #}
+
+{% extends "BiotopediaMediathequeBundle::layout.html.twig" %}
+
+{% block title %}
+   Fiche article - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Fiche article</h3>
+{% endblock %}
+
+{% block biotopediamediatheque_content %}
+	{% if is_granted('ROLE_AUTEUR', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN') %}
+		<nav class="menu-vertical">
+        	<h4>Administration de {{ article.titre }}</h4>
+            <ul>
+                <li><a href="{{ path('biotopedia_mediatheque_addArticle', { 'id': article.categorie.id }) }}">
+                    Ajouter un article</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_editArticle', { 'id': article.id }) }}">
+                    Éditer l'article</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_deleteArticle', { 'id': article.id }) }}">
+                    Supprimer l'article</a></li>
+    		</ul>
+    	</nav>
+	{% endif %}
+    <article>
+        <header>
+            <h1>{{ article.titre | title }}</h1>
+            <p>Par <a href="{{ path('fos_user_profile_show') }}">{{ article.auteur.username }}</a><time datetime="{{ article.created | date('c') }}"> le {{ article.created | localizeddate('full', 'none') }}</time>
+            {% if article.updated is not null %}
+                </br><time datetime="{{ article.updated | date('c') }}"> Éditer le {{ article.updated | localizeddate('full', 'none') }}</time>
+            {% endif %}
+            </p>
+        </header>
+         <hr>
+        {{ article.contenu|raw }}
+    </article>
+{% endblock %}

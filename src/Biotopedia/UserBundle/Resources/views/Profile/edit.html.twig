@@ -1,0 +1,6 @@
+{% extends "BiotopediaUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+	{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+	<a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a>
+{% endblock fos_user_content %}

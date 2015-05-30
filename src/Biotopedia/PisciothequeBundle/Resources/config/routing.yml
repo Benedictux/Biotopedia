@@ -1,0 +1,63 @@
+## src/Biotopedia/PisciothequeBundle/Ressources/config/routing.yml
+
+biotopedia_pisciotheque_homepage:
+    path:     /pisciotheque
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:index }
+
+#############################################################################
+
+biotopedia_pisciotheque_indexFamille:
+    path:     /pisciotheque/indexFamille
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:index }
+
+biotopedia_pisciotheque_showFamille:
+    path:     /pisciotheque/showFamille/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:showFamille }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_pisciotheque_addFamille:
+    path:     /pisciotheque/addFamille
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:addFamille }
+
+biotopedia_pisciotheque_editFamille:
+    path:     /pisciotheque/editFamille/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:editFamille }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_pisciotheque_deleteFamille:
+    path:     /pisciotheque/deleteFamille/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:deleteFamille }
+    requirements:
+        famille_id:  \d+
+
+##############################################################################
+
+biotopedia_pisciotheque_indexPoisson:
+    path:     /pisciotheque/indexPoisson
+    defaults: { _controller: BiotopediaPisciothequeBundle:Poisson:index }
+
+biotopedia_pisciotheque_showPoisson:
+    path:     /pisciotheque/showPoisson/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Poisson:showPoisson }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_pisciotheque_addPoisson:
+    path:     /pisciotheque/addPoisson/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Poisson:addPoisson }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_pisciotheque_editPoisson:
+    path:     /pisciotheque/editPoisson/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Poisson:editPoisson }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_pisciotheque_deletePoisson:
+    path:     /pisciotheque/deletePoisson/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Poisson:deletePoisson }
+    requirements:
+        famille_id:  \d+

@@ -1,0 +1,31 @@
+{# src/Biotopedia/UserBundle/Resources/views/User/index.html.twig #}
+
+{% extends "BiotopediaUserBundle::layout.html.twig" %}
+
+{% block title %}
+   Index utilisateurs - {{ parent() }}
+{% endblock %}
+
+{% block biotopediauser_content %}
+  <h2>Index utilisateurs</h2>
+
+	<table id="table_index">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>email</th>
+				<th>Dernier login</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for user in users %}
+			<tr>
+				<td>{{ user.username }}</td>
+				<td>{{ user.email }}</td>
+				<td><time datetime="{{ user.lastlogin | date('c') }}">{{ user.lastlogin | localizeddate('full', 'none') }}</time></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

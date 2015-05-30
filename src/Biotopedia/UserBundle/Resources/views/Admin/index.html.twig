@@ -1,0 +1,56 @@
+{# src/Biotopedia/UserBundle/Resources/views/Admin/index.html.twig #}
+
+{% extends "BiotopediaUserBundle::layout.html.twig" %}
+
+{% block title %}
+   Index utilisateurs - {{ parent() }}
+{% endblock %}
+
+{% block biotopediauser_content %}
+  <h2 class="content-titre">Index utilisateurs</h2>
+
+	<table id="table_index">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>email</th>
+				<th>Dernier login</th>
+				<th>Actif</th>
+				<th>Rôle</th>
+				<th>Manager</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for user in users %}
+			<tr>
+				<td>{{ user.username }}</td>
+				<td>{{ user.email }}</td>
+				<td><time datetime="{{ user.lastlogin | date('c') }}">{{ user.lastlogin | localizeddate('full', 'none') }}</time></td>
+				<td>{{ user.enabled }}</td>
+				<td>
+					<table>
+						{% for role in user.roles %}
+							<tr>
+								<td>{{ role }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</td>
+				<td>
+					<div class="bouton">
+						<p>
+							<a href="{{ path('biotopedia_userAdmin_edit', {'id': user.id}) }}">Éditer</a>
+						</p>
+					</div>
+					<div class="bouton-danger">
+						<p>
+							<a href="{{ path('biotopedia_userAdmin_delete', {'id': user.id}) }}">Supprimer</a>
+						</p>
+					</div>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

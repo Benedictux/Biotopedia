@@ -1,0 +1,48 @@
+{# src/Biotopedia/MediathequeBundle/Resources/views/Categorie/editCategorie.html.twig #}
+
+{% extends "BiotopediaMediathequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Éditer une catégorie - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Éditer la catégorie {{ categorie.name }}</h3>
+{% endblock %}
+
+{% block biotopediamediatheque_content %}
+
+	<p>Vous vous apprêtez à éditer la catégorie {{ categorie.name }} de la mediathèque du site Biotopedia !</p>
+	
+	<form action="{{ path('biotopedia_mediatheque_editCategorie', { 'id': categorie.id }) }}" method="post" {{ form_enctype(form) }}>
+		<fieldset>
+      <legend>Catégorie</legend>
+      {# Les erreurs générales du formulaire. #}
+    	<div class="error">
+      		{{ form_errors(form) }}
+    	</div>
+		  <table>
+      	<tr>
+      		<td>{{ form_label(form.name, "Nom") }}</td>
+      	</tr>
+
+      	<tr>
+      		<td>
+      			{{ form_errors(form.name) }}
+      			{{ form_widget(form.name) }}
+      		</td>
+      	</tr>
+
+    		<tr>
+    			<td>
+    				{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+    				{{ form_rest(form) }}
+    			</td>
+    		</tr>
+      </table>
+    </fieldset>
+	</form>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

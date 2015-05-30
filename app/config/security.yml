@@ -1,0 +1,30 @@
+# app/config/security.yml
+imports:
+    - { resource: "@BiotopediaUserBundle/Resources/config/security.yml"}
+
+security:
+    role_hierarchy:
+        ROLE_AUTEUR: ROLE_USER
+        ROLE_ADMIN: ROLE_AUTEUR
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_AUTEUR, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    access_control:
+        - { path: ^/efconnect, role: ROLE_USER }
+        - { path: ^/elfinder, role: ROLE_USER }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/userAdmin*, role: ROLE_SUPER_ADMIN }
+        - { path: ^/addPoisson, role: ROLE_AUTEUR }
+        - { path: ^/editPoisson, role: ROLE_AUTEUR }
+        - { path: ^/deletePoisson, role: ROLE_AUTEUR }
+        - { path: ^/addFamille, role: ROLE_AUTEUR }
+        - { path: ^/editFamille, role: ROLE_AUTEUR }
+        - { path: ^/deleteFamille, role: ROLE_AUTEUR }
+        - { path: ^/addArticle, role: ROLE_AUTEUR }
+        - { path: ^/editArticle, role: ROLE_AUTEUR }
+        - { path: ^/deleteArticle, role: ROLE_AUTEUR }
+        - { path: ^/addCaregorie, role: ROLE_ADMIN }
+        - { path: ^/editCaregorie, role: ROLE_ADMIN }
+        - { path: ^/deleteCaregorie, role: ROLE_ADMIN }
+        - { path: ^/admin/, role: ROLE_ADMIN }

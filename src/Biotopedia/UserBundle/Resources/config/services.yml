@@ -1,0 +1,12 @@
+parameters:
+#    biotopedia_user.example.class: Biotopedia\UserBundle\Example
+
+services:
+#    biotopedia_user.example:
+#        class: %biotopedia_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    biotopedia_user.form.type.user:
+        class: Biotopedia\UserBundle\Form\Type\UserEditAdminType
+        tags:
+            - { name: form.type, alias: userEditAdminType }

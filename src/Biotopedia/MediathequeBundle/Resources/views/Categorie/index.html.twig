@@ -1,0 +1,48 @@
+{# src/Biotopedia/MediathequeBundle/Resources/views/Categorie/index.html.twig #}
+
+{% extends "BiotopediaMediathequeBundle::layout.html.twig" %}
+
+{% block title %}
+   Index Categorie - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+	{{ parent() }}<h3 class="content-titre">Index Categorie</h3>
+{% endblock %}
+
+{% block biotopediamediatheque_content %}
+  	<nav class="menu-vertical">
+        <h4>Menu Catégorie</h4>
+        <ul>
+           	<li><a href="{{ path('biotopedia_mediatheque_indexArticle') }}">Index Articles</a></li>
+            {#// On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR #}
+   			{% if is_granted("ROLE_ADMIN") %}
+			    <li><a href="{{ path('biotopedia_mediatheque_addCategorie') }}">Ajouter une Catégorie</a></li>
+			{% endif %}
+    	</ul>
+    </nav>
+	<nav id="navigateur-categorie">
+		<p>Hello, Bienvenue sur la mediathèque du site Biotopedia ! Voici les catégories présentes sur le site :</p>
+		{% for categorie in categories %}
+			<a class = "table-index-categorie" href = "{{ path('biotopedia_mediatheque_showCategorie', { 'id': 	categorie.id }) }}">
+			<table style = "background-image: url({{ asset ((categorie.image.webPath) | imagine_filter('my_widen'))	 }});">
+			<thead>
+				<tr>
+					<th>
+						<a href="{{ path('biotopedia_mediatheque_showCategorie', { 'id': categorie.id }) }}">
+							{{ categorie.name }}</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						{# {{ categorie.description|truncate(100, true, '...')|raw }} #}
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			</a>
+		{% endfor %}
+	</nav>
+{% endblock %}

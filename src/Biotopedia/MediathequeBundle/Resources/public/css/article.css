@@ -1,0 +1,16 @@
+article{
+	width: 73%;
+	margin: 10px 10px;
+	padding-left: 1%;
+	padding-right: 1%;
+	padding-top: 1px;
+	padding-bottom: 3px;
+	background-color: DarkSlateGray;
+	border-radius: 7px;
+	box-shadow:
+		0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+		0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+
+article header h1{display: inline-block;}
+article header p{display: inline-block; float: right;}

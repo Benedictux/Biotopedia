@@ -1,0 +1,33 @@
+# src/Biotopedia/CoreBundle/Resources/config/services.yml
+
+parameters:
+#    biotopedia_core.example.class: Biotopedia\CoreBundle\Example
+
+services:
+#    biotopedia_core.example:
+#        class: %biotopedia_core.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    biotopedia_core.form.type.image:
+        class: Biotopedia\CoreBundle\Form\Type\ImageType
+        tags:
+            - { name: form.type, alias: imageType }
+
+    ############################################################################
+    biotopedia_core.cacheimage_listener:
+        class: Biotopedia\CoreBundle\Listener\CacheImageListener
+        arguments: ["@liip_imagine.cache.manager"]
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: preRemove }
+
+    ############################################################################
+    biotopedia_core.censorship_processor:
+        class:     Biotopedia\CoreBundle\Bigbrother\CensorshipProcessor
+        arguments: [@mailer]
+
+    #biotopedia_core.censorship_listener:
+     #   class:     Biotopedia\CoreBundle\Bigbrother\CensorshipListener
+      #  arguments: [@biotopedia_core.censorship_processor, [1, 2, 3]]
+       # tags:
+        #    - { name: kernel.event_listener, event: biotopedia_core.bigbrother.post_message, method: processMessage }

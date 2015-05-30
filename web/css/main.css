@@ -1,0 +1,260 @@
+/********GENERAL*************************************************************************/
+body{
+	font-size: 12px;
+	background: #252525;
+	color: #f4f4f4;
+}
+body a{color: #7DCF9B; text-decoration: none;}
+
+body a:hover, nav a:focus { color: #69A07E; }
+
+body header h3{ color: rgb(107, 103, 103);}
+
+img.medium { 
+  width: 190px; 
+  float: left;
+  padding: 5px; 
+  border: 1px solid #ccc; 
+  margin: 0 10px 10px 0;
+}
+img.large { 
+  width: 300px; 
+  min-height: 165px;
+}
+
+
+/***************************************************************************************/
+/********HEADER & FOOTER*************************************************************************/
+#header-site, #footer-site {
+  background: #121212;
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+#titre-site{
+  display: inline-block;
+  margin-left: 10px;}
+
+/***************************************************************************************/
+/********MENU***************************************************************************/
+/*Menu points communs*/
+
+#menu-header-login ul, #menu-horizontal ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center ;
+}
+
+/***************************************************************************************/
+/*Menu login*/
+#menu-header-login{
+	display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+  float: right;
+  padding: 3px;
+  width: 12%;
+	height: 100%;
+	color: #7DCF9B;
+  background-color: #2F4F4F; /* DarkSlateGray */
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+
+/**************************************************************************************/
+/*Menu horizontale*/
+#menu-horizontal{
+  background-attachment: fixed;
+}
+  
+#menu-horizontal li {
+  float: left ;
+  width: 25% ;
+  background-color: #121212;
+  box-shadow:
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+#menu-horizontal li a {
+  display: block ;
+  height: 15px;
+  border-bottom: solid 1px #003355 ;
+  color: #fff ;
+  font: 1.2em;
+  line-height: 100% ;
+  padding: 4px 0 ;
+  text-align: center ;
+}
+#menu-horizontal li a:hover, #menu-horizontal li a:focus, #menu-horizontal li a:active {
+  background: #003355 ;
+}
+
+/***************************************************************************************/
+/********SECTION*************************************************************************/
+#main-section-site {
+}
+
+/**************************************************************************************/
+/********TABLEAU***********************************************************************/
+/*Tableau d'index*/
+#table-index {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  background-color: transparent;
+}
+#table-index table {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 10px;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  background-color: transparent;
+}
+#table-index table thead{
+  background: linear-gradient( #335C77, #003355);
+  color: white;
+  }
+#table-index table tbody{
+  background-color: #252525;
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+#table-index table td, #table-index table th{
+  padding: 5px;
+}
+#table-index table tr:nth-child(even) {
+  background-color:#303030;
+}
+#table-index table tr:nth-child(odd) {
+  background-color: transparent;
+}
+
+/****************************************************************************************/
+/*Tableau show Poisson/Famille*/
+table#table_show {
+	border: white 1px solid;
+	border-radius: 10px;
+	padding: 10px;
+}
+/*****************************************************************************************/
+/********MES CLASS************************************************************************/
+.layout-titre{
+  display: inline-block;
+  margin-left: 10px;
+  color: rgba(22, 22, 22, 1);
+  text-shadow:0px 1px rgba(200, 200, 200, 0.6), 0px -1px rgba(0, 0, 0, 1);
+}
+.content-titre{
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #69A07E;
+  text-shadow:0px 1px rgba(200, 200, 200, 0.6), 0px -1px rgba(0, 0, 0, 1);
+}
+
+.bouton a {
+  display:block;
+  width:70px;
+  line-height:25px;
+  box-shadow: 0 0 5px rgba( 0, 0, 0, 0.5),
+              0 -1px 0 rgba( 255, 255, 255, 0.4);
+  font-size: 1em;
+  text-align:center;
+  vertical-align:middle;
+  border-radius: 6px;
+  color:white;
+  text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.2);
+  text-decoration:none;
+  background: linear-gradient( #335C77, #003355);
+}
+.bouton a:hover, .bouton-danger a:hover {
+  color: #222;
+  background: linear-gradient( #777, #333);
+}
+.bouton a:active, .bouton-danger a:active{
+     color: #000;
+     background: #444;
+     background: linear-gradient( #555, #2C2C2C);
+     box-shadow: 1px 1px 10px black inset, 
+                 0 1px 0 rgba( 255, 255, 255, 0.4);
+}
+
+.bouton-danger a {
+  display:block;
+  width:70px;
+  line-height:25px;
+  box-shadow: 0 0 5px rgba( 0, 0, 0, 0.5),
+              0 -1px 0 rgba( 255, 255, 255, 0.4);
+  font-size: 1em;
+  text-align:center;
+  vertical-align:middle;
+  border-radius: 6px;
+  color:white;
+  text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.2)
+  text-decoration:none;
+  background: linear-gradient( #B80000, #810000);
+}
+
+/**************************************************************************************/
+/*Menu vertical*/
+.menu-vertical{
+  display: inline-block;
+  margin-top: 10px;
+  float: right;
+  padding: 3px;
+  width: 12%;
+  height: 100%;
+  color: white;
+  padding: 1%;
+  width:  20%;
+  font-size: 80%;
+  border-radius: 4px 0 0 4px;
+  background-color: #2F4F4F; /* DarkSlateGray */
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+
+/* style du bloc ul */
+.menu-vertical ul {
+  width: 250px; /* optionnel, c'est pour la démo */
+  list-style: none; /* supprime les puces de liste */
+  padding: 4px; /* on fait un peu de place autour des liens */
+  margin: 0; /* on annule les marges */
+  background: #5F9EA0; /* CadetBlue */
+}
+ 
+/* styles des liens et éléments de liste */
+.menu-vertical li, .menu-vertical li  a {
+  /* les liens et item deviennent des blocs */
+  /* suffit théoriquement à virer les puces de liste */
+  display: block;
+}
+ 
+/* styles des liens */
+.menu-vertical li a {
+  margin: 1px 0; /* espace les liens d'1 px */
+  padding: 8px 20px; /* marges internes pour aérer */ 
+  background: #252525;
+  color: #f4f4f4;
+  text-decoration: none; /* on vire le soulignement */
+
+  /* on définit la transition pour les navigateurs */
+  transition: all .3s; /* syntaxe officielle */
+}
+ 
+/* styles changeants au survol et focus */
+.menu-vertical li a:hover, .menu-vertical li a:focus {
+  background: #1ABC9C;
+  color: #FFF;
+  padding-left: 30px; /* décalage du contenu de 10px vers la droite (30-20 = 10) */
+}
+
+/**** STRUCTURE COMMUNE AUX BUREAUX, MOBILES...*********************************************************************************************************************************/
+body, #header-site, #menu-horizontal, #main-section-site, #footer-site{width: 100%; margin: 0; padding: 0; border: 0;}
+ 
+body, #header-site, #menu-horizontal, #main-section-site, #footer-site{clear: both;} 

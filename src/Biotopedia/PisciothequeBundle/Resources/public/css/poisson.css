@@ -1,0 +1,20 @@
+/**INDEX*************************************************************************/
+
+
+/**SHOW POISSON*************************************************************************/
+#poisson-show{
+	min-width: 70%;
+	margin: 0 10px 10px 10px;
+	padding: 10px;
+	background-color: #121212;
+	box-shadow:
+    	0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    	0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+
+#poisson-show header{
+	width: 100%;
+}
+#poisson-show header h3, #poisson-show header time{
+	display: inline-block;
+}

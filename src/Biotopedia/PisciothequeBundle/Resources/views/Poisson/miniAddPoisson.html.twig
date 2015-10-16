@@ -1,0 +1,43 @@
+<div class="error">
+  {{ form_errors(form) }} {# Les erreurs générales du formulaire. #}
+</div>
+		<table id="poisson-identite-table-form" class="poisson-table-form">
+      <tr>
+        <th>{{ form_label(form.common_name, "Nom Commun") }}</th>
+        <th>{{ form_label(form.scientific_name, "Nom Scientifique") }}</th>
+      </tr>
+      <tr>
+        <td>
+          {{ form_errors(form.common_name) }}
+          {{ form_widget(form.common_name) }}
+        </td>
+        <td>
+          {{ form_errors(form.scientific_name) }}
+          {{ form_widget(form.scientific_name) }}
+        </td>
+      </tr>
+    </table>
+     
+    <table id="poisson-image-table-form" class="poisson-table-form">
+      <tr>
+        <th>{{ form_label(form.image, "Photo") }}</th>
+      </tr>
+      <tr>
+        <td>
+          {{ form_errors(form.image) }}
+          {{ form_widget(form.image) }}
+        </td>
+      </tr>
+    </table>
+    
+    <table id="poisson-description-table-form" class="poisson-table-form">
+      <tr>
+        <th>{{ form_label(form.description, "Description") }}</th>
+      </tr>
+      <tr>
+      	<td>
+      		{{ form_errors(form.description) }}
+      		{{ form_widget(form.description, {'attr': {'rows': '14', 'cols':'75'}}) }}
+      	</td>
+      </tr>
+    </table>

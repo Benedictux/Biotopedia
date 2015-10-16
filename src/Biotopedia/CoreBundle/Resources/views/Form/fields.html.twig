@@ -1,0 +1,18 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Form/fields.html.twig #}
+{# Permet d'afficher les choice d'un formulaire verticalement #}
+{% block choice_widget %}
+    {% spaceless %}
+        {% if expanded %}
+            <div {{ block('widget_container_attributes') }}>
+            {% for child in form %}
+                {{ form_widget(child) }}
+                {{ form_label(child) }}
+                </br>
+            {% endfor %}
+            </div>
+        {% else %}
+            {# just let the choice widget render the select tag #}
+            {{ block('choice_widget') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}

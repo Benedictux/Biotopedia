@@ -1,0 +1,10 @@
+<p id="who-is-online">
+	{% if users|length > 0 %}
+    	<strong>Utilisateurs en ligne ({{ users|length }}) :</strong>
+	    {% for user in users %}
+	    	{{ user.username|join(', ') }}.
+	    {% endfor %}
+	{% else %}
+		<strong>Aucun utilisateurs en ligne !</strong>
+	{% endif %}
+</p>

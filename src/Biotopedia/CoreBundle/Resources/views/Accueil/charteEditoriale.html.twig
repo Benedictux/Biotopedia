@@ -1,0 +1,64 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Accueil/charteEditorial.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+   Charte éditorial - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Charte éditorial</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+  <section id="charte-show">
+  	<p>Pour une bonne cohésion dans le partage commun au sein du site, il est impératif de poser quelques régles essentielles.</p>
+    <p>Avant toute chose, le mots d'ordre est <b>RESPECT</b>. Veuillez respecter les membres et le travail fournit par chacun.</p>
+
+    <h4>Régles Générales</h4>
+    <ol>
+      <li>Réspecter les conditions d'utilisations.</li>
+      <li>Respect de la langue, (orthographe, grammaire et conjugaison), -> pas de language SMS. Éviter les abréviations.</li>
+      <li>Indiquer le maximum de sources étayant vos informations fournies.</li>
+    </ol>
+
+    <h4>Les fiches Familles et Poissons</h4>
+    La pisciothèque regroupe chacun des poissons dans leur famille respective. Lors de la création d'une fiche poisson, il est donc primordial :
+    <ol>
+      <li>de se renseigner dans quelle famille est classé l'espèce de poisson dont vous souhaitez réaliser la fiche.</li>
+      <li>de vérifier l'existence de cette dernière dans la pisciothèque du site {{ website }}.
+        Si la famille est présente :
+        <ol type="a">
+          <li>il vous suffira donc d'aller sur la page de la famille et d'accéder au formulaire de création de fiche poisson.</li>
+          <li>sinon, il sera alors necessaire de réaliser, par la même occasion, la fiche famille en question.</li>
+        </ol>
+      <li>de vérifier egalement l'existence du poisson dans la pisciothèque du site {{ website }}.
+         Si le poisson n'est pas présent :
+        <ol type="a">
+          <li>il vous suffira donc d'aller sur la page de la famille et d'accéder au formulaire de création de fiche poisson.</li>
+          <li>sinon, vous êtes libre de modifier et d'enrichir la fiche du poisson.</li>
+        </ol>
+      <li>de vérifier qu'une modification soit justifiable, (correction d'une coquille ou d'une information érronée ou peu crédible, complément d'information, nouvelle ressource, mise à jour)...</li>
+      <li>de respecter la nomenclature binominale (favorisé les noms scientifiques internationaux des organismes vivants ou taxons) et de son écriture (Genre <i>espèce</i>), -> le <u>G</u>enre avec une majuscule et l'<u><i>espèce</i></u> en italique sans majuscule.</li>
+    </ol>
+
+    <h4>Les articles</h4>
+    La médiathèque regroupe chacun des articles dans une catégorie. Lors de la création d'un article :
+    <ol>
+      <li>veillez à choisir la catégorie correspondant au mieux à votre article.</li>
+      <li>vérifier l'existence d'un sujet équivalent à votre article dans la médiathèque du site {{ website }}. Il serait dommage de rédiger quelque chose d'equivalent.</li>
+    </ol>
+    Tout article considéré comme un doublon (traitant un sujet déjà existant de la même manière, avec beaucoup de similitudes), sera supprimé.
+  </section>
+{% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{{ parent() }} rédactions</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+        <ul>
+          <li><a href="{{ path('biotopedia_pisciotheque_homepage') }}" title="Accéder à l'index des familles">Index des familles</a></li>
+          <li><a href="{{ path('biotopedia_mediatheque_homepage') }}" title="Accéder à l'index des catégories">Index des catégories</a></li>
+          <li><a href="{{ path('biotopedia_core_conditionsUtilisation') }}" title="Voir les conditions d'utilisation du site Biotopedia.fr">Conditions d'utilisations</a></li>
+        </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

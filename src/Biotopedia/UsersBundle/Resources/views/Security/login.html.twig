@@ -1,0 +1,77 @@
+{# src/Biotopedia/UsersBundle/Resources/views/Security/login.html.twig #}
+
+{% extends "BiotopediaUsersBundle::layout.html.twig" %}
+
+{% block title %}
+  Se connecter- {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Se connecter</h3>
+{% endblock %}
+
+{% block biotopediausers_content %}
+  <section id="form-login">
+
+    {% if error %}
+      <div class="alert-danger">{{ error.message }}</div>
+    {% endif %}
+
+  	<p>Vous vous apprêtez à vous connecter au site Biotopedia !</p>
+
+    <form action="{{ path("login_check") }}" method="POST" >
+      <table id="user-identite-table-form" class="user-table-form">
+        <tr>
+          <th><label for="inputUsernameEmail">Nom d'utilisateur</label></th>
+          <th><label for="inputPassword">Password</label></th>
+        </tr>
+        <tr>
+          <td class="popup">
+            <input type="text" required="required" class="form-control" value="{{ last_username }}" name="_username" id="username">
+            <span>Votre nom d'utilisateur est publique et unique, il sera donc visible de tous, ex: Benedictux.</span>
+          </td>
+          <td>
+            <input type="password" class="form-control" name="_password" required="required" id="password">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" id="remember_me" name="_remember_me" checked />
+            <label for="remember_me">Remember me</label>
+          </td>
+          <td>
+            <button type="submit" class="pull-right btn btn btn-primary">
+              Se connecter
+            </button>
+          </td>
+        </tr>
+      </table>
+
+          {#
+              Si vous voulez contrôler l'URL vers laquelle l'utilisateur est redirigé en cas de succès
+              (plus de détails ci-dessous)
+              <input type="hidden" name="_target_path" value="/account" />
+          #}
+    </form>
+    <a href="{{ path('reset') }}">Mot de passe oublié ?</a>
+  </section>
+{% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}
+    <h3>
+      Menu inscription
+    </h3>
+  {% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
+{% block javascripts %}
+{% endblock %}

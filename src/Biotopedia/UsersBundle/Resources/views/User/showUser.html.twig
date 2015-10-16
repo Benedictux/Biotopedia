@@ -1,0 +1,156 @@
+{# src/Biotopedia/UsersBundle/Resources/views/User/showUser.html.twig #}
+
+{% extends "BiotopediaUsersBundle::layout.html.twig" %}
+
+{% block biotopediausers_content %}
+    <section id="user-show">
+        <div id="user-content">
+            <img id="user-gravatar" src="{{ user.email|getGravatarImage(100)}}" alt="{{ website }} utilise le service gravatar pour l'image de profile. Toi aussi enregistre ton image de profile via gravatar en utilisant la même adresse mail."/>
+            <table>
+                <tr>
+                    <th>Nom d'utilisateur :</th><td>{{ user.username }}<td>
+                </tr>
+                <tr>
+                    <th>Statut :</th>
+                    <td>
+                    {% for role in user.roles %}
+                        {% if role == 'ROLE_ADMIN'%}Administrateur 
+                        {% else %} Membre du site 
+                        {% endif %}
+                    {% endfor %}
+                    <td>
+                </tr>
+                {% if is_granted('ROLE_ADMIN') or app.user.username is defined and app.user.username == user.username %}
+                <tr>
+                    <th>email :</th><td>{{ user.email }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+
+        <div id="user-files">
+            <div class="table-liste" id="table-user-familles">
+                <table>
+                    <caption><b>Familles</b></caption>
+                    <thead>
+                        <tr>
+                            <th>Nom scientifique</th>
+                            <th>Date de création</th>
+                            <th>Dernière mise à jour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if not user.familles.empty %}
+                        {% for famille in user.familles %}
+                        <tr>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': famille.id }) }}">
+                                {{ famille.scientificName }}</a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': famille.id }) }}">
+                                <time datetime="{{ famille.created | date('c') }}">
+                                    {{ famille.created | localizeddate('full', 'none') }}</time></a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': famille.id }) }}">
+                                <time datetime="{{ famille.updated | date('c') }}">
+                                    {{ famille.updated | localizeddate('full', 'none') }}</time></a>
+                           </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="3">Aucune fiche Famille rédigée.</td></tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-liste" id="table-user-poissons">
+                <table>
+                    <caption><b>Poissons</b></caption>
+                    <thead>
+                        <tr>
+                            <th>Nom scientifique</th>
+                            <th>Date de création</th>
+                            <th>Dérnière mise à jour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if not user.poissons.empty %}
+                        {% for poisson in user.poissons %}
+                        <tr>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
+                                {{ poisson.scientificName }}</a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
+                                <time datetime="{{ poisson.created | date('c') }}">                                 {{ poisson.created | localizeddate('full', 'none') }}</time></a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
+                                <time datetime="{{ poisson.updated | date('c') }}">
+                                    {{ poisson.updated | localizeddate('full', 'none') }}</time></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="3">Aucune fiche Poisson rédigée.</td></tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-liste" id="table-user-article">
+                <table>
+                    <caption><b>Articles</b></caption>
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Date de création</th>
+                            <th>Dérnière mise à jour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if not user.articles.empty %}
+                        {% for article in user.articles %}  
+                        <tr>
+                            <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+                                {{ article.titre }}</a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+                                <time datetime="{{ article.created | date('c') }}">
+                                    {{ article.created | localizeddate('full', 'none') }}</time></a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+                                <time datetime="{{ article.updated | date('c') }}">
+                                    {{ article.updated | localizeddate('full', 'none') }}</time></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="3">Aucun article rédigé.<a href="{{ path('biotopedia_core_rediger') }}" title="Rédiger une fiche ou un article"> Commencez en un ?</a></td></tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock biotopediausers_content %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{% if is_granted('ROLE_ADMIN') or app.user.username is defined == user.username %}Administration de{% endif %} {{ user.username }}</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+            <ul>
+            {% if app.user.username is defined and user.username == app.user.username or is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('bp_users_editUser', { 'username': user.username }) }}">
+                    Éditer mon profil</a></li>
+                <li><a href="#">
+                    Demande de suppression de mon profil</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li><a href="{{ path('bp_userAdmin_homepage') }}">
+                    Administration SUPERADMIN</a></li>
+            {% endif %}
+                <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+                Index des familles</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">
+                Index des catégories</a></li>
+            </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

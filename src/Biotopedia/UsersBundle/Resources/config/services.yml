@@ -1,0 +1,52 @@
+parameters:
+    bp_users.user_type.class: Biotopedia\UsersBundle\Form\Type\UserType
+    bp_users.user_edit_type.class: Biotopedia\UsersBundle\Form\Type\UserEditType
+    bp_users.user_admin_type.class: Biotopedia\UsersBundle\Form\Type\UserAdminType
+    bp_users.user_manager.class: Biotopedia\UsersBundle\Manager\UserManager
+    bp_users.login_listener.class: Biotopedia\UsersBundle\Listener\LoginListener
+    bp_users.activity_listener.class: Biotopedia\UsersBundle\Listener\ActivityListener
+
+services:
+#    bp_users.example:
+#        class: %bp_users.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+#######################################################################
+###Formulaires#########################################################
+    bp_users.form.type.user:
+        class: "%bp_users.user_type.class%"
+        tags:
+            - { name: form.type, alias: userType }
+    bp_users.form.type.userEdit:
+        class: "%bp_users.user_edit_type.class%"
+        tags:
+            - { name: form.type, alias: userEditType }
+    bp_users.form.type.userPW:
+        class: Biotopedia\UsersBundle\Form\Type\UserPWType
+        tags:
+            - { name: form.type, alias: userPWType }
+    bp_users.form.type.reset:
+        class: Biotopedia\UsersBundle\Form\Type\ResetType
+        tags:
+            - { name: form.type, alias: resetType }
+    bp_users.form.type.userAdmin:
+        class: "%bp_users.user_admin_type.class%"
+        tags:
+            - { name: form.type, alias: userAdminType }
+#######################################################################
+###UserManager#########################################################
+    bp_users.user_manager:
+        class: "%bp_users.user_manager.class%"
+        arguments: [@doctrine.orm.entity_manager]
+#######################################################################
+###Listeners###########################################################
+    bp_users.login_listener:
+        class: "%bp_users.login_listener.class%"
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityController }
+
+    bp_users.activity_listener:
+        class: "%bp_users.activity_listener.class%"
+        arguments: [@security.context, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onControllers }

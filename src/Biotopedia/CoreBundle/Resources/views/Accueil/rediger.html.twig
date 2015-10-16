@@ -1,0 +1,33 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Accueil/rediger.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+   Rédiger - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Rédaction de fiche et d'article</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+  <section id="rediger-show">
+    <p><span class="x-large">Profesionnel, enseignant, curieux, étudiant ou simplement passionné par la science du vivant et des milieux aquatiques ?</span></br>
+    <span class="large">Vous aussi partagez votre savoir et vos experiences d'aquariophile débutant, amateur ou chevronné, créez vos fiches Famille et Poisson ou rédigez vos articles !</span></p>
+    <p> Afin de rendre l'aquariophilie plus accessible, le bon vouloir et le partage de chacun sont maîtres d'oeuvres sur {{ website }}, alors lancez-vous ! Venez transmettre votre savoir au sein de la communauté du site {{ website }}, qui met à votre disposition, des outils de création faciles à utiliser.</p>
+    <p> Le module de création de fiches et d'articles est ouvert à tous, il vous suffit de rejoindre la communauté en vous inscrivant puis de vous connecter sur le site.</br>
+    Je vous invite à créer votre travail et ensuite à me le proposer pour validation. Faites attention toutefois à ne pas proposer une fiche déja existante ou un article traitant un sujet déjà existant sur le site ! J'ai créé une <a href="{{ path('biotopedia_core_charteEditoriale') }}" title="Charte éditoriale">charte éditoriale</a> qui guidera vos premier pas.</br></br>
+    À vous de jouer ! </p>
+  </section>
+{% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{{ parent() }} rédactions</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+        <ul>
+          <li><a href="{{ path('biotopedia_pisciotheque_addFamille') }}" title="Ajouter une famille">Créer une famille</a></li>
+          <li>
+            <a href="{{ path('biotopedia_mediatheque_homepage') }}" title="Ajouter un article">Créer un article</a></li>
+        </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

@@ -1,0 +1,6 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Macro/boutonBack.html.twig #}
+{# Pas encore utilisé, il faut l'emplanter comme dans cette vidéo http://www.devandclick.fr/tutoriels-videos/2015/la-minute-symfony-episode-3-utiliser-les-macros-avec-twig.html #}
+
+{% macro back(path, label) %}
+	<div class="bouton-back"><p><a href="{{ path(path) }}">{{ label }}</a></p></div>
+{% endmacro %}

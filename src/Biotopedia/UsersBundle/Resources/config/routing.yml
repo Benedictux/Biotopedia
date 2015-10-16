@@ -1,0 +1,52 @@
+#User####################################################################
+bp_users_homepage:
+    path:     /users
+    defaults: { _controller: BiotopediaUsersBundle:User:index }
+bp_users_showUser:
+    path:     /users/show/{username}
+    defaults: { _controller: BiotopediaUsersBundle:User:showUser }
+    requirements:
+        user_id:  \w+
+bp_users_editUser:
+    path:     /users/edit/{username}
+    defaults: { _controller: BiotopediaUsersBundle:User:editUser }
+    requirements:
+        user_id:  \w+
+
+#Security#################################################################
+login:
+    pattern:   /login
+    defaults:  { _controller: BiotopediaUsersBundle:Security:login }
+login_check:
+    pattern:   /login_check
+logout:
+    pattern:   /logout
+register:
+    path:     /register
+    defaults: { _controller: BiotopediaUsersBundle:Security:register }
+activate:
+    path:     /activate/{salt}
+    defaults: { _controller: BiotopediaUsersBundle:Security:activate }
+changePassword:
+    path:     /changePassword/{id}
+    defaults: { _controller: BiotopediaUsersBundle:Security:changePassword }
+    requirements:
+        user_id:  \d+
+reset:
+    path:     /reset
+    defaults: { _controller: BiotopediaUsersBundle:Security:reset }
+
+#Admin####################################################################
+bp_users_admin_homepage:
+    path:     /Admin/users
+    defaults: { _controller: BiotopediaUsersBundle:UserAdmin:index }
+bp_users_admin_editUser:
+    path:     /Admin/editUser/{username}
+    defaults: { _controller: BiotopediaUsersBundle:UserAdmin:editUser}
+    requirements:
+        user_id:  \w+
+bp_users_admin_deleteUser:
+    path:     /Admin/deleteUser/{username}
+    defaults: { _controller: BiotopediaUsersBundle:UserAdmin:deleteUser}
+    requirements:
+        user_id:  \w+

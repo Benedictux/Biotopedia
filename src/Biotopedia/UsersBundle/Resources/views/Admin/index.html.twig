@@ -1,0 +1,78 @@
+{# src/Biotopedia/UsersBundle/Resources/views/Admin/index.html.twig #}
+
+{% extends "BiotopediaUsersBundle::layout.html.twig" %}
+
+{% block title %}
+   Index utilisateurs - {{ parent() }}
+{% endblock %}
+
+{% block biotopediausers_content %}
+  <h2 class="content-titre">- Administration - Index utilisateurs</h2>
+	<div class="table-liste">
+		<table>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>email</th>
+					<th>Dernier login</th>
+					<th>Actif</th>
+					<th>Rôle</th>
+					<th>Familles</th>
+					<th>Poissons</th>
+					<th>Articles</th>
+					<th>Manager</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.username }}</td>
+					<td>{{ user.email }}</td>
+					<td><time datetime="{{ user.lastlogin | date('c') }}">{{ user.lastlogin | localizeddate('full', 'none') }}</time></td>
+					<td>{{ user.enabled }}</td>
+					<td>
+						<table>
+							{% for role in user.roles %}
+								<tr>
+									<td>{{ role }}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</td>
+					<td>{{ user.nbFamilles }}</td>
+					<td>{{ user.nbPoissons }}</td>
+					<td>{{ user.nbArticles }}</td>
+					<td>
+						<div class="bouton">
+							<p>
+								<a href="{{ path('bp_users_admin_editUser', {'username': user.username}) }}">Éditer</a>
+							</p>
+						</div>
+						<div class="bouton-danger">
+							<p>
+								<a href="{{ path('bp_users_admin_deleteUser', {'username': user.username}) }}">Supprimer</a>
+							</p>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+    	<h3>Menu du SUPER ADMIN</h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+                Index des familles</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+                Index des poissons</a></li>
+			<li><a href="{{ path('bp_users_showUser', { 'username': app.user.username }) }}">
+				Voir mon profil SUPER ADMIN</a></li>
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

@@ -1,0 +1,20 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Source/addSource.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter une source - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Ajouter une source</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+	<p>Vous vous apprêtez à ajouter une nouvelle source dans sur le site Biotopedia !</p>
+	<form action="{{ path('biotopedia_core_addSource') }}" method="post" {{ form_enctype(form) }}>
+		
+{{ form_rest(form) }}
+
+	</form>
+{% endblock %}

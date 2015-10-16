@@ -1,0 +1,53 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Accueil/descriptionSite.html.twig #}
+
+{% extends "BiotopediaCoreBundle::layout.html.twig" %}
+
+{% block title %}
+   Déscription du site {{ website }} - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">C'est quoi ?</h3>
+{% endblock %}
+
+{% block biotopediacore_content %}
+    <section id="description-site-show">
+      <div id="cest-quoi-div" style = "background-image: url({{ asset (('bundles/biotopediacore/images/Barbues.jpg'))}}); background-position:center center;">
+        <p><span><b>Des informations claires, disponibles pour tout les aquariophiles</b></span></br></br>
+        Le monde aquatique à la portée de chacun !</p>
+      </div>
+      <div id="plateforme-div">
+        <div>
+          <h3>Une plateforme communautaire accesible à tous, 100% en ligne</h3>
+          <p>Tout le monde peut partager une brique de savoir et enrichir la connaissance global. Passionés, étudiants, professionels, bricoleurs...</p>
+        </div>
+        <img src="{{ asset (('bundles/biotopediacore/images/myLaptop.png')) }}">
+      </div>
+      <div id="pisciotheque-div">
+        <img src="{{ asset (('bundles/biotopediacore/images/myBD.png')) }}">
+        <div>
+          <h3>Une banque de données du vivant en relation avec les milieux aquatique</h3>
+          <p>La Pisciothèque, regroupe toutes les informations dont l'aquariophile a besoin, afin d'établir les conditions necessaires à la vie de chaqu'une des ecpèces et les faire cohabiter entre elles. Les amateurs pratiquant l'élevage, trouverons des techniques de reproductions dans des condifitons au plus proche de celles trouvées en milieux naturel.</p>
+        </div>
+      </div>
+      <div id="mediatheque-div">
+        <div>
+          <h3>Un centre de partage d'experiences et connaissances</h3>
+          <p>La Médiathèque regroupe, sous forme d'article, toutes les informations et connaissances nécessaires à l'établissement de biotopes et le maintient d'un equilibre élémetaire au sein de nos aquariums et bassins pour de meilleurs conditions de vie. </p>
+        </div>
+        <img src="{{ asset (('bundles/biotopediacore/images/myMediatheque.png')) }}">
+      </div>
+ 	</section>
+{% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{{ parent() }} déscription</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+        <ul>
+            <li>Adresse: Rhône-Alpes</li>
+            <li>Téléphone: {{ webcontact_tel }}</li>
+            <li>M@il webmaster: {{ webcontact_site }}</li>
+            <li>M@il profesionnel: {{ webcontact_pro }}</li>
+        </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

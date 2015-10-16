@@ -1,0 +1,24 @@
+{# src/Biotopedia/UsersBundle/Resources/views/Security/resettingEmail.html.twig #}
+
+{% block subject %}Resetting your password{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Hello {{ looser }} !
+Voici votre mot de passe actuel : <b>{{ newPassword }}</b>
+
+Vous pouvez en défnir un nouveau en accedant à <a href="{{ lien }}">votre page de profil</a>
+
+Greetings,
+the Biotopedia team
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{#
+    You can of course render the html directly here.
+    Including a template as done here allows keeping things DRY by using
+    the template inheritance in it
+
+{% include 'AcmeDemoBundle:User:resetting_email.html.twig' %}#}
+{% endblock %}

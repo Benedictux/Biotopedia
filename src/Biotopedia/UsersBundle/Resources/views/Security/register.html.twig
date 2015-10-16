@@ -1,0 +1,88 @@
+{# src/Biotopedia/UsersBundle/Resources/views/User/register.html.twig #}
+
+{% extends "BiotopediaUsersBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un utilisateur - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Devenir membre</h3>
+{% endblock %}
+
+{% block biotopediausers_content %}
+  <section id="form-register">
+  	<p>Vous vous apprêtez à devenir membre du site Biotopedia !</p>
+  	<form action="{{ path('register') }}" method="post" {{ form_enctype(form) }}>
+
+      <div class="error">
+        {{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      </div>
+
+  		<table id="user-identite-table-form" class="user-table-form">
+        <tr>
+          <th>{{ form_label(form.username, "Nom d'utilisateur") }}</th>
+        	<th>{{ form_label(form.email, "Votre email") }}</th>
+          <th>{{ form_label(form.password, "Votre mot de passe") }}</th>
+        </tr>
+        <tr>
+          <td class="popup">
+            {{ form_errors(form.username) }}
+            {{ form_widget(form.username) }}
+            <span>Votre nom d'utilisateur est publique et unique, il sera donc visible de tous, ex: Benedictux.</span>
+          </td>
+        	<td class="popup">
+        		{{ form_errors(form.email) }}
+        		{{ form_widget(form.email.first) }}
+            {{ form_widget(form.email.second) }}
+            <span>
+              Pour réussir l’inscription, l'email doit être de forme : toto@hotmail.fr.</br>
+              Pour éviter toutes erreurs, tapez le deux fois ! 
+            </span>
+        	</td>
+          <td class="popup">
+            {{ form_errors(form.password) }}
+            {{ form_widget(form.password.first) }}
+            {{ form_widget(form.password.second) }}
+            <span>
+              Choisissez un mot de passe compliqué</br>
+              Pour éviter toutes erreurs, tapez le deux fois ! 
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="3">{{ form_label(form.conditionsdutilisations, "Conditions D'utilisation") }}</th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            {{ form_errors(form.conditionsdutilisations) }}
+            <p>En vous inscrivant, vous acceptez les <a href="{{ path('biotopedia_core_conditionsUtilisation') }}" title="Voir les conditions d'utilisation du site Biotopedia.fr">conditions d'utilisation</a> du site! {{ form_widget(form.conditionsdutilisations) }}
+            </p>
+          </td>
+          <td>
+            {{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+          </td>
+        </tr>
+      </table>
+  	</form>
+  </section>
+{% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}
+    <h3>
+      Menu inscription
+    </h3>
+  {% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
+{% block javascripts %}
+{% endblock %}

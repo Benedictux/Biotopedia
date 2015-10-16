@@ -1,0 +1,69 @@
+{# src/Biotopedia/UsersBundle/Resources/views/Security/reset.html.twig #}
+
+{% extends "BiotopediaUsersBundle::layout.html.twig" %}
+
+{% block title %}
+  Générer un nouveau mot de passe- {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Générer un nouveau mot de passe</h3>
+{% endblock %}
+
+{% block biotopediausers_content %}
+  <section id="form-reset">
+  	<p>
+      Vous vous apprêtez à générer un nouveau mot de passe ! </br>
+      Pour générer un nouveau mot de passe, il est necessaire d'indiquer votre nom d'utilisateur !
+    </p>
+
+    <form action="{{ path('reset') }}" method="POST" {{ form_enctype(form) }}>
+
+      <div class="error">
+        {{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      </div>
+
+      <table id="reset-table-form" class="user-table-form">
+        <tr>
+          <th>{{ form_label(form.username, "Nom d'utilisateur") }}</th>
+        </tr>
+        <tr>
+          <td class="popup">
+            {{ form_errors(form.username) }}
+            {{ form_widget(form.username) }}
+            <span>Votre nom d'utilisateur pour lequel vous avez oublié le mot de passe.</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+          </td>
+        </tr>
+      </table>
+          {#
+              Si vous voulez contrôler l'URL vers laquelle l'utilisateur est redirigé en cas de succès
+              (plus de détails ci-dessous)
+              <input type="hidden" name="_target_path" value="/account" />
+          #}
+    </form>
+  </section>
+{% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}
+    <h3>
+      Menu inscription
+    </h3>
+  {% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
+{% block javascripts %}
+{% endblock %}

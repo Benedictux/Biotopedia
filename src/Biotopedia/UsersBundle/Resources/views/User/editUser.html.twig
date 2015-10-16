@@ -1,0 +1,70 @@
+{# src/Biotopedia/UsersBundle/Resources/views/User/editUser.html.twig #}
+
+{% extends "BiotopediaUsersBundle::layout.html.twig" %}
+
+{% block title %}
+  Éditer son profile - {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }}<h3 class="content-titre">Éditer son profile</h3>
+{% endblock %}
+
+{% block biotopediausers_content %}
+  <section id="form-editUser">
+  	<p>Vous vous apprêtez à modifier votre profile !</p>
+  	<form action="{{ path('bp_users_editUser', { 'username': user.username }) }}" method="post" {{ form_enctype(form) }}>
+
+      <div class="error">
+        {{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      </div>
+
+  		<table id="user-identite-table-form" class="user-table-form">
+        <tr>
+          <th>{{ form_label(form.username, "Nom d'utilisateur") }}</th>
+        	<th>{{ form_label(form.email, "Votre email") }}</th>
+        </tr>
+        <tr>
+          <td class="popup">
+            {{ form_errors(form.username) }}
+            {{ form_widget(form.username) }}
+            <span>Votre nom d'utilisateur est publique et unique, il sera donc visible de tous, ex: Benedictux.</span>
+          </td>
+        	<td class="popup">
+        		{{ form_errors(form.email) }}
+        		{{ form_widget(form.email.first) }}
+            {{ form_widget(form.email.second) }}
+            <span>L'email doit être valide pour valider l'inscription, ex: toto@hotmail.fr.</span>
+        	</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            {{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+          </td>
+        </tr>
+      </table>
+      <a href = "{{ path('changePassword', { 'id': user.id }) }}">Changer de mot de passe ?</a>
+  	</form>
+  </section>
+{% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}
+    <h3>
+      Menu inscription
+    </h3>
+  {% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+      <li><a href="{{ path('bp_users_showUser', { 'username': user.username }) }}">
+        Retour à mon profile</a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
+{% block javascripts %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{# src/Biotopedia/CoreBundle/Resources/views/Macro/animationChargement.html.twig #}
+
+{% macro chargement() %}
+	<div class="chargement">
+     	<div></div>
+     	<div></div>
+     	<div></div>
+	</div>
+	<script type="text/javascript">
+        jQuery(window).load(function(){ jQuery(".chargement").fadeOut("200"); });
+    </script>
+{% endmacro %}

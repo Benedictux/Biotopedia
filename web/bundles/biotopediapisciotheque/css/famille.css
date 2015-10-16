@@ -1,0 +1,138 @@
+/**INDEX*************************************************************************/
+#navigateur-famille{
+	margin: 15px;
+  	display: inline-flex;
+  	flex-wrap: nowrap;
+}
+.index-famille {
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	margin: 10px;
+	border-radius:10px;
+	box-shadow:
+		0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+		0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+	text-align: center;
+}
+.index-famille table{
+	border-collapse: collapse;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	border-radius:10px;
+	width: 100%;
+	height: 100%;
+	text-shadow:1px 1px 1px 1px white;
+	transition:all .5s cubic-bezier(.6,2,.4,1);
+}
+.index-famille table:hover{
+    transform: scale(1.5);
+    box-shadow:0 0 10px black;
+}
+#navigateur-famille:hover .index-famille table:not(:hover){
+    filter: grayscale(1) blur(5px);
+}
+.index-famille table thead th{
+	background-color: rgba(0, 0, 0, 0.4);
+	border-top-right-radius:10px;
+	border-top-left-radius:10px;
+	width: 100%;
+	height: 20%;
+}
+.index-famille table tbody tr{
+	width: 100%;
+	height: 80%;
+}
+
+/**SHOW FAMILLE*************************************************************************/
+#famille-show{
+	padding: 10px;
+	background-color: #121212;
+	box-shadow:
+    	0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    	0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+#famille-show .link-image{
+	float: right;
+	margin: 10px;
+	transition:all .5s cubic-bezier(.6,2,.4,1);
+}
+#famille-show .link-image:hover{
+	z-index: 999;
+    transform: scale(1.5);
+    background-color: #121212;
+    box-shadow:0 0 10px black;
+}
+#famille-show header{}
+#famille-show header h2{
+	display: inline-block;
+}
+#famille-show header time{
+	display: inline-block;
+	font-size:smaller;
+	color: rgb(107, 103, 103);
+}
+#famille-show p{
+	min-height: 80px; 
+}
+#famille-show footer{
+	margin: 10px 0; 
+}
+#famille-show footer table{ font-size: small;}
+#famille-show footer table img{ border-radius: 20px;}
+#famille-poissons {
+	padding: 10px 0;
+	border-radius: 10px;
+  	background-color: #303030;
+  	box-shadow:
+    	0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    	0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font-size: small;
+}
+#famille-poissons table{
+	width:94%;
+	margin-left: 3%
+}
+
+/**FORMULAIRE FAMILLE*************************************************************************/
+#form-addFamille{}
+#form-editFamille img{
+	float:right;
+	margin-left: 5px;
+}
+.famille-table-form{
+	display: inline-block;
+	vertical-align: top;
+	background-color: #303030;
+	border-spacing: 0px;
+  	border-collapse: collapse;
+  	border:solid 2px #2F4F4F;
+  	margin-bottom: 5px;
+}
+.famille-table-form td{
+	border:solid 2px #2F4F4F;
+	padding:5px;
+}
+.famille-table-form th{
+	background-color: #2F4F4F;
+  	text-align: center;
+}
+
+#famille-identite-table-form textarea{
+	width: 98%;
+	height: 300px;
+	resize: none;
+}
+
+#famille-poissons-table-form {
+	display: inline-block;
+	vertical-align: top;
+	width: 45%;
+}
+
+#famille-poissons-table-form #familleType_poissons{
+	display: inline-block;
+	width: 100%;
+	border: 1px solid #335C77;
+}

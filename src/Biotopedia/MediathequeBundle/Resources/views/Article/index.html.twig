@@ -11,49 +11,53 @@
 {% endblock %}
 
 {% block biotopediamediatheque_content %}
-  	<nav class="menu-vertical">
-        <h4>Menu Article</h4>
-        <ul>
-           	<li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">Index Catégories</a></li>
+	<p>Hello, Bienvenue sur la mediathèque du site Biotopedia ! Voici les articles présents sur le site :</p>
+	<div class="table-liste">
+		<table>
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Description</th>
+					<th>Auteur</th>
+					<th>Dernière mis à jour</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for article in articles %}
+				<tr>
+					<td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+						{{ article.titre }}</a>
+					</td>
+					<td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+						{{ article.contenu|truncate(300, true, '[...]')|raw }}</a>
+					</td>
+					<td><a href="{{ path('fos_user_profile_show') }}">
+						{{ article.auteur }}</a>
+					</td>
+					<td>
+						{% if article.updated is not null %}<a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+						<time datetime="{{ article.updated | date('c') }}">{{ article.updated | localizeddate('full', 'none') }}</time></a>
+						{% else %}
+							~
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<p>Si toi aussi, tu veux rédiger des articles sur le site Biotopedia, rejoins la communauté !</p>
+{% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>Menu article</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+            <ul>
+            	<li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">Index Catégories</a></li>
             {#// On vérifie que l'utilisateur dispose bien du rôle ROLE_ADMIN #}
    			{% if is_granted("ROLE_ADMIN") %}
 				<li><a href="{{ path('biotopedia_mediatheque_addCategorie') }}">Ajouter une Categorie</a></li>
 			{% endif %}
-
-    	</ul>
-    </nav>
-	<p>Hello, Bienvenue sur la mediathèque du site Biotopedia ! Voici les articles présents sur le site :</p>
-	<table id="table_index">
-		<thead>
-			<tr>
-				<th>Titre</th>
-				<th>Description</th>
-				<th>Auteur</th>
-				<th>Dernière mis à jour</th>
-			</tr>
-		</thead>
-		<tbody>
-		{% for article in articles %}
-			<tr>
-				<td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
-					{{ article.titre }}</a>
-				</td>
-				<td><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
-					{{ article.contenu|truncate(300, true, '[...]')|raw }}</a>
-				</td>
-				<td><a href="{{ path('fos_user_profile_show') }}">
-					{{ article.auteur }}</a>
-				</td>
-				<td>
-					{% if article.updated is not null %}<a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
-					<time datetime="{{ article.updated | date('c') }}">{{ article.updated | localizeddate('full', 'none') }}</time></a>
-					{% else %}
-						~
-					{% endif %}
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	<p>Si toi aussi, tu veux rédiger des articles sur le site Biotopedia, rejoins la communauté !</p>
-{% endblock %}
+            </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

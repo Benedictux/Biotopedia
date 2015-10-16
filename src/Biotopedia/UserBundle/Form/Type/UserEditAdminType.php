@@ -18,21 +18,18 @@ class UserEditAdminType extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $roles = array(
-      'ROLE_USER' =>'ROLE_USER',
-      'ROLE_AUTEUR' =>'ROLE_AUTEUR',
-      'ROLE_ADMIN' =>'ROLE_ADMIN',
-      'ROLE_SUPER_ADMIN' =>'ROLE_SUPER_ADMIN',
-      );
 
     $builder
       ->add('username', 'text')
       ->add('email', 'email')
-      ->add('roles', 'choice', array(
-        'choices' => $roles,
-        'multiple' => true))
-      ->add('enabled')
-      ; 
+      //->add('roles', 'choice', array(
+        //'choices' => array(
+          //'ROLE_USER' =>'ROLE_USER',
+          //'ROLE_AUTEUR' =>'ROLE_AUTEUR',
+          //'ROLE_ADMIN' =>'ROLE_ADMIN',
+          //'ROLE_SUPER_ADMIN' =>'ROLE_SUPER_ADMIN')))
+      ->add('enabled','checkbox', array(
+          'required'  => false)); 
   }
 
   public function getName()

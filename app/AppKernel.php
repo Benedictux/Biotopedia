@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Biotopedia\PisciothequeBundle\BiotopediaPisciothequeBundle(),
             new Biotopedia\MediathequeBundle\BiotopediaMediathequeBundle(),
             new Biotopedia\CoreBundle\BiotopediaCoreBundle(),
+            new Biotopedia\UsersBundle\BiotopediaUsersBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

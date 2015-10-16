@@ -17,6 +17,9 @@ class BiotopediaCoreExtension extends Extension
     /**
      * {@inheritDoc}
      */
+    #La méthode load() est automatiquement exécutée par Symfony2 lorsque le bundle est chargé.
+    #Ce qui charge le fichier de configuration services.yml, et permet d'enregistrer la définition
+    #des services qu'il contient dans le conteneur de services. 
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();

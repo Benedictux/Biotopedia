@@ -32,6 +32,12 @@ biotopedia_pisciotheque_deleteFamille:
     requirements:
         famille_id:  \d+
 
+biotopedia_pisciotheque_deleteFamilleFromUser:
+    path:     /pisciotheque/deleteFamilleFromUser/{id}
+    defaults: { _controller: BiotopediaPisciothequeBundle:Famille:deleteFamilleFromUser }
+    requirements:
+        famille_id:  \d+
+
 ##############################################################################
 
 biotopedia_pisciotheque_indexPoisson:

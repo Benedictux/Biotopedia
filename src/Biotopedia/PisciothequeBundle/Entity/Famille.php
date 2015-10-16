@@ -76,14 +76,8 @@ class Famille
      */
     private $image_directory;
 
-
     //Chaque Famille néccesite une Image (JoinColumn(nullable=false)), donc cascade sur persite car 
     //on doit persiter une Image quand je persite une Famille.
-    //'s' car une famille peut être liée à plusieurs images.
-    //L'entité inverse Famille doit être au courant des caractéristiques
-    //de la relation, définies dans l'annotation de l'entité propriétaire Image.
-    //Le mappedBy correspond donc à l'attribut de l'entité propriétaire (Image)
-    //pointant vers l'entité inverse (Famille) : private $famille
     /**
     * @ORM\OneToOne(targetEntity="Biotopedia\CoreBundle\Entity\Image", cascade={"persist", "remove", "merge"})
     */
@@ -105,7 +99,7 @@ class Famille
     private $nb_poissons = 0;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Biotopedia\UserBundle\Entity\User", inversedBy="familles")
+    * @ORM\ManyToMany(targetEntity="Biotopedia\UsersBundle\Entity\User", inversedBy="familles")
     */
     private $auteurs;
 
@@ -379,10 +373,10 @@ class Famille
     /**
     * Add users
     *
-    * @param \Biotopedia\UserBundle\Entity\User $user
+    * @param \Biotopedia\UsersBundle\Entity\User $user
     * @return Famille
     */
-    public function addAuteur(\Biotopedia\UserBundle\Entity\User $user)
+    public function addAuteur(\Biotopedia\UsersBundle\Entity\User $user)
     {
         // Ici, on utilise l'ArrayCollection vraiment comme un tableau
         $this->auteurs[] = $user;
@@ -393,9 +387,9 @@ class Famille
     /**
     * Remove users
     *
-    * @param \Biotopedia\UserBundle\Entity\User $user
+    * @param \Biotopedia\UsersBundle\Entity\User $user
     */
-    public function removeAuteur(\Biotopedia\UserBundle\Entity\User $user)
+    public function removeAuteur(\Biotopedia\UsersBundle\Entity\User $user)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->auteurs->removeElement($user);
@@ -423,6 +417,21 @@ class Famille
         $this->nb_poissons--;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function increase()
+    {
+        $this->getAuteur()->increaseFamille();
+    }
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function decrease()
+    {
+        $this->getAuteur()->decreaseFamille();
+    }
     //////////////////////////////////////////////////////////////////////////////////
     /**
     * @ORM\PrePersist()
@@ -430,7 +439,7 @@ class Famille
     */
     public function preCreation()
     {
-
+        // Si image_directory existe c'est un update 
         if(null !== $this->image_directory){
             $this->temp_directoryname = $this->image_directory;
             $this->setUpdated(new \Datetime());
@@ -475,4 +484,6 @@ class Famille
             rmdir($this->getImageDirectory());
         }
     }
+    //////////////////////////////////////////////////////////////////////////////////
+
 }

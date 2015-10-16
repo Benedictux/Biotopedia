@@ -3,34 +3,22 @@
 {% extends "BiotopediaPisciothequeBundle::layout.html.twig" %}
 
 {% block title %}
-   Fiche famille - {{ parent() }}
+    Fiche famille - {{ parent() }}
 {% endblock %}
 
 {% block titre %}
-  {{ parent() }}<h3 class="content-titre">Fiche famille</h3>
+    {{ parent() }}<h3 class="content-titre">Fiche famille</h3>
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
-
-	{% if is_granted('ROLE_AUTEUR', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN') %}
-		<nav class="menu-vertical">
-        	<h4>Administration de {{ famille.scientificName }}</h4>
-            <ul>
-                <li><a href="{{ path('biotopedia_pisciotheque_addFamille')}}">
-                    Ajouter une famille</a></li>
-                <li><a href="{{ path('biotopedia_pisciotheque_editFamille', { 'id': famille.id }) }}">
-                    Éditer la famille</a></li>
-                <li><a href="{{ path('biotopedia_pisciotheque_deleteFamille', { 'id': famille.id }) }}">
-                    Supprimer la famille</a></li>
-                <li><a href="{{ path('biotopedia_pisciotheque_addPoisson', { 'id': famille.id })}}">
-                    Ajouter un poisson</a></li>
-    		</ul>
-    	</nav>
-	{% endif %}
-
-    <aside id="famille-show">
+    <article id="famille-show">
+        {% if famille.image.webPath is not null %}
+            <a class="link-image" href="{{ path('biotopedia_core_showImage', { 'id': famille.image.id }) }}"><img class="#" src="{{ asset ((famille.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ famille.image.alt }} image not found"/></a>
+        {% else %}
+            <p class="var-non-definie">{{ var_non_definie }}</p>
+        {% endif %}
         <header>
-            <h3>{{ famille.scientificName }} ({{ famille.commonName }})</h3>
+            <h2>{{ famille.scientificName }} ({{ famille.commonName }})</h2>
             {% if famille.updated is not null %}
                 <time datetime="{{ famille.updated | date('c') }}">Éditée le {{ famille.updated | localizeddate('full', 'none') }}</time>
             {% else %}
@@ -38,66 +26,108 @@
             {% endif %}
         </header>
         <p>
-            <a href="{{ path('biotopedia_core_showImage', { 'id': famille.image.id }) }}"><img class="#" src="{{ asset ((famille.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ famille.image.alt }} image not found"/></a>
             {{ famille.description }}
         </p>
         <footer>
             {% if not famille.auteurs.empty %}
-                {% for auteur in famille.auteurs %}
-                    <a href="{{ path('fos_user_profile_show') }}">{{ auteur.username }}</a>
-                            {% if not loop.last %}, {% endif %}
-                {% endfor %}
-            {% endif %}
-        </footer>
-    </aside>
-
-<section id="famille-poissons">
-        <header><h3>{{ 'Poissons appartenant à la famille '|upper }}{{ famille.scientificName|upper }}</h3></header>
-        <div id="table-index">
-            <table>
-                <thead>
+                <table>
                     <tr>
-                        <th>Nom Commun</th>
-                        <th>Nom Scientifique</th>
-                        <th>Auteur </th>
-                        <th>Date de création</th>
-                        <th>Dernière mise à jour</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% if not famille.poissons.empty %}
-                    {% for poisson in famille.poissons %}
-                    <tr>
-                        <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">{{ poisson.commonName }}</a>
-                        </td>
-                        <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">{{ poisson.scientificName }}</a>
-                        </td>
+                        {% for auteur in famille.auteurs %}
                         <td>
-                            {% if not poisson.auteurs.empty %}
-                                {% for auteur in poisson.auteurs %}
-                                    <a href="{{ path('fos_user_profile_show') }}">{{ auteur.username }}</a>
-                                    {% if not loop.last %}, {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        </td>
-                        <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}"><time  datetime="{{ poisson.created | date('c') }}">{{ poisson.created | localizeddate('full', 'none')   }}</time></a>
-                        </td>
-                        <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
-                            {% if poisson.updated is not null %}
-                                <time datetime="{{ poisson.updated | date('c') }}">{{ poisson.updated | localizeddate('full', 'none') }}</time></a>
-                            {% else %}
-                                ~
-                            {% endif %}
+                            <a href="{{ path('bp_users_showUser', { 'id': auteur.id }) }}" rel="author">
+                                <img src="{{ auteur.email|getGravatarImage(40)}}" alt=""/>
+                                {{ auteur.username }}
                             </a>
                         </td>
+                        {% endfor %}
                     </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr><td colspan="5">Aucun poisson n'a été rédiger pour la famille {{ famille.commonName }}, pour le moment ! Rejoignez la communauté et soyez le premier a poster un poisson dans cette famille.</td></tr>
-                {% endif %}
-                </tbody>
-            </table>
+                </table>
+            {% endif %}
+        </footer>
+
+        <div id="famille-poissons">
+            <header><h3>{{ 'Poissons appartenant à la famille '|upper }}{{ famille.scientificName|upper }}</h3></header>
+            <div class="table-liste">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom Commun</th>
+                            <th>Nom Scientifique</th>
+                            <th>Auteur </th>
+                            <th>Date de création</th>
+                            <th>Dernière mise à jour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if not famille.poissons.empty %}
+                        {% for poisson in famille.poissons %}
+                        <tr>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">{{ poisson.commonName }}</a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">{{ poisson.scientificName }}</a>
+                            </td>
+                            <td>
+                                {% if not poisson.auteurs.empty %}
+                                    {% for auteur in poisson.auteurs %}
+                                        <a href="{{ path('bp_users_showUser', { 'id': auteur.id }) }}">{{ auteur.username }}</a>
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}"><time  datetime="{{ poisson.created | date('c') }}">{{ poisson.created | localizeddate('full', 'none')   }}</time></a>
+                            </td>
+                            <td><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
+                                {% if poisson.updated is not null %}
+                                    <time datetime="{{ poisson.updated | date('c') }}">{{ poisson.updated | localizeddate('full', 'none') }}</time></a>
+                                {% else %}
+                                    ~
+                                {% endif %}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="5">Aucun poisson n'a été rédiger pour la famille {{ famille.commonName }}, pour le moment ! Rejoignez la communauté et soyez le premier a poster un poisson dans cette famille.</td></tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </section>
-    
+    </article>
 {% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+        <h3>
+        {% if is_granted('ROLE_USER') %}
+             Administration de {{ famille.scientificName | title }}
+        {% else %}
+            Menu famille
+        {% endif %}
+        </h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+                Index des familles</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+                Index des poissons</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_addFamille') }}">
+                 Ajouter une nouvelle famille</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_addPoisson', { 'id': famille.id }) }}">
+                 Ajouter un poisson à la famille</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_editFamille', { 'id': famille.id }) }}">
+                Éditer cette famille</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('biotopedia_pisciotheque_deleteFamille', { 'id': famille.id }) }}">
+                    Supprimer la famille</a></li>
+            {% endif %}
+        {% for auteur in famille.auteurs %}
+            {% if app.user.username is defined and auteur.username == app.user.username %}
+                <li><a href="{{ path('biotopedia_pisciotheque_deleteFamille', { 'id': famille.id }) }}">
+                    Demande de suppression de la famille</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

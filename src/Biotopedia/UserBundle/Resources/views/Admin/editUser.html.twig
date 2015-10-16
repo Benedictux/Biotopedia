@@ -11,8 +11,6 @@
   
     <p>Vous vous apprêtez à modifier l'utilisateur {{ user.username }}</p>
 
-	<hr/>
-
 	<form action="{{ path('biotopedia_userAdmin_edit', { 'id': user.id }) }}" method="post" {{ form_enctype(form) }}>
     <fieldset>
       <legend>Utilisateur</legend>
@@ -24,7 +22,8 @@
       	<tr>
         	<td>{{ form_label(form.username, "Nom d'utilisateur") }}</td>
         	<td>{{ form_label(form.email, "email") }}</td>
-          <td>{{ form_label(form.roles, "Rôles") }}</td>
+         {# <td>{{ form_label(form.roles, "Rôles") }}</td> #}
+          <td>{{ form_label(form.enabled, "Activé") }}</td>
       	</tr>
 
       	<tr>
@@ -36,13 +35,17 @@
       			{{ form_errors(form.email) }}
       			{{ form_widget(form.email) }}
       		</td>
-          <td rowspan="3">
+         {# <td>
             {{ form_errors(form.roles) }}
             {{ form_widget(form.roles) }}
+          </td> #}
+          <td>
+            {{ form_errors(form.enabled) }}
+            {{ form_widget(form.enabled) }}
           </td>
       	</tr>
       	<tr>
-      		<td colspan="3">
+      		<td>
       				{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
       				{{ form_rest(form) }}
       		</td>

@@ -11,120 +11,91 @@
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
-	<p>Vous vous apprêtez à ajouter une nouvelle famille dans la pisciothèque du site Biotopedia !</p>
-	<form action="{{ path('biotopedia_pisciotheque_addFamille') }}" method="post" {{ form_enctype(form) }}>
-		<fieldset>
-      <legend>Famille</legend>
-    	<div class="error">
-      		{{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
-    	</div>
-		  <table>
-      	<tr>
-      		<td>{{ form_label(form.common_name, "Nom Commun") }}</td>
-      		<td>{{ form_label(form.scientific_name, "Nom Scientifique") }}</td>
-          <td>{{ form_label(form.image, "Photo") }}</td>
-      	</tr>
+  <section id="form-addFamille">
+  	<p>Vous vous apprêtez à ajouter une nouvelle famille dans la pisciothèque du site Biotopedia !</p>
+  	<form action="{{ path('biotopedia_pisciotheque_addFamille') }}" method="post" {{ form_enctype(form) }}>
 
-      	<tr>
-      		<td>
-      			{{ form_errors(form.common_name) }}
-      			{{ form_widget(form.common_name) }}
-      		</td>
-      		<td>
-      			{{ form_errors(form.scientific_name) }}
-      			{{ form_widget(form.scientific_name) }}
-      		</td>
+      <div class="error">
+        {{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      </div>
+
+  		<table id="famille-identite-table-form" class="famille-table-form">
+        <tr>
+          <th>{{ form_label(form.scientific_name, "Nom Scientifique") }}</th>
+        	<th>{{ form_label(form.common_name, "Nom Commun") }}</th>
+          <th>{{ form_label(form.image, "Photo de la famille") }}</th>
+        </tr>
+        <tr>
+          <td class="popup">
+            {{ form_errors(form.scientific_name) }}
+            {{ form_widget(form.scientific_name) }}
+            <span>Le nom latin de la famille, ex: Cichlidae.</span>
+          </td>
+        	<td class="popup">
+        		{{ form_errors(form.common_name) }}
+        		{{ form_widget(form.common_name) }}
+            <span>Le nom commun de la famille, ex: Cichlidés.</span>
+        	</td>
           <td>
             {{ form_errors(form.image) }}
             {{ form_widget(form.image) }}
           </td>
-      	</tr>
-        <tr>
-          <td colspan="4">
-            {{ form_label(form.description, "Description") }}
-          </td>
         </tr>
         <tr>
-          <td colspan="4">
+          <th colspan="3">{{ form_label(form.description, "Description") }}</th>
+        </tr>
+        <tr>
+          <td class="popup" colspan="3">
             {{ form_errors(form.description) }}
-            {{ form_widget(form.description, {'attr': {'rows': '16', 'cols':'50'}}) }}
+            {{ form_widget(form.description) }}
+            <span>Faire une description de la famille. Voici quelques pistes pour vous guider: Origine global, nombre d'éspèces recensées, l'ordre ou sous-ordre...</span>
           </td>
         </tr>
-    		<tr>
-    			<td colspan="2">
-    				{{ form_rest(form) }}{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
-    			</td>
-    		</tr>
       </table>
-    </fieldset>
-	</form>
+
+      <table id="famille-poissons-table-form" class="famille-table-form">
+        <tr>
+          <th>{{ form_label(form.poissons, "Poissons") }}</th>
+        </tr>
+        <tr>
+          <td>
+            <p>Dans ce formulaire, pour des raisons de lisibilité, les informations concernant les poissons ajoutés sont minimales. De nombreuses informations pourrons être ajoutées dans le menu d'éditions du poisson en post-création.</p>
+            {{ form_errors(form.poissons) }}
+            {{ form_widget(form.poissons) }}
+          </td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>
+            {{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+          </td>
+        </tr>
+      </table>
+  	</form>
+  </section>
 {% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}
+    <h3>
+      Menu famille
+    </h3>
+  {% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
 
 {% block javascripts %}
   <script src="{{ asset('js/jquery-2.1.3.js') }}"></script>
-  {# Voici le script en question : #}
-  <script type="text/javascript">
-    $(document).ready(function() {
-      // On récupère la balise <div> contenant l'attribut « data-prototype » d'id="familleType_poissons".
-      var $container = $('div#familleType_poissons');
-  
-      // On ajoute un lien pour ajouter un nouveau poisson
-      var $addLink = $('<div class="bouton"><p><a href="#" id="add_poisson">Ajouter</a></p></div>');
-      $container.append($addLink);
-  
-      // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-      $addLink.click(function(e) {
-        addPoisson($container);
-        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-        return false;
-      });
-  
-      // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-      var index = $container.find(':input').length;
-
-      // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle famille par exemple).
-      if (index == 0) {
-        addPoisson($container);
-      } else {
-         // Pour chaque poisson déjà existante, on ajoute un lien de suppression
-        $container.children('div').each(function() {
-          addDeleteLink($(this));
-        });
-       }
-  
-      // La fonction qui ajoute un formulaire Poisson
-      function addPoisson($container) {
-        // Dans le contenu de l'attribut « data-prototype », on remplace :
-        // - le texte "__name__label__" qu'il contient par le label du champ
-        // - le texte "__name__" qu'il contient par le numéro du champ
-        var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Poisson n°' + (index +1))
-            .replace(/__name__/g, index));
-  
-        // On ajoute au prototype un lien pour pouvoir supprimer le poisson
-        addDeleteLink($prototype);
-  
-        // On ajoute le prototype modifié à la fin de la balise <div>
-        $container.append($prototype);
-  
-        // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-        index++;
-      }
-  
-       // La fonction qui ajoute un lien de suppression d'un poisson
-       function addDeleteLink($prototype) {
-        // Création du lien
-        $deleteLink = $('<div class="bouton-danger"><p><a href="#">Supprimer</a></p></div>');
-  
-        // Ajout du lien
-        $prototype.append($deleteLink);
-  
-        // Ajout du listener sur le clic du lien
-         $deleteLink.click(function(e) {
-          $prototype.remove();
-          e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-          return false;
-        });
-      }
-    });
-</script>
+  {% javascripts '@BiotopediaPisciothequeBundle/Resources/public/js/Famille/addFamille.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 {% endblock %}

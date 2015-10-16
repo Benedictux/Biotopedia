@@ -11,14 +11,58 @@
 {% endblock %}
 
 {% block biotopediacore_content %}
-    <table id="table_show">
-        <tr>
-            <th>Nom:</th>
-            <td>{{ image.alt }}</td>
-        </tr>
-        <tr>
-            <th>Photo :</th>
-            <td><img src="{{ asset (image.webPath) }}" alt="{{ image.alt }} image not found"/></td>
-        </tr>
-    </table>
+    <section id="image-show">
+        <div class="table-image-show">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ image.alt }}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th>Extention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ image.extension }}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th>Date de l'upload</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><time datetime="{{ image.created | date('c') }}">le {{ image.created | localizeddate('full', 'none') }}</time></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <img src="{{ asset (image.webPath) }}" alt="{{ image.alt }} image not found"/>
 {% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+        <h3>
+            {{ parent() }} Image
+        </h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="#">
+                Voir les droits (indisponible)</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_homepage') }}">
+                Index des Familles</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_homepage') }}">
+                Index des catégories</a></li>
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

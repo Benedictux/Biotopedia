@@ -2,15 +2,41 @@ biotopedia_homepage:
     path:     /
     defaults: { _controller: BiotopediaCoreBundle:Accueil:index }
 
+biotopedia_core_description:
+    path:     /description
+    defaults: { _controller: BiotopediaCoreBundle:Accueil:descriptionSite }
+
+biotopedia_core_rediger:
+    path:     /rediger
+    defaults: { _controller: BiotopediaCoreBundle:Accueil:rediger }
+
 biotopedia_core_conditionsUtilisation:
     path:     /conditionsUtilisation
     defaults: { _controller: BiotopediaCoreBundle:Accueil:conditionsUtilisation }
+
+biotopedia_core_charteEditoriale:
+    path:     /charteEditoriale
+    defaults: { _controller: BiotopediaCoreBundle:Accueil:charteEditoriale }
+
+############################################################################################
+
+biotopedia_core_showSource:
+    path:     /showSource/{id}
+    defaults: { _controller: BiotopediaCoreBundle:Source:showSource }
+    requirements:
+        famille_id:  \d+
+
+biotopedia_core_addSource:
+    path:     /addSource
+    defaults: { _controller: BiotopediaCoreBundle:Source:addSource }
 
 ############################################################################################
 
 biotopedia_core_showImage:
     path:     /showImage/{id}
     defaults: { _controller: BiotopediaCoreBundle:Image:showImage }
+    requirements:
+        famille_id:  \d+
 
 ############################################################################################
 

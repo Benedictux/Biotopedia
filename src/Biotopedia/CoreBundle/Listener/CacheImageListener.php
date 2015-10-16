@@ -5,6 +5,7 @@ namespace Biotopedia\CoreBundle\Listener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Biotopedia\CoreBundle\Entity\Image;
 use Biotopedia\PisciothequeBundle\Entity\Famille;
+use Biotopedia\PisciothequeBundle\Entity\Poisson;
   
 class CacheImageListener
 {
@@ -20,8 +21,8 @@ class CacheImageListener
     {
         $entity = $args->getEntity();
 
-        // Si c'est une instance de Famille qui a été modifiée.
-        if ($entity instanceof Famille) {
+        // Si c'est une instance de Famille ou de Poisson qui a été modifiée.
+        if ($entity instanceof Famille OR $entity instanceof Poisson) {
             // Si on avait un ancien dossier
             if (is_dir($entity->getTempdirectoryname()))
             {
@@ -46,9 +47,10 @@ class CacheImageListener
             }
         }
 
-        if ($entity instanceof Famille OR $entity instanceof Image) {
+        if ($entity instanceof Famille OR $entity instanceof Poisson OR $entity instanceof Image) {
             // Je vide le cache des vignettes
             $this->cacheManager->remove("uploads/img/Familles/");
+            $this->cacheManager->remove("uploads/img/Poissons/");
         }
     }
  
@@ -60,6 +62,10 @@ class CacheImageListener
         if ($entity instanceof Famille) {
             // vider le cache des vignettes
             $this->cacheManager->remove("uploads/img/Familles/");
+        }
+        if ($entity instanceof Poisson) {
+            // vider le cache des vignettes
+            $this->cacheManager->remove("uploads/img/Poissons/");
         }
     }
 }

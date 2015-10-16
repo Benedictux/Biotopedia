@@ -11,15 +11,31 @@
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
-  <p>Etes-vous certain de vouloir supprimer le poisson <b>"{{ poisson.scientificName }}"</b> ?</p>
+  <p>Etes-vous certain de vouloir supprimer le poisson <i>"{{ poisson.scientificName|capitalize }}"</i> ?</p>
   {# On met l'id du poisson dans la route de l'action du formulaire #}
   <form action="{{ path('biotopedia_pisciotheque_deletePoisson', {'id': poisson.id}) }}" method="post">
-    <a href="{{ path('biotopedia_pisciotheque_showPoisson', {'id': poisson.id}) }}" class="btn btn-default">
+    <a href="{{ path('biotopedia_pisciotheque_showPoisson', {'id': poisson.id}) }}" class="bouton">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour au poisson
     </a>
     {# Ici j'ai écrit le bouton de soumission à la main #}
-    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    <input type="submit" value="Supprimer" class="bouton-danger" />
     {{ form_rest(form) }}{# Ceci va générer le champ CSRF #}
   </form> 
 {% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}<h3>Menu poisson <i>{{ poisson.scientificName|capitalize }}</i></h3>{% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
+        Retour à la fiche poisson <i>{{ poisson.scientificName|capitalize }}</i></a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': poisson.famille.id }) }}">
+        Retour à la fiche famille <b>{{ poisson.famille.scientificName }}</b></a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

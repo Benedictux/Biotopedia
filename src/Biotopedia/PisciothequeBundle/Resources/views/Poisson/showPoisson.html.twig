@@ -3,49 +3,174 @@
 {% extends "BiotopediaPisciothequeBundle::layout.html.twig" %}
 
 {% block title %}
-	Fiche poisson - {{ parent() }}
+    Fiche poisson - {{ parent() }}
 {% endblock %}
 
 {% block titre %}
-  {{ parent() }}<h3 class="content-titre">Fiche poisson</h3>
+    {{ parent() }}<h3 class="content-titre">Fiche poisson</h3>
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
-
-	{% if is_granted('ROLE_AUTEUR', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN') %}
-		<nav class="menu-vertical">
-        	<h4>Administration de {{ poisson.scientificName }}</h4>
-            <ul>
-            	<li><a href="{{ path('biotopedia_pisciotheque_addPoisson', { 'id': poisson.famille.id })}}">
-                    Ajouter un poisson</a></li>
-				<li><a href="{{ path('biotopedia_pisciotheque_editPoisson', { 'id': poisson.id }) }}">
-					Éditer</a></li>
-				<li><a href="{{ path('biotopedia_pisciotheque_deletePoisson', { 'id': poisson.id }) }}">
-					Supprimer</a></li>
-			</ul>
-		</nav>
-	{% endif %}
-
-    <aside id="poisson-show">
+    <article id="poisson-show">
         <header>
-            <h3>{{ poisson.scientificName }} ({{ poisson.commonName }})</h3>
+            <h2>{{ poisson.scientificName | title }} ({{ poisson.commonName | title }})</h2>
             {% if poisson.updated is not null %}
                 <time datetime="{{ poisson.updated | date('c') }}">Éditée le {{ poisson.updated | localizeddate('full', 'none') }}</time>
             {% else %}
                 <time datetime="{{ poisson.created | date('c') }}">Rédigé le {{ poisson.created | localizeddate('full', 'none') }}</time>
             {% endif %}
         </header>
-        <p>
-            <a href="{{ path('biotopedia_core_showImage', { 'id': poisson.image.id }) }}"><img class="#" src="{{ asset ((poisson.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ poisson.image.alt }} image not found"/></a>
-            {{ poisson.description }}
-        </p>
+        <div id="poisson-description">
+            <h4>Déscription</h4>
+            <p>{% if poisson.description is not null %}{{ poisson.description }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</p>
+            <h4>Comportement social</h4>
+            <p>{% if poisson.comportementSocial is not null %}{{ poisson.comportementSocial }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</p>
+            <h4>Dimorphisme sexuel</h4>
+            <p>{% if poisson.dimorphismeSexuel is not null %}{{ poisson.dimorphismeSexuel }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</p>
+            <h4>Reproduction</h4>
+            <p>{% if poisson.reproduction is not null %}{{ poisson.reproduction }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</p>
+        </div>
+        <aside>
+            <table>
+                <thead>
+                    <tr><th colspan="2">{{ poisson.scientificName | title }}</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            {% if poisson.image.webPath is not null %}
+                                <a href="{{ path('biotopedia_core_showImage', { 'id': poisson.image.id }) }}"><img class="#" src="{{ asset ((poisson.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ poisson.image.alt }} image not found"/></a>
+                            {% else %}
+                                <p class="var-non-definie">{{ var_non_definie }}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr><th colspan="2">Famille</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2">{% if poisson.famille.scientificName is not null %}{{ poisson.famille.scientificName }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                </tbody>
+                <thead>
+                    <tr><th colspan="2">Origine</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2">{% if poisson.origine is not null %}{{ poisson.origine }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                </tbody>
+                <thead>
+                    <tr><th colspan="2">Type</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2">{% if poisson.type is not null %}{{ poisson.type }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                </tbody>
+                <thead>
+                    <tr><th colspan="2">Zone</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2">{% if poisson.zone is not null %}{{ poisson.zone }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                </tbody>
+                <thead>
+                    <tr><th colspan="2">Taille</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2">{% if poisson.taille is not null %}{{ poisson.taille }} cm{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                <thead>
+                    <tr><th colspan="2">Caractéristiques chimiques</th></tr>
+                </thead>
+                <tbody id="poisson-chimie">
+                    <tr><td>Température : </td><td>{% if poisson.temperature is not null %}{{ poisson.temperature }}°C{% else %}<p class="var-non-definie">{{ var_non_definie }}{% endif %}</td></tr>
+                    <tr><td>pH : </td><td>{% if poisson.ph is not null %}{{ poisson.ph }}{% else %}<p class="var-non-definie">{{ var_non_definie }}{% endif %}</td></tr>
+                    <tr><td>Dureté : </td><td>{% if poisson.durete is not null %}{{ poisson.durete }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                </tbody>
+                <thead>
+                    <tr><th colspan="2">Difficulté</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2">{% if poisson.difficulte is not null %}{{ poisson.difficulte }}{% else %}<p class="var-non-definie">{{ var_non_definie }}</p>{% endif %}</td></tr>
+                </tbody>
+            </table>
+        </aside>
         <footer>
-            {% if not poisson.auteurs.empty %}
-                {% for auteur in poisson.auteurs %}
-                    <a href="{{ path('fos_user_profile_show') }}">{{ auteur.username }}</a>
-                            {% if not loop.last %}, {% endif %}
-                {% endfor %}
-            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Auteur(s)</th>
+                        <th>Source(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>   
+                        <td>
+                        {% if not poisson.auteurs.empty %}
+                            <table>
+                            {% for auteur in poisson.auteurs %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('bp_users_showUser', { 'id': auteur.id }) }}" rel="author">
+                                            <img src="{{ auteur.email|getGravatarImage(40)}}" alt=""/>
+                                            {{ auteur.username }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        {% endif %}
+                        </td>
+                        <td>
+                        {% if not poisson.sources.empty %}
+                            <ul>
+                            {% for source in poisson.sources %}
+                                <li><p>{{ source.name }}
+                                    {% if source.hreflang is not null %}
+                                        ({{ source.hreflang }})
+                                    {% endif %}
+                                    {% if source.href is not null %}
+                                        <a href="{{ source.href }}" title="{{ source.title }}"> : {{ source.href }}</a>
+                                    {% endif %}
+                                    </p>
+                                </li>
+                            {% endfor %}   
+                            </ul>
+                        {% else %}
+                            <p class="var-non-definie">Cette fiche poisson ne site aucune sources ! </br>Pour plus de crédibilité, informez vous d'avantage sur ce poisson et n'hésitez pas à enrichir les données de cette fiche.</p>
+                        {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </footer>
-    </aside>
+    </article>
 {% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+        <h3>
+            {% if is_granted('ROLE_USER') %}
+                Administration de {{ poisson.scientificName | title }}
+            {% else %}
+                Menu poisson
+            {% endif %}
+        </h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+                Index famille</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+                Index poisson</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_addPoisson', { 'id': poisson.famille.id })}}">
+                Ajouter un poisson</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_editPoisson', { 'id': poisson.id }) }}">
+                Éditer ce poisson</a></li>
+            <li><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': poisson.famille.id }) }}">
+                Retour à la famille</a></li>
+        {% for auteur in poisson.auteurs %}
+            {% if app.user.username is defined and auteur.username == app.user.username or is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('biotopedia_pisciotheque_deletePoisson', { 'id': poisson.id }) }}">
+                Supprimer ce poisson</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

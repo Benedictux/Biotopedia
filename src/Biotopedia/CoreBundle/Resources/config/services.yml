@@ -8,12 +8,24 @@ services:
 #        class: %biotopedia_core.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
 
+    ###FORMULAIRE###############################################################
     biotopedia_core.form.type.image:
         class: Biotopedia\CoreBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: imageType }
 
-    ############################################################################
+    biotopedia_core.form.type.source:
+        class: Biotopedia\CoreBundle\Form\Type\SourceType
+        tags:
+            - { name: form.type, alias: sourceType }
+
+    ###GRAVATAR#################################################################
+    biotopedia_core.gravatar.twig.extension:
+        class: Biotopedia\CoreBundle\TwigExtensions\GravatarExtension
+        tags:
+            -  { name: twig.extension }
+
+    ###LISTENER cacheimage######################################################
     biotopedia_core.cacheimage_listener:
         class: Biotopedia\CoreBundle\Listener\CacheImageListener
         arguments: ["@liip_imagine.cache.manager"]

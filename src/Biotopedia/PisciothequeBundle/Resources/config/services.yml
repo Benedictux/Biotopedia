@@ -16,6 +16,18 @@ services:
         tags:
             - { name: form.type, alias: poissonFamilleType }
 
+    biotopedia_pisciotheque.form.type.poissonMini:
+        class: Biotopedia\PisciothequeBundle\Form\Type\PoissonMiniType
+        tags:
+            - { name: form.type, alias: poissonMiniType }
+
+    biotopedia_pisciotheque.form.type.poissonEdit:
+        class: Biotopedia\PisciothequeBundle\Form\Type\PoissonEditType
+        tags:
+            - { name: form.type, alias: poissonEditType }
+
+    #######################################################################
+
     biotopedia_pisciotheque.form.type.famille:
         class: Biotopedia\PisciothequeBundle\Form\Type\FamilleType
         tags:

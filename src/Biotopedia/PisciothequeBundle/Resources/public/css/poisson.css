@@ -1,10 +1,53 @@
 /**INDEX*************************************************************************/
-
+#navigateur-poisson{
+	margin: 15px;
+	display: inline-flex;
+  	flex-wrap: nowrap;
+}
+.index-poisson {
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	margin: 10px;
+	border-radius:10px;
+	box-shadow:
+		0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+		0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+	text-align: center;
+}
+.index-poisson table{
+	border-collapse: collapse;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	border-radius:10px;
+	width: 100%;
+	height: 100%;
+	text-shadow:1px 1px 1px 1px white;
+	transition:all .5s cubic-bezier(.6,2,.4,1);
+}
+.index-poisson table:hover{
+    transform: scale(1.5);
+    box-shadow:0 0 10px black;
+    z-index: 10;
+}
+#navigateur-poisson:hover .index-poisson table:not(:hover){
+    filter: grayscale(1) blur(5px);
+    z-index: 1;
+}
+.index-poisson  table thead th{
+	background-color: rgba(0, 0, 0, 0.4);
+	border-top-right-radius:10px;
+	border-top-left-radius:10px;
+	width: 100%;
+	height: 20%;
+}
+.index-poisson  table tbody tr{
+	width: 100%;
+	height: 80%;
+}
 
 /**SHOW POISSON*************************************************************************/
 #poisson-show{
-	min-width: 70%;
-	margin: 0 10px 10px 10px;
 	padding: 10px;
 	background-color: #121212;
 	box-shadow:
@@ -12,9 +55,84 @@
     	0px 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
 
-#poisson-show header{
+#poisson-show header{}
+#poisson-show header h2{
+	display: inline-block;
+}
+#poisson-show header time{
+	display: inline-block;
+	font-size:smaller;
+	color: rgb(107, 103, 103);
+}
+#poisson-show div {
+	display: table-cell;
+	min-width: 80%; 
+}
+#poisson-show aside{
+	display: table-cell;
+	text-align: center;
+}
+#poisson-show aside table{
+  	border-spacing: 0px;
+  	border-collapse: collapse;
+  	border:solid 1px #2F4F4F;
+}
+#poisson-show aside table thead, #poisson-show footer table thead{
+	background-color: #2F4F4F;
+}
+#poisson-show aside table tbody td{
+	transition:all .5s cubic-bezier(.6,2,.4,1);
+}
+#poisson-show aside table tbody td:hover{
+	z-index: 999;
+    transform: scale(1.5);
+    background-color: #121212;
+    box-shadow:0 0 10px black;
+}
+#poisson-show aside table #poisson-chimie tr td:first-child{
+	text-align: right;
+	width: 40%;
+}
+#poisson-show footer{
+	border:solid 1px #2F4F4F;
+	margin-top: 10px;
+}
+
+#poisson-show footer table{
+	width: 100%;
+  	border-spacing: 0px;
+  	border-collapse: collapse;
+}
+#poisson-show footer table td:first-child{
+	min-width: 25%;
+}
+#poisson-show footer table table{ font-size: small;}
+#poisson-show footer table table img{ border-radius: 20px;}
+
+
+/**FORMULAIRE POISSON*************************************************************************/
+#form-addPoisson{}
+.poisson-table-form{
+	background-color: #303030;
+	border-spacing: 0px;
+  	border-collapse: collapse;
+  	border:solid 2px #2F4F4F;
+  	margin-left: 0.2%;
+  	margin-bottom: 10px;
+}
+.poisson-table-form th{
+	background-color: #2F4F4F;
+  	text-align: center;
+}
+#poisson-identite-table-form, #poisson-chimie-table-form, #poisson-image-table-form, #poissonFamilleType_sources {
+	display: inline-block;
+	vertical-align: top;
+}
+#poisson-description-table-form{
 	width: 100%;
 }
-#poisson-show header h3, #poisson-show header time{
-	display: inline-block;
+#poisson-description-table-form textarea{
+	width: 98%;
+	height: 300px;
+	resize: none;
 }

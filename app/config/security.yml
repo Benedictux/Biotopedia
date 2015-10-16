@@ -1,30 +1,52 @@
 # app/config/security.yml
-imports:
-    - { resource: "@BiotopediaUserBundle/Resources/config/security.yml"}
-
 security:
+    encoders:
+        Biotopedia\UsersBundle\Entity\User:
+            algorithm: sha512
+            iterations: 8912
+            encode_as_base64: true
+
     role_hierarchy:
-        ROLE_AUTEUR: ROLE_USER
-        ROLE_ADMIN: ROLE_AUTEUR
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_AUTEUR, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
+    providers:
+        main:
+            #id: bp_users.user_manager #Mon UserManager
+            entity: { class: BiotopediaUsersBundle:User, property: username } #à decocher en cas d'utilisation sans usermanager
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                login_path: login
+                check_path: login_check
+            anonymous: true
+            provider:  main
+            logout:
+                path: /logout
+                target: /
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000 # 365 jours en secondes
 
     access_control:
-        - { path: ^/efconnect, role: ROLE_USER }
-        - { path: ^/elfinder, role: ROLE_USER }
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/userAdmin*, role: ROLE_SUPER_ADMIN }
-        - { path: ^/addPoisson, role: ROLE_AUTEUR }
-        - { path: ^/editPoisson, role: ROLE_AUTEUR }
-        - { path: ^/deletePoisson, role: ROLE_AUTEUR }
-        - { path: ^/addFamille, role: ROLE_AUTEUR }
-        - { path: ^/editFamille, role: ROLE_AUTEUR }
-        - { path: ^/deleteFamille, role: ROLE_AUTEUR }
-        - { path: ^/addArticle, role: ROLE_AUTEUR }
-        - { path: ^/editArticle, role: ROLE_AUTEUR }
-        - { path: ^/deleteArticle, role: ROLE_AUTEUR }
-        - { path: ^/addCaregorie, role: ROLE_ADMIN }
-        - { path: ^/editCaregorie, role: ROLE_ADMIN }
-        - { path: ^/deleteCaregorie, role: ROLE_ADMIN }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/deleteFamille, role: ROLE_ADMIN }
+        - { path: ^/addCategorie, role: ROLE_ADMIN }
+        - { path: ^/editCategorie, role: ROLE_ADMIN }
+        - { path: ^/deleteCategorie, role: ROLE_ADMIN }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+
+
+
+#import du security.yml de mon UserBundle utilisant FOSUSERBundle -> à supprimer si j'arrive a fair mon propore UsersBundle
+#imports:
+    #- { resource: "@BiotopediaUserBundle/Resources/config/security.yml"}

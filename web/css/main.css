@@ -1,8 +1,10 @@
-/********GENERAL*************************************************************************/
+/***************************************************************************************/
+/********GENERAL************************************************************************/
+/***************************************************************************************/
 body{
-	font-size: 12px;
 	background-color: #252525;
-	color: #f4f4f4;
+	color: #f1f1f1;
+  font-family: "Trebuchet MS", Verdana, Geneva, Arial;
 }
 body a{color: #7DCF9B; text-decoration: none;}
 
@@ -22,23 +24,32 @@ img.large {
   min-height: 165px;
 }
 
-
 /***************************************************************************************/
-/********HEADER & FOOTER*************************************************************************/
+/******** HEADER ***********************************************************************/
+/***************************************************************************************/
 #header-site, #footer-site {
   background: #121212;
   box-shadow:
     0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
     0px 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
+
+#logo-site{
+  display: inline-block;
+  margin-left: 10px;
+  padding-top: 10px;
+}
+
 #titre-site{
   display: inline-block;
-  margin-left: 10px;}
+  vertical-align: top;
+  margin-left: 10px;
+}
 
 /***************************************************************************************/
 /********MENU***************************************************************************/
-/*Menu points communs*/
-
+/***************************************************************************************/
+/*MENU POINTS COMMUNS*/
 #menu-header-login ul, #menu-horizontal ul{
   list-style: none;
   margin: 0;
@@ -47,25 +58,27 @@ img.large {
   text-align: center ;
 }
 
-/***************************************************************************************/
 /*Menu login*/
 #menu-header-login{
 	display: inline-block;
   margin-top: 10px;
   margin-right: 10px;
   float: right;
-  padding: 3px;
-  width: 12%;
+  padding: 5px;
 	height: 100%;
+  font-size: small;
 	color: #7DCF9B;
   background-color: #2F4F4F; /* DarkSlateGray */
   box-shadow:
     0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
     0px 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
+#menu-header-login ul li{
+    margin: 5px;
+}
+#menu-header-login img{border-radius: 14px; vertical-align:middle;}
 
-/**************************************************************************************/
-/*Menu horizontale*/
+/*MENU HORIZONTALE */
 #menu-horizontal{
   background-attachment: fixed;
 }
@@ -77,8 +90,9 @@ img.large {
   box-shadow:
     0px 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
+
 #menu-horizontal li a {
-  display: block ;
+  display: block;
   height: 15px;
   border-bottom: solid 1px #003355 ;
   color: #fff ;
@@ -87,54 +101,103 @@ img.large {
   padding: 4px 0 ;
   text-align: center ;
 }
+
 #menu-horizontal li a:hover, #menu-horizontal li a:focus, #menu-horizontal li a:active {
   background: #003355 ;
 }
 
-/***************************************************************************************/
-/********SECTION*************************************************************************/
-#main-section-site {
+/*MENU VERTICAL*/
+#menu-vertical{
+  position: fixed;
+  width: 19%;
+  color: white;
+  margin-left: 5px;
+  padding: 1%;
+  font-size: 80%;
+  border-radius: 4px 0 0 4px;
+  background-color: #2F4F4F; /* DarkSlateGray */
+  box-shadow:
+    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
 }
 
-/**************************************************************************************/
-/********TABLEAU***********************************************************************/
-/*Tableau d'index*/
-#table-index {
+/* style du bloc ul */
+#menu-vertical ul {
+  list-style: none; /* supprime les puces de liste */
+  padding: 4px; /* on fait un peu de place autour des liens */
+  margin: 0; /* on annule les marges */
+  background: #5F9EA0; /* CadetBlue */
+}
+ 
+/* styles des liens et éléments de liste */
+#menu-vertical li, #menu-vertical li  a {
+  /* les liens et item deviennent des blocs */
+  /* suffit théoriquement à virer les puces de liste */
+  display: block;
+}
+ 
+/* styles des liens */
+#menu-vertical li a {
+  margin: 1px 0; /* espace les liens d'1 px */
+  padding: 8px 20px; /* marges internes pour aérer */ 
+  background: #252525;
+  color: #f4f4f4;
+  text-decoration: none; /* on vire le soulignement */
+
+  /* on définit la transition pour les navigateurs */
+  transition: all .3s; /* syntaxe officielle */
+}
+ 
+/* styles changeants au survol et focus */
+#menu-vertical li a:hover, #menu-vertical li a:focus {
+  background: #1ABC9C;
+  color: #FFF;
+  padding-left: 30px; /* décalage du contenu de 10px vers la droite (30-20 = 10) */
+}
+
+/***************************************************************************************/
+/******** SECTION **********************************************************************/
+/***************************************************************************************/
+#main-section-site {}
+#main-section-site #colonne-principal{
   display: inline-block;
   vertical-align: top;
-  width: 100%;
-  background-color: transparent;
+  width: 78%;
+  margin-left: 1%;
+  margin-bottom: 1%;
 }
-#table-index table {
+#main-section-site #colonne-secondaire{
   display: inline-block;
   vertical-align: top;
-  margin-bottom: 10px;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  background-color: transparent;
 }
-#table-index table thead{
-  background: linear-gradient( #335C77, #003355);
-  color: white;
-  }
-#table-index table tbody{
-  background-color: #252525;
+
+/***************************************************************************************/
+/******** FOOTER ***********************************************************************/
+/***************************************************************************************/
+#footer-site {
+  background: #121212;
   box-shadow:
     0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
     0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+  font-size: small;
+  text-align: center;
 }
-#table-index table td, #table-index table th{
-  padding: 5px;
+#footer-site table {
+  width: 100%;
+
 }
-#table-index table tr:nth-child(even) {
-  background-color:#303030;
+#footer-site table td, #footer-site table th{
+  width: 25%;
 }
-#table-index table tr:nth-child(odd) {
-  background-color: transparent;
+
+#detail-site{
+  font-size: small;
+  text-align: center;
 }
 
 /*****************************************************************************************/
-/********MES CLASS************************************************************************/
+/******** MES CLASS **********************************************************************/
+/*****************************************************************************************/
 .layout-titre{
   display: inline-block;
   margin-left: 10px;
@@ -149,12 +212,44 @@ img.large {
   text-shadow:0px 1px rgba(200, 200, 200, 0.6), 0px -1px rgba(0, 0, 0, 1);
 }
 
-.bouton a {
-  display:block;
-  width:70px;
+/*Font-size*/
+.xx-large{font-size: xx-large;}
+.x-large{font-size: x-large;}
+.large{font-size: large;}
+
+
+/*Message flash*/
+.flash-info{
+  padding: 10px;
+  background-color: #2F4F4F; /* DarkSlateGray */
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+.flash-info-careful{
+  padding: 10px;
+  background-color: #8B0000; /* DarkRed */
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+/*Message alerte*/
+.alert-danger{
+  padding: 10px;
+  background-color: red;
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+
+/*Bouton*/
+.bouton {
+  margin:5px;
+  padding: 5px 10px;
   line-height:25px;
-  box-shadow: 0 0 5px rgba( 0, 0, 0, 0.5),
-              0 -1px 0 rgba( 255, 255, 255, 0.4);
+  box-shadow:
+    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
   font-size: 1em;
   text-align:center;
   vertical-align:middle;
@@ -164,24 +259,29 @@ img.large {
   text-decoration:none;
   background: linear-gradient( #335C77, #003355);
 }
-.bouton a:hover, .bouton-danger a:hover {
-  color: #222;
-  background: linear-gradient( #777, #333);
+.bouton:hover, .bouton-danger:hover, .bouton-form-add:hover {
+  box-shadow:
+      0px 2px 2px 0px rgba(0, 0, 0, 0.8) inset,
+      0px 100px 100px 0px rgba(0, 0, 0, 0.6) inset,
+      0px 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
-.bouton a:active, .bouton-danger a:active{
-     color: #000;
-     background: #444;
-     background: linear-gradient( #555, #2C2C2C);
-     box-shadow: 1px 1px 10px black inset, 
-                 0 1px 0 rgba( 255, 255, 255, 0.4);
+.bouton:active, .bouton-danger:active, .bouton-form-add:active {
+  color: #000;
+  background: #444;
+  background: linear-gradient( #555, #2C2C2C);
+  box-shadow:
+      0px 2px 2px 0px rgba(0, 0, 0, 0.8) inset,
+      0px 100px 100px 0px rgba(0, 0, 0, 0.6) inset,
+      0px 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
 
-.bouton-danger a {
-  display:block;
-  width:70px;
+.bouton-danger {
+  margin:5px;
+  padding: 5px 10px;
   line-height:25px;
-  box-shadow: 0 0 5px rgba( 0, 0, 0, 0.5),
-              0 -1px 0 rgba( 255, 255, 255, 0.4);
+  box-shadow:
+    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
   font-size: 1em;
   text-align:center;
   vertical-align:middle;
@@ -192,61 +292,131 @@ img.large {
   background: linear-gradient( #B80000, #810000);
 }
 
-/**************************************************************************************/
-/*Menu vertical*/
-.menu-vertical{
-  display: inline-block;
-  position: fixed;
-  top: 130px;
-  right: 0px;
-  width: 12%;
+.bouton-form-add {
+  display:block;
+  text-align:center;
+  padding: 5px;
   color: white;
-  padding: 1%;
-  width:  20%;
-  font-size: 80%;
-  border-radius: 4px 0 0 4px;
-  background-color: #2F4F4F; /* DarkSlateGray */
+  text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.2);
+  background: linear-gradient( #335C77, #003355 );
+}
+.bouton-form-delete {
+  display:block;
+  text-align:center;
+  padding: 5px;
+  color: white;
+  text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.2);
+  background: linear-gradient(#B80000, #810000);
+}
+/*Popup*/
+.popup:hover,a:focus{
+  background:rgba(0,0,0,.4);
+  box-shadow:0 1px 0 rgba(255,255,255,.4);
+}
+.popup span{
+  position:absolute;
+  max-width: 30%;
+  margin-top:1%;
+  margin-left:-15%;  
+  color:#09c;
+  background:rgba(0,0,0,.9);
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,.8);
+  opacity:0;
+  transform:scale(0) rotate(-25deg);
+  transition:all .5s;
+}
+.popup:hover span, .popup:focus span{
+  transform:scale(1) rotate(0);
+  opacity:1;
+}
+/*Tableau*/
+.table-liste {
+  background-color: transparent;
+  font-size: small;
+}
+.table-liste table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+.table-liste table thead{
+  background: linear-gradient( #335C77, #003355);
+  color: white;
+  }
+.table-liste table tbody{
+  background-color: #252525;
   box-shadow:
-    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
-    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+    0px 2px 2px 0px rgba(0, 0, 0, 0.7) inset,
+    0px 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+.table-liste table td, .table-liste table th{
+  padding: 10px;
+}
+.table-liste table tr:nth-child(even) {
+  background-color:#303030;
+}
+.table-liste table tr:nth-child(odd) {
+  background-color: transparent;
+}
+/**Tableau Formulaire*************************************************************************/
+.table-form{
+  display: inline-block;
+  vertical-align: top;
+  background-color: #303030;
+  border-spacing: 0px;
+    border-collapse: collapse;
+    border:solid 2px #2F4F4F;
+    margin-bottom: 5px;
+}
+.table-form td{
+  border:solid 2px #2F4F4F;
+  padding:5px;
+}
+.table-form th{
+  background-color: #2F4F4F;
+    text-align: center;
 }
 
-/* style du bloc ul */
-.menu-vertical ul {
-  width: 250px; /* optionnel, c'est pour la démo */
-  list-style: none; /* supprime les puces de liste */
-  padding: 4px; /* on fait un peu de place autour des liens */
-  margin: 0; /* on annule les marges */
-  background: #5F9EA0; /* CadetBlue */
-}
- 
-/* styles des liens et éléments de liste */
-.menu-vertical li, .menu-vertical li  a {
-  /* les liens et item deviennent des blocs */
-  /* suffit théoriquement à virer les puces de liste */
-  display: block;
-}
- 
-/* styles des liens */
-.menu-vertical li a {
-  margin: 1px 0; /* espace les liens d'1 px */
-  padding: 8px 20px; /* marges internes pour aérer */ 
-  background: #252525;
-  color: #f4f4f4;
-  text-decoration: none; /* on vire le soulignement */
-
-  /* on définit la transition pour les navigateurs */
-  transition: all .3s; /* syntaxe officielle */
-}
- 
-/* styles changeants au survol et focus */
-.menu-vertical li a:hover, .menu-vertical li a:focus {
-  background: #1ABC9C;
-  color: #FFF;
-  padding-left: 30px; /* décalage du contenu de 10px vers la droite (30-20 = 10) */
+.var-non-definie {
+  color: #69A07E;
 }
 
-/**** STRUCTURE COMMUNE AUX BUREAUX, MOBILES...*********************************************************************************************************************************/
-body, #header-site, #menu-horizontal, #main-section-site, #footer-site{width: 100%; margin: 0; padding: 0; border: 0;}
+
+/*****************************************************************************************/
+/********MES ANIMATION************************************************************************/
+/***************************************************************************************/
+@keyframes nomAnim {
+from{background:#09C;height:36px;margin-top:-8px;}
+70%{background:transparent;height:20px;margin-top:0px;}
+to{background:transparent;height:20px;margin-top:0px;}
+}
+.chargement {
+  position : fixed;
+  z-index: 9999;
+  margin: auto;
+  padding: auto;
+  height : 100%;
+  width : 100%;
+  cursor : wait;
+}
+.chargement div {
+     width: 6px;
+     height: 20px;
+     border-radius: 2px;
+     background: transparent;
+     float : left;
+     margin: 0px 2px;
+     animation: nomAnim 1s infinite linear;
+     cursor : wait;
+}
+.chargement div:first-child{animation-delay:0s;}
+.chargement div:nth-child(2){animation-delay:0.1s;}
+.chargement div:last-child{animation-delay:0.2s;}
+
+/***************************************************************************************/
+/**** STRUCTURE COMMUNE AUX BUREAUX, MOBILES...*****************************************/
+/***************************************************************************************/
+body, #header-site, #menu-horizontal, #main-section-site, #footer-site{width: 100%; margin: 0; border: 0;}
  
 body, #header-site, #menu-horizontal, #main-section-site, #footer-site{clear: both;} 

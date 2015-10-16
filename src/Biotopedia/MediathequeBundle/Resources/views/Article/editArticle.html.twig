@@ -50,5 +50,26 @@
   </form>
 {% endblock %}
 
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+        <h3>
+             Menu article <b>{{ article.titre|capitalize }}</b>
+        </h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">
+                Index des catégories</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_indexArticle') }}">
+                Index des articles</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_showArticle', { 'id': article.id }) }}">
+                Retour à l'article <i>{{ article.titre|capitalize }}</i></a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_showCategorie', { 'id': article.categorie.id }) }}">
+                Retour à la catégorie <b>{{ article.categorie.name|capitalize }}</b></a></li>
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
 {% block javascripts %}
 {% endblock %}

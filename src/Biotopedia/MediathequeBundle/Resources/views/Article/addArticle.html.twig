@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block biotopediamediatheque_content %}
-  <p>Vous vous apprêtez à rédiger un article dans la catégorie {{ categorie.name }} de la mediathèque du site Biotopedia !</p>
+  <p>Vous vous apprêtez à rédiger un article dans la catégorie <b>{{ categorie.name }}</b> de la mediathèque du site Biotopedia !</p>
 	<form action="{{ path('biotopedia_mediatheque_addArticle', { 'id': categorie.id }) }}" method="post" {{ form_enctype(form) }}>
 		<fieldset>
       <legend>Article</legend>
@@ -43,6 +43,22 @@
     </fieldset>
 	</form>
 {% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+        <h3>
+             Menu article
+        </h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">
+                Index des catégories</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_indexArticle') }}">
+                Index des articles</a></li>
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
 
 {% block javascripts %}
 {% endblock %}

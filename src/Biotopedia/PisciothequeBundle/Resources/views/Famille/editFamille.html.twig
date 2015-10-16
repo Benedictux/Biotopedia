@@ -7,126 +7,89 @@
 {% endblock %}
 
 {% block titre %}
-  {{ parent() }}<h3 class="content-titre">Éditer la familles des {{ famille.scientificName }}</h3>
+  {{ parent() }}<h3 class="content-titre">Éditer la famille</b></h3>
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
-  <p>Vous vous apprêtez à modifier la famille {{ famille.commonName }} dans la pisciothèque du site Biotopedia !</p>
-	<form action="{{ path('biotopedia_pisciotheque_editFamille', { 'id': famille.id }) }}" method="post" {{ form_enctype(form) }}>
-    <fieldset>
-      <legend>Famille</legend>
-    	<div class="error">
-      		{{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
-    	</div>
-		  <table>
-      	<tr>
-        	<td>{{ form_label(form.common_name, "Nom Commun") }}</td>
-        	<td>{{ form_label(form.scientific_name, "Nom Scientifique") }}</td>
-          <td>{{ form_label(form.image, "Photo => Une nouvelle photo écrasera l'ancienne ci-dessous !") }}</td>
-      	</tr>
-      	<tr>
-      		<td>
-      			{{ form_errors(form.common_name) }}
-      			{{ form_widget(form.common_name) }}
-      		</td>
-      		<td>
-      			{{ form_errors(form.scientific_name) }}
-      			{{ form_widget(form.scientific_name) }}
-      		</td>
-          <td rowspan="4">
-            <img class="#" src="{{ asset ((famille.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ famille.image.alt }} image not found"/>
+  <section id="form-editFamille">
+    <p>Vous vous apprêtez à modifier la famille <b>{{ famille.scientificName|capitalize }}</b> dans la pisciothèque du site {{website}} !</p>
+  	<form action="{{ path('biotopedia_pisciotheque_editFamille', { 'id': famille.id }) }}" method="post" {{ form_enctype(form) }}>
+
+      <div class="error">
+        {{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      </div>
+
+      <table id="famille-identite-table-form" class="famille-table-form">
+        <tr>
+          <th>{{ form_label(form.scientific_name, "Nom Scientifique") }}</th>
+          <th>{{ form_label(form.image, "Photo de la famille") }}</th>
+        </tr>
+        <tr>
+          <td>
+            {{ form_errors(form.scientific_name) }}
+            {{ form_widget(form.scientific_name) }}
+          </td>
+          <td rowspan="3">
+            <img class="#" src="{{ asset ((famille.image.webPath) | imagine_filter('my_thumb_out') ) }}" alt="{{ famille.image.alt }} image not found"/>
+            Ajouter une photo écrasera l'ancienne ci-contre !
+            <hr/>
             {{ form_errors(form.image) }}
             {{ form_widget(form.image) }}
           </td>
-      	</tr>
-      		<tr>
-      		<td colspan="3">
-      				{{ form_label(form.description, "Déscription de la famille") }}
-      		</td>
-      	</tr>
+        </tr>
         <tr>
-          <td colspan="3">
-              {{ form_errors(form.description) }}
-              {{ form_widget(form.description, {'attr': {'rows': '16', 'cols':'50'}}) }}
+          <th>{{ form_label(form.common_name, "Nom Commun") }}</th>
+        </tr>
+        <tr>
+          <td>
+            {{ form_errors(form.common_name) }}
+            {{ form_widget(form.common_name) }}
           </td>
         </tr>
-      		{# </tr>
-            	<td colspan="2">
-            	  <h3>Poissons</h3>
-            	    <ul id="poissons" class="poissons" data-prototype="{{ form_widget(form.poissons.vars.prototype)|e }}">
-            	        {# itère sur chaque tag existant et affiche son unique champ : commonName #}
-            	        {# {% for poisson in form.poissons %}
-            	            <li>{{ form_row(form.poissons) }}</li>
-            	        {% endfor %}
-            	    </ul>
-            	</td>
-          	</tr>#}
-      	<tr>
-      		<td colspan="3">
-      				{{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
-      		</td>
-      	</tr>
+        <tr>
+          <th colspan="3">{{ form_label(form.description, "Description") }}</th>
+        </tr>
+        <tr>
+          <td colspan="3">
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description) }}
+          </td>
+        </tr>
       </table>
-    </fieldset>
-	</form>
+
+      <table>
+        <tr>
+          <td>
+            {{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+          </td>
+        </tr>
+      </table>
+    </form>
+  </section>
 {% endblock %}
 
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}
+    <h3>
+      Menu famille <b>{{ famille.scientificName|capitalize }}</b>
+    </h3>
+  {% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': famille.id }) }}">
+        Retour à la fiche famille <b>{{ famille.scientificName }}</b></a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
 {% block javascripts %}
-    <script src="{{ asset('js/jquery-2.1.3.js') }}"></script>
-    <script>
-		// Récupère le div qui contient la collection de poissons
-		var collectionHolder = $('ul.poissons');
-		
-		// ajoute un lien « add a poisson »
-		var $addPoissonLink = $('<a href="#" class="add_poisson_link">Ajouter un poisson</a>');
-		var $newLinkLi = $('<li></li>').append($addPoissonLink);
-		
-		jQuery(document).ready(function() {
-			// ajoute un lien de suppression à tous les éléments li de
-    		// formulaires de poisson existants
-    		collectionHolder.find('li').each(function() {
-        		addPoissonFormDeleteLink($(this));
-    		});
-
-		    // ajoute l'ancre « ajouter un poisson » et li à la balise ul
-		    collectionHolder.append($newLinkLi);
-		
-		    $addPoissonLink.on('click', function(e) {
-		        // empêche le lien de créer un « # » dans l'URL
-		        e.preventDefault();
-		
-		        // ajoute un nouveau formulaire poisson (voir le prochain bloc de code)
-		        addPoissonForm(collectionHolder, $newLinkLi);
-		    });
-		});
-
-		function addPoissonForm(collectionHolder, $newLinkLi) {
-    		// Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
-    		var prototype = collectionHolder.attr('data-prototype');
-	
-    		// Remplace '__name__' dans le HTML du prototype par un nombre basé sur
-    		// la longueur de la collection courante
-    		var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-		
-    		// Affiche le formulaire dans la page dans un li, avant le lien "ajouter un poisson"
-    		var $newFormLi = $('<li></li>').append(newForm);
-    		$newLinkLi.before($newFormLi);
-
-    		// ajoute un lien de suppression au nouveau formulaire
-    		addPoissonFormDeleteLink($newFormLi)
-		}
-
-		function addPoissonFormDeleteLink($poissonFormLi) {
-    		var $removeFormA = $('<a href="#">Supprimer ce poisson</a>');
-    		$poissonFormLi.append($removeFormA);
-		
-    		$removeFormA.on('click', function(e) {
-    		    // empêche le lien de créer un « # » dans l'URL
-    		    e.preventDefault();
-		
-    		    // supprime l'élément li pour le formulaire de poisson
-    		    $poissonFormLi.remove();
-    		});
-		}
+  <script src="{{ asset('js/jquery-2.1.3.js') }}"></script>
+  {% javascripts '@BiotopediaPisciothequeBundle/Resources/public/js/Famille/editFamille.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 	</script>
 {% endblock %}

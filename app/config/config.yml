@@ -26,12 +26,25 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    #Mes paramètres
+    globals:
+        webmaster: %app_webmaster%
+        webmaster_nom: %app_webmaster_nom%
+        website: %app_website%
+        webcontact_site: %app_webcontact_site%
+        webcontact_pro: %app_webcontact_pro%
+        webcontact_tel: %app_webcontact_tel%
+        var_non_definie: %app_var_non_definie%
+    #Mes Formulaires personnalisés
+    form:
+        resources:
+            - 'BiotopediaCoreBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ]
+    #bundles:        [ BiotopediaPisciothequeBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -106,7 +119,7 @@ fos_user:
         confirmation:
             from_email: # Use this node only if you don't want the global email address for the confirmation email
                 address:        registration@biotopedia.com
-                sender_name:    Biotoepdia Registration
+                sender_name:    Administrateur de Biotopedia
             enabled:    true # change to true for required email confirmation
             template:   BiotopediaUserBundle:User:registration.email.twig
         form:
@@ -175,22 +188,25 @@ liip_imagine:
             #data_loader:          ~
             #default_image:        null
             filters:
-                thumbnail: { size: [120, 120], mode: outbound } # Transforms 100x100,sans respect des proportions
+                interlace:
+                    # mode can be one of none,line,plane,partition
+                    mode: line
+                thumbnail: { size: [120, 120], mode: outbound } # Transforms 120x120,sans respect des proportions
             #post_processors:
                 #name:             []
         my_thumb_in:
             filters:
-                thumbnail: { size: [120, 120], mode: inset } # Transforms en 100x100 avec respect des proportions
+                thumbnail: { size: [120, 120], mode: inset } # Transforms en 120x120 avec respect des proportions
         my_heighten:
             filters:
                 relative_resize: { heighten: 60 } # Transforms 50x40 to 75x60
         my_widen:
             filters:
-                relative_resize: { widen: 200 } # { widen: 32 } = Transforms 50x40 to 32x26
+                relative_resize: { widen: 250 } # { widen: 32 } = Transforms 50x40 to 32x26
         my_increase:
             filters:
                 relative_resize: { increase: 10 } # Transforms 50x40 to 60x50
-        my_widen:
+        my_scale:
             filters:
                 relative_resize: { scale: 0.5}   # Transforms 50x40 to 125x100
 

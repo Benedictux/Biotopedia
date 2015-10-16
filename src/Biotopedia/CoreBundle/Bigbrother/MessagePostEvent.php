@@ -3,7 +3,7 @@
 namespace Biotopedia\CoreBundle\Bigbrother;
 
 use Symfony\Component\EventDispatcher\Event;
-use Biotopedia\UserBundle\Entity\User;
+use Biotopedia\UsersBundle\Entity\User;
 
 //La classe de l'évènement, c'est, la classe de l'objet que le gestionnaire d'évènements va transmettre 
 //aux listeners. C'est lui qui déclenche l'évènement et qui transmet une instance de cette classe.

@@ -76,14 +76,8 @@ class Famille
      */
     private $image_directory;
 
-
     //Chaque Famille néccesite une Image (JoinColumn(nullable=false)), donc cascade sur persite car 
     //on doit persiter une Image quand je persite une Famille.
-    //'s' car une famille peut être liée à plusieurs images.
-    //L'entité inverse Famille doit être au courant des caractéristiques
-    //de la relation, définies dans l'annotation de l'entité propriétaire Image.
-    //Le mappedBy correspond donc à l'attribut de l'entité propriétaire (Image)
-    //pointant vers l'entité inverse (Famille) : private $famille
     /**
     * @ORM\OneToOne(targetEntity="Biotopedia\CoreBundle\Entity\Image", cascade={"persist", "remove", "merge"})
     */
@@ -105,7 +99,7 @@ class Famille
     private $nb_poissons = 0;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Biotopedia\UserBundle\Entity\User", inversedBy="familles")
+    * @ORM\ManyToMany(targetEntity="Biotopedia\UsersBundle\Entity\User", inversedBy="familles")
     */
     private $auteurs;
 
@@ -116,7 +110,6 @@ class Famille
     public function __construct()
     {
         $this->created  = new\DateTime();
-        $this->temp_directoryname     = "1";
         $this->poissons = new ArrayCollection();
         $this->auteurs = new ArrayCollection();
     }
@@ -185,14 +178,6 @@ class Famille
      */
     public function setScientificName($scientific_name)
     {
-        // On vérifie si on avait déjà un scientific_name pour cette entité
-        if ($this->scientific_name !== $scientific_name) {
-            // On sauvegarde l'image_directory de l'entité pour le supprimer plus tard
-            $this->temp_directoryname = $this->image_directory;
-            // On réinitialise les valeurs des attributs image_directory
-            $this->image_directory = null;
-        }
-    
         $this->scientific_name = $scientific_name;
 
         return $this;
@@ -388,10 +373,10 @@ class Famille
     /**
     * Add users
     *
-    * @param \Biotopedia\UserBundle\Entity\User $user
+    * @param \Biotopedia\UsersBundle\Entity\User $user
     * @return Famille
     */
-    public function addAuteur(\Biotopedia\UserBundle\Entity\User $user)
+    public function addAuteur(\Biotopedia\UsersBundle\Entity\User $user)
     {
         // Ici, on utilise l'ArrayCollection vraiment comme un tableau
         $this->auteurs[] = $user;
@@ -402,9 +387,9 @@ class Famille
     /**
     * Remove users
     *
-    * @param \Biotopedia\UserBundle\Entity\User $user
+    * @param \Biotopedia\UsersBundle\Entity\User $user
     */
-    public function removeAuteur(\Biotopedia\UserBundle\Entity\User $user)
+    public function removeAuteur(\Biotopedia\UsersBundle\Entity\User $user)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->auteurs->removeElement($user);
@@ -434,22 +419,15 @@ class Famille
 
     //////////////////////////////////////////////////////////////////////////////////
     /**
-     * @ORM\PreUpdate()
-     */
-    public function updateDate()
-    {
-        $this->setUpdated(new \Datetime());
-    }
-
-    /**
     * @ORM\PrePersist()
     * @ORM\PreUpdate()
     */
     public function preCreation()
     {
-        // Si jamais il n'y a pas de fichier (file = champ facultatif)
-        if (null === $this->scientific_name) {
-            return;
+        // Si image_directory existe c'est un update 
+        if(null !== $this->image_directory){
+            $this->temp_directoryname = $this->image_directory;
+            $this->setUpdated(new \Datetime());
         }
 
         // Ecriture du chemin relatif vers le dossier cible (src/Biotopedia/PisciothequeBundle/Resources/public/images/Familles/ScientificName/)
@@ -464,17 +442,13 @@ class Famille
     //Création du répertoire du scientific_name de la Famille pour stocker les photos.
     /**
     * @ORM\PostPersist()
-    * @ORM\PostUpdate()
     */
     public function createImageDir()
     {
-        // Si on avait un ancien dossier, on le supprime
-        if (null == $this->temp_directoryname)
+        // Si on as pas de dossier on le créer
+        if (!is_dir($this->getImageDirectory()))
         {
             mkdir($this->getImageDirectory(), 0777, true);
-        }
-        else{
-            rename($this->temp_directoryname, $this->getImageDirectory());
         }
     }
 
@@ -493,13 +467,7 @@ class Famille
 
             reset($objects);
             rmdir($this->getImageDirectory());
-
-            //Puis je vide le cache liipimagine
-            $webPath = "uploads/img/Familles/".$this->scientific_name;
-
-            $liipCacheManager = $this->get('liip_imagine.cache.manager');
-            $liipCacheManager->resolve($this->getRequest(),$webPath);
-            $liipCacheManager->remove($webPath);
         }
     }
+    //////////////////////////////////////////////////////////////////////////////////
 }

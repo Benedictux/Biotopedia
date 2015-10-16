@@ -71,7 +71,7 @@ class Article
     //dans l'annotation Many-To-One correspondant au symétrique de 'mappedBy' de 
     //User: private $articles
     /**
-     * @ORM\ManyToOne(targetEntity="Biotopedia\UserBundle\Entity\User", inversedBy="articles", cascade="merge")
+     * @ORM\ManyToOne(targetEntity="Biotopedia\UsersBundle\Entity\User", inversedBy="articles", cascade="merge")
      */    
     private $auteur;
 
@@ -235,10 +235,10 @@ class Article
     /**
      * Set auteur
      *
-     * @param \Biotopedia\UserBundle\Entity\User $user
+     * @param \Biotopedia\UsersBundle\Entity\User $user
      * @return Article
      */
-    public function setAuteur(\Biotopedia\UserBundle\Entity\User $user)
+    public function setAuteur(\Biotopedia\UsersBundle\Entity\User $user)
     {
         $this->auteur = $user;
     
@@ -248,7 +248,7 @@ class Article
     /**
      * Get auteur
      *
-     * @return \Biotopedia\UserBundle\Entity\User 
+     * @return \Biotopedia\UsersBundle\Entity\User 
      */
     public function getAuteur()
     {

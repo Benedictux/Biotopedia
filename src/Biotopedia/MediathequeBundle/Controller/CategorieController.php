@@ -6,13 +6,14 @@ namespace Biotopedia\MediathequeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+use Biotopedia\CoreBundle\Entity\Image;
 use Biotopedia\MediathequeBundle\Entity\Categorie;
 use Biotopedia\MediathequeBundle\Form\Type\CategorieType;
-use Biotopedia\PisciothequeBundle\Entity\Image;
 
 class CategorieController extends Controller
 {
@@ -29,9 +30,6 @@ class CategorieController extends Controller
 
   public function showCategorieAction(Categorie $categorie)
   {
-    if (null === $categorie) {
-      throw new NotFoundHttpException("a categorie' d'id ".$id." n'existe pas.");
-    }
     //Pas besoin de récupèrer en B.D, les data de la famille selon son ID. Le ParamConverter "Categorie $categorie"
     //s'en occupe deja et gére egalement la 404 error sir l'id en roouting n'existe pas. 
     return $this->render('BiotopediaMediathequeBundle:Categorie:showCategorie.html.twig', 
@@ -70,7 +68,7 @@ class CategorieController extends Controller
       $em->persist($categorie);
       $em->flush();
 
-      $request->getSession()->getFlashBag()->add('notice', 'Categorie bien enregistrée.');
+      $request->getSession()->getFlashBag()->add('info', 'Categorie bien enregistrée.');
 
       return $this->redirect($this->generateUrl('biotopedia_mediatheque_showCategorie', array('id' => $categorie->getId())));
     }
@@ -86,9 +84,6 @@ class CategorieController extends Controller
       // Sinon on déclenche une exception « Accès interdit »
       throw new AccessDeniedException('Accès limité aux administrateurs.');
     }
-    if (null === $categorie) {
-      throw new NotFoundHttpException("La categorie d'id ".$id." n'existe pas.");
-    }
 
     //Création de l'objet formulaire dans $form, 'categorie' est un service déclaré
     $form = $this->createForm('categorieEditType', $categorie)
@@ -103,7 +98,7 @@ class CategorieController extends Controller
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      $request->getSession()->getFlashBag()->add('notice', 'Categorie bien modifié.');
+      $request->getSession()->getFlashBag()->add('info', 'Categorie bien modifié.');
       
       return $this->redirect($this->generateUrl('biotopedia_mediatheque_showCategorie',
         array('id' => $categorie->getId())));
@@ -121,9 +116,6 @@ class CategorieController extends Controller
     if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
       // Sinon on déclenche une exception « Accès interdit »
       throw new AccessDeniedException('Accès limité aux administrateurs.');
-    }
-    if (null === $categorie) {
-      throw new NotFoundHttpException("La categorie d'id ".$id." n'existe pas.");
     }
 
     // On crée un formulaire vide, qui ne contiendra que le champ CSRF

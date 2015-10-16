@@ -1,5 +1,75 @@
 {% extends "BiotopediaUserBundle::layout.html.twig" %}
 
-{% block fos_user_content %}
-	{% include "FOSUserBundle:Registration:register_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block biotopediauser_content %}
+	<section id = "register">
+		<p>Rejoignez la communauté, ou <a href="{{ path('fos_user_security_login') }}">connectez-vous</a></p>
+		<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+
+      		<div class="error">
+        		{{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      		</div>
+
+		    <table id="user-registration-table-form" class="user-table-form">
+				<thead>
+					<tr>
+			          	<th>{{ form_label(form.email, "Mail") }}</th>
+			        	<th>{{ form_label(form.username, "Nom d'utilisateur") }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ form_errors(form.email) }}
+            				{{ form_widget(form.email) }}
+            			</td>
+						<td>
+							{{ form_errors(form.username) }}
+            				{{ form_widget(form.username) }}
+            			</td>						
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+			          	<th colspan="2">{{ form_label(form.plainPassword, "Mots de passe") }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>					
+            			<td colspan="2">
+							{{ form_errors(form.plainPassword) }}
+            				{{ form_widget(form.plainPassword) }}
+            			</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">
+
+            				<input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+
+			            	{{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+          				</td>
+			          	<td colspan="3">En vous inscrivant sur {{ website}},vous acceptez les  <a href="{{ path('biotopedia_core_conditionsUtilisation') }}" title="Voir les conditions d'utilisation du site Biotopedia.fr">Conditions d'utilisations</a>
+			          	</td>
+					</tr>
+				</tbody>
+			</table>
+    	</form>
+	</section>
+{% endblock biotopediauser_content %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+    	<h3>
+    		Bienvenue 
+  		</h3>
+  	{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+            <ul>
+                <li><a href="{{ path('fos_user_security_login') }}">
+                    Connexion</a></li>
+                <li><a href="{{ path('biotopedia_homepage') }}">
+                    Retour à l'accueil</a></li>
+            </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

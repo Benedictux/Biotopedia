@@ -34,6 +34,12 @@ class PoissonType extends AbstractType
             'expanded' => true,
             'mapped' => false
             ))
+        ->add('type', 'choice', array(
+            'label' => 'Milieux aquatique',
+            'choices'   => array(
+                'd' => 'Eau Douce',
+                's' => 'Eau Saline',
+                'b' => 'Eau Douce En Bassin')))
         ->add('common_name', 'text', array('label' => 'Nom commun', 'required' => false))
         ->add('scientific_name', 'text', array('label' => 'Nom scientifique', 'required' => false))
         ->add('description', 'textarea', array('label' => 'Déscription', 'required' => false))

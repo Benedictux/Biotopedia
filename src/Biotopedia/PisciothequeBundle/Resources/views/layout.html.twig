@@ -9,7 +9,7 @@
 {% block body %}	
  	{# Sous-titre commun à toutes les pages du bundle#}
   	{% block titre %}
-  		<h1 class="layout-titre">Pisciothèque</h1>
+  		<h1 class="layout-titre">{{ 'Pisciothèque'|upper }}</h1>
  	{% endblock %}
 
 		{# On affiche les messages flash que définissent les contrôleurs du bundle (inspirer du layout.html.twig 	du FOSUser Bundle ) #}
@@ -25,6 +25,12 @@
   	{% block biotopediapisciotheque_content %}
   	{% endblock biotopediapisciotheque_content%}
 {% endblock body%}
+
+{% block barre_lateral %}
+	{% block barre_lateral_titre %}{% endblock barre_lateral_titre %}
+		{% block barre_lateral_navigation %}
+		{% endblock barre_lateral_navigation %}
+{% endblock barre_lateral%}
 
 {% block javascripts %}
 {% endblock %}

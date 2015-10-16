@@ -1,4 +1,5 @@
 <?php
+// src/Biotopedia/CoreBundle/Controller/AccueilController.php
 
 namespace Biotopedia\CoreBundle\Controller;
 
@@ -28,8 +29,23 @@ class AccueilController extends Controller
    				));
     }
 
+    public function descriptionSiteAction()
+    {
+      return $this->render('BiotopediaCoreBundle:Accueil:descriptionSite.html.twig');
+    }
+
+    public function redigerAction()
+    {
+      return $this->render('BiotopediaCoreBundle:Accueil:rediger.html.twig');
+    }
+
     public function conditionsUtilisationAction()
     {
       return $this->render('BiotopediaCoreBundle:Accueil:conditionsUtilisation.html.twig');
+    }
+
+    public function charteEditorialeAction()
+    {
+      return $this->render('BiotopediaCoreBundle:Accueil:charteEditoriale.html.twig');
     }
 }

@@ -11,23 +11,10 @@
 {% endblock %}
 
 {% block biotopediamediatheque_content %}
-	{% if is_granted('ROLE_AUTEUR', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN') %}
-		<nav class="menu-vertical">
-        	<h4>Administration de {{ article.titre }}</h4>
-            <ul>
-                <li><a href="{{ path('biotopedia_mediatheque_addArticle', { 'id': article.categorie.id }) }}">
-                    Ajouter un article</a></li>
-                <li><a href="{{ path('biotopedia_mediatheque_editArticle', { 'id': article.id }) }}">
-                    Éditer l'article</a></li>
-                <li><a href="{{ path('biotopedia_mediatheque_deleteArticle', { 'id': article.id }) }}">
-                    Supprimer l'article</a></li>
-    		</ul>
-    	</nav>
-	{% endif %}
-    <article>
+    <article id="article-show">
         <header>
             <h1>{{ article.titre | title }}</h1>
-            <p>Par <a href="{{ path('fos_user_profile_show') }}">{{ article.auteur.username }}</a><time datetime="{{ article.created | date('c') }}"> le {{ article.created | localizeddate('full', 'none') }}</time>
+            <p>Par<a href="{{ path('biotopedia_profile_show', { 'id': article.auteur.id }) }}" rel="author"> {{ article.auteur.username }}</a> dans la catégorie {{ article.categorie.name }} <time datetime="{{ article.created | date('c') }}">le {{ article.created | localizeddate('full', 'none') }}</time>
             {% if article.updated is not null %}
                 </br><time datetime="{{ article.updated | date('c') }}"> Éditer le {{ article.updated | localizeddate('full', 'none') }}</time>
             {% endif %}
@@ -37,3 +24,33 @@
         {{ article.contenu|raw }}
     </article>
 {% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}
+        <h3>
+        {% if app.user.username is defined and article.auteur.username == app.user.username or is_granted('ROLE_ADMIN')%}
+             Administration de {{ article.titre | title }}
+        {% else %}
+            Menu article
+        {% endif %}
+        </h3>
+    {% endblock barre_lateral_titre %}
+    {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">
+                Index des catégories</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_indexArticle') }}">
+                Index des articles</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_addArticle', { 'id': article.categorie.id }) }}">
+                Ajouter un article</a></li>
+            <li><a href="{{ path('biotopedia_mediatheque_showCategorie', { 'id': article.categorie.id }) }}">
+                Retour à la Catégorie</a></li>
+            {% if app.user.username is defined and article.auteur.username == app.user.username or is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('biotopedia_mediatheque_editArticle', { 'id': article.id }) }}">
+                    Éditer l'article</a></li>
+                <li><a href="{{ path('biotopedia_mediatheque_deleteArticle', { 'id': article.id }) }}">
+                    Supprimer l'article</a></li>
+            {% endif %}
+        </ul>
+    {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

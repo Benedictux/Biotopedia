@@ -11,52 +11,61 @@
 {% endblock %}
 
 {% block biotopediamediatheque_content %}
-	<p>Vous vous apprêtez à ajouter une catégorie dans la mediathèque du site Biotopedia !</p>
-	<form action="{{ path('biotopedia_mediatheque_addCategorie') }}" method="post" {{ form_enctype(form) }}>
-		<fieldset>
-      <legend>Catégorie</legend>
-      {# Les erreurs générales du formulaire. #}
-    	<div class="error">
-      		{{ form_errors(form) }}
-    	</div>
-		  <table>
-      	<tr>
-      		<td>{{ form_label(form.name, "Nom") }}</td>
-          <td>{{ form_label(form.image, "Image") }}</td>
-      	</tr>
+  <section id="form-addCategorie">
+  	<p>Vous vous apprêtez à ajouter une catégorie dans la mediathèque du site Biotopedia !</p>
+  	<form action="{{ path('biotopedia_mediatheque_addCategorie') }}" method="post" {{ form_enctype(form) }}>
 
-      	<tr>
-      		<td>
-      			{{ form_errors(form.name) }}
-      			{{ form_widget(form.name) }}
-      		</td>
-          <td>
-            {{ form_errors(form.image) }}
-            {{ form_widget(form.image) }}
-          </td>
-      	</tr>
-        <tr>
-          <td colspan="4">
-            {{ form_label(form.description, "Description") }}
-          </td>
-        </tr>
-        <tr>
-          <td colspan="4">
-            {{ form_errors(form.description) }}
-            {{ form_widget(form.description, {'attr': {'rows': '16', 'cols':'50'}}) }}
-          </td>
-        </tr>
+      <div class="error">
+        {{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      </div>
+  		  <table id="categorie-identite-table-form" class="table-form">
+        	<tr>
+        		<th>{{ form_label(form.name, "Nom") }}</th>
+            <th>{{ form_label(form.image, "Image") }}</th>
+        	</tr>
 
-    		<tr>
-    			<td>
-    				{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
-    				{{ form_rest(form) }}
-    			</td>
-    		</tr>
-      </table>
-    </fieldset>
-	</form>
+        	<tr>
+        		<td>
+        			{{ form_errors(form.name) }}
+        			{{ form_widget(form.name) }}
+        		</td>
+            <td>
+              {{ form_errors(form.image) }}
+              {{ form_widget(form.image) }}
+            </td>
+        	</tr>
+          <tr>
+            <th colspan="2">{{ form_label(form.description, "Description") }}</th>
+          </tr>
+          <tr>
+            <td colspan="2">
+              {{ form_errors(form.description) }}
+              {{ form_widget(form.description) }}
+            </td>
+          </tr>
+
+      		<tr>
+      			<td colspan="2">
+      				{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+      				{{ form_rest(form) }}
+      			</td>
+      		</tr>
+        </table>
+  	</form>
+  </section>
 {% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}<h3>Menu catégorie</h3>{% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_mediatheque_indexCategorie') }}">
+        Index catégories</a></li>
+      <li><a href="{{ path('biotopedia_mediatheque_indexArticle') }}">
+        Index articles</a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
 
 {% block javascripts %}
 {% endblock %}

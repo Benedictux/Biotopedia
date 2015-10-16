@@ -11,13 +11,34 @@
 {% endblock %}
 
 {% block biotopediacore_content %}
-	<p>CHARBONNEAU Benoît, administrateur, designeur et créateur du site Biotopedia.</br>
-	Vous souhaitez me contacter ? Voici mes contacts :</p>
-	<ul>
-	 	<li>Adresse: Rhône-Alpes</li>
- 		<li>Téléphone: +33 6 74 54 56 89</li>
- 	</ul>
-	<address>
-		<a href="mailto:adresse@emeple.fr">Contactez moi par mail!</a>
- 	</address>
+    <section id="contact-show">
+		<p>{{ webmaster_nom }},</br> aquariophile passioné depuis l'age de 12 ans, je suis l'administrateur, designer et créateur du site {{ website }}.</br>
+		Après mes études secondaire en Biologie, je consacre une grosse partie de mon temps libre à l'aquariophilie et créer le site {{ website }}.</p>
+		
+		<p>Pour toutes informations ou questions relatives au site, merci de me contacter par mail à l'adresse suivante :
+			<address>
+				<a href="mailto:{{ webcontact_site }}"> Adresse webmaster !</a>
+		 	</address>
+	 	</p>
+
+		<p>Je propose également mes services, conseils, entretients et amenagements d'aquariums, sur toute la région Grenobloise. Pour tout compléments d'information ou demande de devis, merci de me contacter par mail à l'adresse suivante :
+			<address>
+				<a href="mailto:{{ webcontact_pro }}"> Adresse Profesionnel !</a>
+		 	</address>
+	 	</p>
+ 	</section>
 {% endblock %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{{ parent() }} contacts</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+        <ul>
+            <li><a href="mailto:{{ webcontact_site }}">Mon Adresse Webmaster </a></li>
+            <li><a href="mailto:{{ webcontact_pro }}">Mon Adresse Profesionnel (devis)</a></li>
+        </ul>
+        <ul>
+            <li>Adresse: Rhône-Alpes</li>
+            <li>Téléphone: {{ webcontact_tel }}</li>
+    	</ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

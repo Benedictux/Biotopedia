@@ -35,7 +35,7 @@ class FamilleType extends AbstractType
        ** jamais appeler setPoissons. En définissant by_reference à false, setPoissons sera appelé
       */
       ->add('poissons', 'collection', array(
-        'type'         => new PoissonFamilleType(),
+        'type'         => new PoissonMiniType(),
         'allow_add'    => true,
         'allow_delete' => true,
         'by_reference' => false

@@ -5,7 +5,24 @@ fos_user:
 biotopedia_user_homepage:
     path:     /user
     defaults: { _controller: BiotopediaUserBundle:User:index }
+########################################################################################
+###  Les routes surchargés du FOSuser ###
+########################################################################################
+biotopedia_profile_show:
+    path:     /profile/show/{id}
+    defaults: { _controller: BiotopediaUserBundle:Profile:show }
+    requirements:
+        user_id:  \d+
 
+biotopedia_profile_edit:
+    path:     /profile/edit/{id}
+    defaults: { _controller: BiotopediaUserBundle:Profile:edit }
+    requirements:
+        user_id:  \d+
+
+########################################################################################
+###  Mes routes créées pour l'administration ###
+########################################################################################
 biotopedia_userAdmin_homepage:
     path:     /userAdmin
     defaults: { _controller: BiotopediaUserBundle:UserAdmin:index }

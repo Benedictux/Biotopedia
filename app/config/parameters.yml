@@ -6,9 +6,17 @@ parameters:
     database_name: biotopedia
     database_user: root
     database_password: null
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_transport: gmail
+    mailer_host:
+    mailer_user: b3n3dictux@gmail.com
+    mailer_password: tioneb12bgzqa
     locale: fr
     secret: ThisTokenIsNotSoSecretChangeIt
+    # Mes paramétres perso
+    app_webmaster: Benedictux
+    app_webmaster_nom: CHARBONNEAU Benoît
+    app_website: Biotopedia
+    app_webcontact_pro: bencharbonneau12@gmail.com
+    app_webcontact_site: b3n3dictux@gmail.com
+    app_webcontact_tel: +33 6 74 54 56 89
+    app_var_non_definie: Champs non renseigné !

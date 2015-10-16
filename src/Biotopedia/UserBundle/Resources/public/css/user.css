@@ -1,14 +1,50 @@
-#my-files {
-  margin: 10px;
-  border-radius:10px;
-  text-align: center;
-  background-color: #303030;
-  box-shadow:
-    0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
-    0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+/**LOGIN*************************************************************************/
+#login{
+	padding:10px;
 }
 
-#my-files aside {
-  display: inline-block;
-  vertical-align: top;
+/**REGISTER*************************************************************************/
+#register{
+	padding:10px;
+}
+
+/**SHOW-PROFILE*************************************************************************/
+#user-show{}
+#user-content {
+	display: inline-block;
+	vertical-align: top;
+	width: 45%;
+}
+#user-files {
+	display: inline-block;
+	vertical-align: top;
+  	border-radius:10px;
+  	text-align: center;
+  	padding:10px;
+  	background-color: #303030;
+  	box-shadow:
+    	0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+    	0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+    font-size: small;
+}
+
+#user-files table{
+	width: 100%;
+	margin: 10px 0 10px 0;
+}
+
+/**MES CLASS USER*************************************************************************/
+.user-table-form{
+	background-color: #104141;
+	box-shadow:
+		0px 2px 2px 0px rgba(255, 255, 255, 0.3) inset,
+		0px 2px 2px 0px rgba(0, 0, 0, 0.7);
+	text-align: center;
+	border-collapse: collapse;
+	border-radius:10px;
+	text-shadow:1px 1px 1px 1px white;
+}
+.user-table-form td{
+	padding: 5px;
+	background-color: #303030;
 }

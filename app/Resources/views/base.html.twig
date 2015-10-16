@@ -7,16 +7,23 @@
 
         {% stylesheets 
             'css/main.css'
+            '@BiotopediaCoreBundle/Resources/public/css/*'
             '@BiotopediaMediathequeBundle/Resources/public/css/*'
             '@BiotopediaPisciothequeBundle/Resources/public/css/*'
-            '@BiotopediaUserBundle/Resources/public/css/*' %}
+            '@BiotopediaUsersBundle/Resources/public/css/*' %}
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
 
     <body>
+        {# {% from "BiotopediaCoreBundle:Macros:animationChargement.html.twig" import chargement %}
+        {{ chargement() }} #}
+
         <header id="header-site">
+            <div id="logo-site"> 
+                <img src="{{ asset('images/logo-biotopedia80x80.png') }}">
+            </div>
             <div id="titre-site">
                 <a href="{{ path('biotopedia_homepage') }}"><h1>Biotopedia</h1></a>
                 <h3>Toute la passion de l'aquariophilie.</h3>
@@ -25,11 +32,22 @@
             <nav id="menu-header-login" >
                 <ul>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> ->
-                        <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                    <li>   
+                        <a href="{{ path('bp_users_showUser', { 'username': app.user.username }) }}">
+                            {{ app.user.username }}
+                            <img id="user-gravatar" src="{{ app.user.email|getGravatarImage(28) }}" alt=""/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                    </li>
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('bp_users_admin_homepage') }}">
+                            Tableau de bord SUPER ADMIN</a></li>
+                        {% endif %}
                     {% else %}
-                        <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
-                        <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+                        <li><a href="{{ path('login') }}">Se connecter</a></li>
+                        <li><a href="{{ path('register') }}">S'inscrire</a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -38,26 +56,65 @@
                 <ul>
                     <li><a href="{{ path('biotopedia_pisciotheque_homepage') }}" title="Voir la pisciothèque">  Pisciothèque</a></li>
                     <li><a href="{{ path('biotopedia_mediatheque_homepage') }}" title="Voir la médiathèque">Médiathèque</a></li>
-                    <li><a href="#" title="Voir le forum">Forum</a></li>
+                    <li><a href="#" title="Voir le forum">Forum (en projet)</a></li>
                     <li><a href="{{ path('biotopedia_core_contact') }}" title="Voir mes contacts">Contact</a></li>
                 </ul>
             </nav>
         </header>
 
         <section id="main-section-site">
-            {% block body %}
-            {% endblock %}
+            <div id="colonne-principal">
+                {% block body %}
+                {% endblock %}
+            </div>
+
+            <div id="colonne-secondaire">
+                <nav id="menu-vertical">
+                    {% block barre_lateral %}
+                    {% endblock %}
+                </nav>
+            </div>
         </section>
 
         <footer id="footer-site">
-            <details>
-                <summary>Copyright © 2015.</summary>
-                  <p> - par Biotopedia V.1. All Rights Reserved.</p>
-                  <a href="{{ path('biotopedia_core_conditionsUtilisation') }}" title="Voir les conditions d'utilisation du site Biotopedia.fr">Conditions d'utilisations</a>
-            </details>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ website }}</th>
+                        <th>Contribuez</th>
+                        <th>Professionnel</th>
+                        <th>Suivez {{ website }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('biotopedia_core_description') }}" title="Description du site {{ website }}">C'est quoi ?</a></br>
+                            <a href="{{ path('biotopedia_core_contact') }}" title="Contacter {{ webmaster_nom }}">Me contacter</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('biotopedia_core_rediger') }}" title="Rédiger une fiche ou un article">Rédiger une fiche ou un article</a></br>
+                            <a href="{{ path('biotopedia_core_charteEditoriale') }}" title="Charte éditoriale">Charte éditoriale</a></br>
+                            <a href="{{ path('biotopedia_core_conditionsUtilisation') }}" title="Voir les conditions d'utilisation du site Biotopedia.fr">Conditions d'utilisations</a>
+                        </td>
+                        <td>
+                             <a href="mailto:{{ webcontact_pro }}" title="Me contacter pour un devis">Devis</a></br>
+                             <a href="{{ path('biotopedia_core_contact') }}" title="Contacter {{ webmaster_nom }}">Me contacter</a>
+                        </td>
+                        <td>
+                             <a href="#" title="Twitter">Twitter</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </footer>
+        <details id="detail-site">
+            {{ render(controller('BiotopediaUsersBundle:User:whoIsOnline')) }}
+            <p>{{ website }} V.1. All Rights Reserved. Copyright © 2015.</p>
+        </details>
 
         {% block javascripts %}
+            <script src="{{ asset('js/jquery-2.1.3.js') }}"></script>
         {% endblock %}
     </body>
 </html>

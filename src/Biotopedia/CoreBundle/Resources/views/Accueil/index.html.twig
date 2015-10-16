@@ -1,4 +1,4 @@
-{# src/Biotopedia/CoreBundle/Resources/views/Image/showImage.html.twig #}
+{# src/Biotopedia/CoreBundle/Resources/views/Accueil/index.html.twig #}
 
 {% extends "BiotopediaCoreBundle::layout.html.twig" %}
 
@@ -11,14 +11,66 @@
 {% endblock %}
 
 {% block biotopediacore_content %}
-	<nav class="menu-vertical">
-        <h4>Biotopedia en quelques chiffres</h4>
-        <ul>
-        	<li>Nombre d'article:{{ nb_articles }}</a></li>
-        	<li>Nombre d'aquariophils: {{ nb_aquariophils }}</li>
-        	<li>Nombre de poissons: {{ nb_poissons }}</li>
-    	</ul>
-    </nav>
+  <section id="accueil-show">
+    <a class = "table-accueil-index" href = "{{ path('biotopedia_pisciotheque_homepage') }}">
+      <table style = "background-image: url({{ asset (('bundles/biotopediacore/images/accueil-pisciotheque.jpg')) }});">
+        <thead>
+          <tr>
+            <th>Pisciothèque</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><b>Besoin d'informations à propos d'une famille ou d'un poisson ?</b></td>
+          </tr>
+        </tfoot>
+      </table>
+    </a>
 
-	<p>Bienvenus sur Biotopedia, le site communautaire de l'aquariophilie et des biotopes !</p>
-{% endblock %}
+    <a class = "table-accueil-index" href = "{{ path('biotopedia_mediatheque_homepage') }}">
+      <table style = "background-image: url({{ asset (('bundles/biotopediacore/images/accueil-mediatheque.jpg')) }});">
+        <thead>
+          <tr>
+            <th>Médiathèque</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th><b>Passionné d'aquariophilie, bricoleur ou simplement curieux ?</b></th>
+          </tr>
+        </tfoot>
+      </table>
+    </a>
+
+  	<p>Contributeurs, lecteurs, curieux ou juste de passage bonjour et bienvenus sur Biotopedia, le site communautaire de l'aquariophilie et des biotopes !</p>
+    <p>Voici la plateforme d'écriture collaborative de fiches ou d'article. De nombreuses fiches attendent votre contribution. Si vous ne trouvez pas votre bonheur, <a href="{{ path('biotopedia_core_rediger') }}" title="Rédiger une fiche ou un article">commencez-en une</a> !</p>
+  </section>
+{% endblock biotopediacore_content %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{{ parent() }} en quelques chiffres</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+        <ul>
+          <li>
+            <a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">Nombre de poissons: {{ nb_poissons }}</a>
+          </li>
+          <li>
+            <a href="{{ path('biotopedia_mediatheque_indexArticle') }}">Nombre d'article: {{ nb_articles }}</a>
+          </li>
+          <li>
+            <a href="{{ path('bp_users_homepage') }}">Nombre d’aquariophiles: {{ nb_aquariophils }}</a>
+          </li>
+        </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

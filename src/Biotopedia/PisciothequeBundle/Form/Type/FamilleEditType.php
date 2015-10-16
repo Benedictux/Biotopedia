@@ -17,15 +17,15 @@ class FamilleEditType extends FamilleType
       // On rajoute ou supprime les champs souhaités dans le formulaire de modification
       //'->remove' ou '->add'.
       $builder
-      ->remove('poissons')
-      ->remove('image')
-      ->add('image', new ImageType(), array('required' => false));
-      //->add('image', 'entity', array(
-        //    'class'    => 'BiotopediaPisciothequeBundle:Image',
-        //    'property' => 'path',
-        //    'multiple' => false,
-        //    'expanded' => true,
-        //    'required' => false));
+        ->remove('poissons')
+        ->remove('image')
+        ->add('image', new ImageType(), array('required' => false));
+        //->add('image', 'entity', array(
+          //    'class'    => 'BiotopediaPisciothequeBundle:Image',
+          //    'property' => 'path',
+          //    'multiple' => false,
+          //    'expanded' => true,
+          //    'required' => false));
     }
 
     public function getName()

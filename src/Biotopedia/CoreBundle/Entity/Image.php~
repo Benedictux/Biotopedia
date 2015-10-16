@@ -253,7 +253,13 @@ class Image
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    //Facilite l'affichage en template de l'image.
+    public function getWebPath()
+    {
+      return $this->getPath().'/'.$this->getId().'.'.$this->getExtension();
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
     * @ORM\PrePersist()
     * @ORM\PreUpdate()
@@ -322,11 +328,5 @@ class Image
             // On supprime le fichier
             unlink($this->temp_filename);
         }
-    }
-
-    //Facilite l'affichage en template de l'image.
-    public function getWebPath()
-    {
-      return $this->getPath().'/'.$this->getId().'.'.$this->getExtension();
     }
 }

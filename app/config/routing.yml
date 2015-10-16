@@ -1,5 +1,5 @@
-biotopedia_core:
-    resource: "@BiotopediaCoreBundle/Resources/config/routing.yml"
+biotopedia_users:
+    resource: "@BiotopediaUsersBundle/Resources/config/routing.yml"
     prefix:   /
 
 # app/config/routing.yml
@@ -8,8 +8,12 @@ biotopedia_core:
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 ########################################################################################
-biotopedia_user:
-    resource: "@BiotopediaUserBundle/Resources/config/routing.yml"
+biotopedia_core:
+    resource: "@BiotopediaCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+########################################################################################
+biotopedia_users:
+    resource: "@BiotopediaUsersBundle/Resources/config/routing.yml"
 #########################################################################################
 biotopedia_pisciotheque:
     resource: "@BiotopediaPisciothequeBundle/Resources/config/routing.yml"

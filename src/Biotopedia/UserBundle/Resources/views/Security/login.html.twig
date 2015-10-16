@@ -2,27 +2,48 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
+{% block biotopediauser_content %}
+	<section id = "login">
+		{% if error %}
+			<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-	{% if error %}
-		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-	{% endif %}
+		<p>Déja membre du site ?<br/>
+		Connectez-vous ou <a href="{{ path('fos_user_registration_register') }}">rejoignez la communauté !</a></p>
+		<form action="{{ path("fos_user_security_check") }}" method="post">
 
-	<form action="{{ path("fos_user_security_check") }}" method="post">
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+			<table id="user-login-table-form" class="user-table-form">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+				<thead>
+					<tr>
+						<th><label for="username">{{ 'security.login.username'|trans }}</label></th>
+						<th><label for="password">{{ 'security.login.password'|trans }}</label></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" id="username" name="_username" value="{{ last_username }}" required="required" /></td>
+						<td><input type="password" id="password" name="_password" required="required" /></td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+						<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label></td>
+						<td><input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</section>
+{% endblock biotopediauser_content %}
 
-		<label for="username">{{ 'security.login.username'|trans }}</label>
-		<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-
-		<label for="password">{{ 'security.login.password'|trans }}</label>
-		<input type="password" id="password" name="_password" required="required" />
-		
-		</br>
-		
-		<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-		<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-
-		<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-	</form>
-
-{% endblock fos_user_content %}
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>Menu login</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+            <ul>
+                <li><a href="{{ path('fos_user_registration_register') }}">
+                    S'inscrire</a></li>
+                <li><a href="{{ path('biotopedia_homepage') }}">
+                    Retour à l'accueil</a></li>
+            </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

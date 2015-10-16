@@ -1,6 +1,25 @@
 {% extends "BiotopediaUserBundle::layout.html.twig" %}
 
-{% block fos_user_content %}
-	{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% block biotopediauser_content %}
+	<div>{% include "FOSUserBundle:Profile:edit_content.html.twig" %}</div>
+
 	<a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a>
-{% endblock fos_user_content %}
+{% endblock biotopediauser_content %}
+
+{% block barre_lateral %}
+    {% block barre_lateral_titre %}<h3>{% if is_granted('ROLE_AUTEUR') or current_user == user.username %}Administration de{% endif %} {{ user.username }}</h3>{% endblock barre_lateral_titre %}
+      {% block barre_lateral_navigation %}
+            <ul>
+            {% if is_granted('ROLE_ADMIN') or current_user == user.username %}
+	            <li><a href="{{ path('biotopedia_profile_show', { 'id': user.id }) }}">
+	                Retour à mon profil</a></li>
+	            <li><a href="#">
+	                Demande de suppression de mon profil</a></li>
+	        {% endif %}
+	        {% if is_granted('ROLE_SUPER_ADMIN') %}
+	            <li><a href="{{ path('biotopedia_userAdmin_homepage') }}">
+	                Administration SUPERADMIN</a></li>
+	        {% endif %}
+            </ul>
+      {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}

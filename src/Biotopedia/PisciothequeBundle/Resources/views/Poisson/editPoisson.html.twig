@@ -7,52 +7,181 @@
 {% endblock %}
 
 {% block titre %}
-  {{ parent() }}<h3 class="content-titre">Editer le poisson {{ poisson.scientificName }} de la famille {{ poisson.famille.scientificName }}</h3>
+  {{ parent() }}<h3 class="content-titre">Editer le poisson {{ poisson.scientificName }}</h3>
 {% endblock %}
 
 {% block biotopediapisciotheque_content %}
-  <p>Vous vous apprêtez à éditer le poisson {{ poisson.scientificName }}dans la pisciothèque du site Biotopedia !</p>
+  <p>Vous vous apprêtez à éditer le poisson <i>{{ poisson.scientificName|capitalize }}</i> de la famille <b>{{ poisson.famille.scientificName }}</b> dans la pisciothèque du site Biotopedia !</p>
 	<form action="{{ path('biotopedia_pisciotheque_editPoisson', { 'id': poisson.id }) }}" method="post" {{ form_enctype(form) }}>
     <div class="error">
-      	{{ form_errors(form) }}{# Les erreurs générales du formulaire. #}
+      {{ form_errors(form) }} {# Les erreurs générales du formulaire. #}
     </div>
-		<table>
+    <table id="poisson-identite-table-form" class="poisson-table-form">
       <tr>
-        <td>{{ form_label(form.common_name, "Nom Commun") }}</td>
-        <td>{{ form_label(form.scientific_name, "Nom Scientifique") }}</td>
-        <td>{{ form_label(form.image, "Photo => Une nouvelle photo écrasera l'ancienne ci-dessous !") }}</td>
+        <th>{{ form_label(form.common_name, "Nom Commun") }}</th>
+        <th>{{ form_label(form.scientific_name, "Nom Scientifique") }}</th>
       </tr>
       <tr>
-      	<td>
-      		{{ form_errors(form.common_name) }}
-      		{{ form_widget(form.common_name) }}
-      	</td>
-      	<td>
-      		{{ form_errors(form.scientific_name) }}
-      		{{ form_widget(form.scientific_name) }}
-      	</td>
-        <td rowspan="4">
+        <td>
+          {{ form_errors(form.common_name) }}
+          {{ form_widget(form.common_name) }}
+        </td>
+        <td>
+          {{ form_errors(form.scientific_name) }}
+          {{ form_widget(form.scientific_name) }}
+        </td>
+      </tr>
+      <tr>
+        <th>{{ form_label(form.origine, "Origine") }}</th>
+        <th>{{ form_label(form.type, "Milieu aquatique ") }}</th>
+      </tr>
+      <tr>
+        <td>
+          {{ form_errors(form.origine) }}
+          {{ form_widget(form.origine) }}
+        </td>
+        <td>  
+          {{ form_errors(form.type) }}
+          {{ form_widget(form.type) }}
+        </td>
+      </tr>
+    </table>
+
+    <table id="poisson-chimie-table-form" class="poisson-table-form">
+      <tr>
+        <th>{{ form_label(form.zone, "Zone") }}</th>
+        <th>{{ form_label(form.difficulte, "Difficulté") }}</th>
+      </tr>
+      <tr>
+        <td>  
+          {{ form_errors(form.zone) }}
+          {{ form_widget(form.zone) }}
+        </td>
+        <td>
+          {{ form_errors(form.difficulte) }}
+          {{ form_widget(form.difficulte) }}
+        </td>
+      </tr>
+
+      <tr>
+        <th>{{ form_label(form.taille, "Taille Adulte (cm)") }}</th>
+        <th>{{ form_label(form.temperature, "Température Optimal (C°)") }}</th>
+      </tr>
+      <tr>
+        <td>
+          {{ form_errors(form.taille) }}
+          {{ form_widget(form.taille) }}
+        </td>
+        <td>
+          {{ form_errors(form.temperature) }}
+          {{ form_widget(form.temperature) }}
+        </td>
+      </tr>
+
+      <tr>
+        <th>{{ form_label(form.ph, "Potentiel Hydrogène Optimal(pH)") }}</th>
+        <th>{{ form_label(form.durete, "Dureté Optimal (dH)") }}</th>
+      </tr>
+      <tr>
+        <td>
+          {{ form_errors(form.ph) }}
+          {{ form_widget(form.ph) }}
+        </td>
+        <td>
+          {{ form_errors(form.durete) }}
+          {{ form_widget(form.durete) }}
+        </td>
+      </tr>
+    </table>
+
+    <table id="poisson-image-table-form" class="poisson-table-form">
+      <tr>
+        <th>{{ form_label(form.image, "Photo") }}</th>
+      </tr>
+      <tr>
+        <td>
           <img class="#" src="{{ asset ((poisson.image.webPath) | imagine_filter('my_widen') ) }}" alt="{{ poisson.image.alt }} image not found"/>
+          <p>Ajouter une photo écrasera celle ci-dessus !</p>
           {{ form_errors(form.image) }}
           {{ form_widget(form.image) }}
         </td>
-      </tr>  	
+      </tr>
+    </table>
+    
+    <table id="poisson-description-table-form" class="poisson-table-form">
       <tr>
-        <td colspan="3">
-          {{ form_label(form.description, "Description") }}
+        <th>{{ form_label(form.description, "Description") }}</th>
+        <th>{{ form_label(form.comportement_social, "Comportement Social") }}</th>
+      </tr>
+      <tr>
+        <td>
+          {{ form_errors(form.description) }}
+          {{ form_widget(form.description, {'attr': {'rows': '14', 'cols':'75'}}) }}
+        </td>
+        <td>
+          {{ form_errors(form.comportement_social) }}
+          {{ form_widget(form.comportement_social, {'attr': {'rows': '14', 'cols':'75'}}) }}
         </td>
       </tr>
+
       <tr>
-      	<td colspan="3">
-      		{{ form_errors(form.description) }}
-      		{{ form_widget(form.description, {'attr': {'rows': '16', 'cols':'50'}}) }}
-      	</td>
+        <th>{{ form_label(form.dimorphisme_sexuel, "Dimorphisme Sexuel") }}</th>
+        <th>{{ form_label(form.reproduction, "Reproduction") }}</th>
       </tr>
       <tr>
-      	<td colspan="3">
-      		{{ form_rest(form) }}{# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
-      	</td>
+        <td>
+          {{ form_errors(form.dimorphisme_sexuel) }}
+          {{ form_widget(form.dimorphisme_sexuel, {'attr': {'rows': '14', 'cols':'75'}}) }}
+        </td>
+        <td>
+          {{ form_errors(form.reproduction) }}
+          {{ form_widget(form.reproduction, {'attr': {'rows': '14', 'cols':'75'}}) }}
+        </td>
+      </tr>
+    </table>
+
+    <table id="poisson-sources-table-form" class="poisson-table-form">
+      <tr>
+        <th>{{ form_label(form.sources, "Source") }}</th>
+      </tr>
+      
+      <tr>
+        <td>
+          {{ form_errors(form.sources) }}
+          {{ form_widget(form.sources) }}
+        </td>
+      </tr>
+    </table>
+    
+    <table>
+      <tr>
+        <td>
+          {{ form_rest(form) }} {# Génération des champs pas encore écrits. Dans cet exemple, ce serait « image », mais aussi le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #}
+        </td>
       </tr>
     </table>
   </form>
+{% endblock %}
+
+{% block barre_lateral %}
+  {% block barre_lateral_titre %}<h3>Menu poisson <i>{{ poisson.scientificName|capitalize }}</i></h3>{% endblock barre_lateral_titre %}
+  {% block barre_lateral_navigation %}
+    <ul>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexFamille') }}">
+        Index famille</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_indexPoisson') }}">
+        Index poisson</a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_showPoisson', { 'id': poisson.id }) }}">
+        Retour à la fiche poisson <i>{{ poisson.scientificName|capitalize }}</i></a></li>
+      <li><a href="{{ path('biotopedia_pisciotheque_showFamille', { 'id': poisson.famille.id }) }}">
+        Retour à la fiche famille <b>{{ poisson.famille.scientificName }}</b></a></li>
+    </ul>
+  {% endblock barre_lateral_navigation %}
+{% endblock barre_lateral %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/jquery-2.1.3.js') }}"></script>
+  {% javascripts '@BiotopediaPisciothequeBundle/Resources/public/js/Poisson/editPoisson.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 {% endblock %}

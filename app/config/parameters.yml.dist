@@ -11,5 +11,14 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    locale:            en
+    locale:            fr
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+#Mes paramètres non-supprimés lors d'un 'php composer.phar update':
+    app_webmaster:          B3n3dictux
+    app_webmaster_nom:      Charbonneau
+    app_website:            Biotopedia
+    app_webcontact_site:    contact@biotopedia.fr
+    app_webcontact_pro:     Bencharbonneau12@gmail.com
+    app_webcontact_tel:     06 76 54 56 89
+    app_var_non_definie:    NON DEFINIE

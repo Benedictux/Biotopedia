@@ -1,22 +1,23 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_mysql
-    database_host: 127.0.0.1
-    database_port: null
-    database_name: biotopedia
-    database_user: root
-    database_password: null
-    mailer_transport: gmail
-    mailer_host:
-    mailer_user: b3n3dictux@gmail.com
-    mailer_password: tioneb12bgzqa
-    locale: fr
-    secret: ThisTokenIsNotSoSecretChangeIt
-    # Mes paramétres perso
-    app_webmaster: Benedictux
-    app_webmaster_nom: CHARBONNEAU Benoît
-    app_website: Biotopedia
-    app_webcontact_pro: bencharbonneau12@gmail.com
-    app_webcontact_site: b3n3dictux@gmail.com
-    app_webcontact_tel: +33 6 74 54 56 89
-    app_var_non_definie: Champs non renseigné !
+    database_driver:    pdo_mysql
+    database_host:      127.0.0.1
+    database_port:      null
+    database_name:      biotopedia
+    database_user:      root
+    database_password:  null
+    mailer_transport:   gmail
+    mailer_host:        null
+    mailer_user:        b3n3dictux@gmail.com
+    mailer_password:    tioneb12bgzqa
+    locale:             fr
+    secret:             ThisTokenIsNotSoSecretChangeIt
+
+#Mes paramètres supprimés lors d'un 'php composer.phar update':
+    app_webmaster:          B3n3dictux
+    app_webmaster_nom:      Charbonneau
+    app_website:            Biotopedia
+    app_webcontact_site:    contact@biotopedia.fr
+    app_webcontact_pro:     Bencharbonneau12@gmail.com
+    app_webcontact_tel:     06 76 54 56 89
+    app_var_non_definie:    NON DEFINIE

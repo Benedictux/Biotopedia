@@ -17,7 +17,6 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Ornicar\\GravatarBundle\\' => array($vendorDir . '/ornicar/gravatar-bundle'),
     'Liip\\ImagineBundle' => array($vendorDir . '/liip/imagine-bundle'),
-    'Incenteev\\ParameterHandler' => array($vendorDir . '/incenteev/composer-parameter-handler'),
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'Doctrine\\ORM' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL' => array($vendorDir . '/doctrine/dbal/lib'),
